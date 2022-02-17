@@ -26,7 +26,22 @@ def HtmlPageResults(elementId, page):
 
 
 
-
 results = HtmlPageResults("ResultsContainer", page)
 
 JobFinderAndPrinter(results)
+
+# Gets all links for jobs that contain substring python
+# TODO: Simplify this and maybe add it to jobFinderAndPrinter?
+python_jobs = results.find_all(
+    "h2", string=lambda text: "python" in text.lower()
+)
+
+python_job_elements = [
+    h2_element.parent.parent.parent for h2_element in python_jobs
+]
+
+for job_element in python_job_elements:
+    link_url = job_element.find_all("a")[1]["href"]
+    print(f"Apply here: {link_url}\n")
+
+
