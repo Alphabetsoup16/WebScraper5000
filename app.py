@@ -4,6 +4,7 @@ import requests
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
 url = "https://realpython.github.io/fake-jobs/"
+page = requests.get(url)
 
 def JobFinderAndPrinter(results) -> None:
     job_elements = results.find_all("div", class_="card-content")
@@ -18,10 +19,16 @@ def JobFinderAndPrinter(results) -> None:
         print()
 
 
-page = requests.get(url)
+def HtmlPageResults(elementId, page):
 
-soup = BeautifulSoup(page.content, "html.parser")
+    soup = BeautifulSoup(page.content, "html.parser")
+    return soup.find(id=f"{elementId}")
 
-results = soup.find(id="ResultsContainer")
+
+
+
+
+
+results = HtmlPageResults("ResultsContainer", page)
 
 JobFinderAndPrinter(results)
