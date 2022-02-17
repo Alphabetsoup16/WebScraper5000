@@ -27,8 +27,6 @@ def HtmlPageResults(elementId, page):
 
 
 
-
-
 results = HtmlPageResults("ResultsContainer", page)
 
 JobFinderAndPrinter(results)
