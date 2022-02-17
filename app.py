@@ -6,6 +6,7 @@ import requests
 url = "https://realpython.github.io/fake-jobs/"
 page = requests.get(url)
 
+
 def JobFinderAndPrinter(results) -> None:
     job_elements = results.find_all("div", class_="card-content")
 
@@ -25,13 +26,15 @@ def HtmlPageResults(elementId, page):
     return soup.find(id=f"{elementId}")
 
 
-
 results = HtmlPageResults("ResultsContainer", page)
 
 JobFinderAndPrinter(results)
 
 # Gets all links for jobs that contain substring python
 # TODO: Simplify this and maybe add it to jobFinderAndPrinter?
+# or make it its own function or 2 functions, 1 for getting the jobs
+# and one for getting the links
+
 python_jobs = results.find_all(
     "h2", string=lambda text: "python" in text.lower()
 )
@@ -43,5 +46,3 @@ python_job_elements = [
 for job_element in python_job_elements:
     link_url = job_element.find_all("a")[1]["href"]
     print(f"Apply here: {link_url}\n")
-
-
