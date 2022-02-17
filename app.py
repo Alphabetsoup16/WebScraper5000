@@ -31,7 +31,7 @@ results = HtmlPageResults("ResultsContainer", page)
 JobFinderAndPrinter(results)
 
 # Gets all links for jobs that contain substring python
-# TODO: Simplify this and maybe add it to jobFinderAndPrinter?
+# TODO: Simplify the code below and maybe add it to jobFinderAndPrinter?
 # or make it its own function or 2 functions, 1 for getting the jobs
 # and one for getting the links, also abiity to add whatever substring we want to look for
 
