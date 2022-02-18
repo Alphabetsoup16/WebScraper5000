@@ -42,6 +42,7 @@ def main() -> None:
     )
 
     # kinda silly but it gets the h2's great grandparent element which contains the html for each job...
+    # I am using list comprehension here to make it one line
     python_job_elements = [
         h2_element.parent.parent.parent for h2_element in python_jobs
     ]
