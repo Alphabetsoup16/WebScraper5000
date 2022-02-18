@@ -26,24 +26,33 @@ def HtmlPageResults(elementId, page):
     return soup.find(id=f"{elementId}")
 
 
-results = HtmlPageResults("ResultsContainer", page)
+def main() -> None:
+    results = HtmlPageResults("ResultsContainer", page)
 
-JobFinderAndPrinter(results)
+    JobFinderAndPrinter(results)
 
-# Gets all links for jobs that contain substring python
-# TODO: Simplify the code below and maybe add it to jobFinderAndPrinter?
-# or make it its own function or 2 functions, 1 for getting the jobs
-# and one for getting the links, also abiity to add whatever substring we want to look for
+    # TODO: Simplify the code below and maybe add it to jobFinderAndPrinter?
+    # or make it its own function or 2 functions, 1 for getting the jobs
+    # and one for getting the links, also abiity to add whatever substring we want to look for
 
-python_jobs = results.find_all(
-    "h2", string=lambda text: "python" in text.lower()
-)
+    # lambda functions in python are mad ugly...
+    # but it finds all h2 elements in the text(html) with the substring python
+    python_jobs = results.find_all(
+        "h2", string=lambda text: "python" in text.lower()
+    )
 
-python_job_elements = [
-    h2_element.parent.parent.parent for h2_element in python_jobs
-]
+    # kinda silly but it gets the h2's great grandparent element which contains the html for each job...
+    python_job_elements = [
+        h2_element.parent.parent.parent for h2_element in python_jobs
+    ]
 
-print(f"Found: {len(python_jobs)} of those jobs")
-for job_element in python_job_elements:
-    link_url = job_element.find_all("a")[1]["href"]
-    print(f"Apply here: {link_url}\n")
+    print(f"Found: {len(python_jobs)} of those jobs")
+
+    # gets each jobs hyper link by getting all the "a" elements from each job and gets the href
+    for job_element in python_job_elements:
+        link_url = job_element.find_all("a")[1]["href"]
+        print(f"Apply here: {link_url}\n")
+
+
+if __name__ == "__main__":
+    main()
