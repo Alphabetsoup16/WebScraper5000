@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from sqlalchemy import null
 from utilities import GetMeTheSoup, SetUrlTarget, DisplayList, GetHtmlPageElementById
 
 
@@ -47,8 +48,19 @@ def SpecificElementFinder(element, substring, html) -> None:
 
 def GetHeaderInfo(soup: BeautifulSoup):
     print(f"The header contains: {len(soup.head.contents)} elements")
-    for el in soup.head.contents:
-        print(el)
+    for tag in soup.head.contents:
+        print(tag)
+
+
+def ExtractAllImages(soup: BeautifulSoup):
+    images = soup.find_all('img')
+    if(len(image) > 0):
+        for image in images:
+            imageAlt = image.get('alt')
+            imageSrc = image.get('src')
+            print(f"Alternative Text: {imageAlt} Source: {imageSrc}")
+    else:
+        print("No images found")
 
 
 def main() -> None:
@@ -62,6 +74,8 @@ def main() -> None:
     results = GetHtmlPageElementById("ResultsContainer", page)
 
     GetHeaderInfo(soup)
+
+    ExtractAllImages(soup)
 
     # JobListFinder(results)
 
