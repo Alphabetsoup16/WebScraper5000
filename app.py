@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from numpy import linspace
 from sqlalchemy import null
 from utilities import GetMeTheSoup, GetHtmlPageElementById
 
@@ -63,6 +64,13 @@ def ExtractAllImages(soup: BeautifulSoup):
         print("No images found")
 
 
+def ExtractAllLinks(soup: BeautifulSoup):
+    links = soup.find_all('a')
+    if(len(links) > 0):
+        for link in links:
+            print(link.get("href"))
+
+
 def main() -> None:
 
     # fake static job site for testing: https://realpython.github.io/fake-jobs/
@@ -71,14 +79,16 @@ def main() -> None:
 
     # GetHtmlPageElementById(soup, "ResultsContainer")
 
-    GetHeaderInfo(soup)
+    # GetHeaderInfo(soup)
 
-    ExtractAllImages(soup)
+    # ExtractAllImages(soup)
 
     # JobListFinder(soup)
 
     # TODO: Need to make generic
-    SpecificElementFinder(soup, "h2", "python")
+    # SpecificElementFinder(soup, "h2", "python")
+
+    ExtractAllLinks(soup)
 
 
 if __name__ == "__main__":
