@@ -1,3 +1,4 @@
+from typing import List
 from bs4 import BeautifulSoup
 
 from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
@@ -5,7 +6,7 @@ from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
 
-def JobListFinder(results):
+def JobListFinder(results) -> list:
     job_elements = results.find_all("div", class_="card-content")
 
     job_list = []
