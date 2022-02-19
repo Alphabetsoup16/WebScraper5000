@@ -1,29 +1,5 @@
 from bs4 import BeautifulSoup
-from utilities import GetMeTheSoup, GetHtmlPageElementById
-
-# TODO: Make this wayyyy more generic
-# def JobListFinder(soup: BeautifulSoup):
-
-#     # tricky to make this function generic
-#     # Would need to pass it parent component, dict, class, specific html elements
-#     job_elements = soup.find_all("div", class_="card-content")
-
-#     job_list = []
-
-#     for element in job_elements:
-#         job = {
-#             "title": None,
-#             "company": None,
-#             "location": None
-#         }
-
-#         job["title"] = element.find("h2", class_="title").text.strip()
-#         job["company"] = element.find("h3", class_="company").text.strip()
-#         job["location"] = element.find("p", class_="location").text.strip()
-
-#         job_list.append(job)
-
-#     print([job["title"] for job in job_list], sep="\n")
+from utilities import GetMeTheSoup, GetHtmlPageElementById, GetNestedPropsList
 
 
 def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
@@ -45,30 +21,6 @@ def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
     #     print(f"Apply here: {link_url}\n")
 
 
-def GetHeaderInfo(soup: BeautifulSoup):
-    print(f"The header contains: {len(soup.head.contents)} elements")
-    for tag in soup.head.contents:
-        print(tag)
-
-
-def ExtractAllImages(soup: BeautifulSoup):
-    images = soup.find_all('img')
-    if(len(image) > 0):
-        for image in images:
-            imageAlt = image.get('alt')
-            imageSrc = image.get('src')
-            print(f"Alternative Text: {imageAlt} Source: {imageSrc}")
-    else:
-        print("No images found")
-
-
-def ExtractAllLinks(soup: BeautifulSoup, linkText):
-    links = soup.find_all('a', text=f"{linkText}")
-    if(len(links) > 0):
-        for link in links:
-            print(link.get('href'))
-
-
 def main() -> None:
 
     # fake static job site for testing: https://realpython.github.io/fake-jobs/
@@ -77,11 +29,16 @@ def main() -> None:
 
     print(GetHtmlPageElementById(soup, "ResultsContainer").prettify())
 
+    job_list = GetNestedPropsList(soup, "div", "card-content", [["h2", "title"], ["h3", "company"], ["p", "location"]])
+
+    # Just added for testing
+    for job in job_list:
+        print(job)
+    print()
+
     # GetHeaderInfo(soup)
 
     # ExtractAllImages(soup)
-
-    # JobListFinder(soup)
 
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")
