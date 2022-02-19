@@ -1,3 +1,4 @@
+from typing import Text
 from bs4 import BeautifulSoup
 from numpy import linspace
 from sqlalchemy import null
@@ -64,11 +65,11 @@ def ExtractAllImages(soup: BeautifulSoup):
         print("No images found")
 
 
-def ExtractAllLinks(soup: BeautifulSoup):
-    links = soup.find_all('a')
+def ExtractAllLinks(soup: BeautifulSoup, linkText):
+    links = soup.find_all('a', text=f"{linkText}")
     if(len(links) > 0):
         for link in links:
-            print(link.get("href"))
+            print(link.get('href'))
 
 
 def main() -> None:
@@ -88,7 +89,7 @@ def main() -> None:
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")
 
-    ExtractAllLinks(soup)
+    ExtractAllLinks(soup, "Apply")
 
 
 if __name__ == "__main__":
