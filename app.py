@@ -6,18 +6,31 @@ import requests
 url = "https://realpython.github.io/fake-jobs/"
 page = requests.get(url)
 
-
-def JobFinderAndPrinter(results) -> None:
+# changed to method that returns a list of dictionaries for each job_element
+def JobListFinder(results):
     job_elements = results.find_all("div", class_="card-content")
 
+    job_list = []
+
     for element in job_elements:
-        title_element = element.find("h2", class_="title")
-        company_element = element.find("h3", class_="company")
-        location_element = element.find("p", class_="location")
-        print(title_element.text.strip())
-        print(company_element.text.strip())
-        print(location_element.text.strip())
-        print()
+        job = {
+            "title": None,
+            "company": None,
+            "location": None
+        }
+
+        job["title"] = element.find("h2", class_="title").text.strip()
+        job["company"] = element.find("h3", class_="company").text.strip()
+        job["location"] = element.find("p", class_="location").text.strip()
+        
+        job_list.append(job)
+    
+    return job_list
+
+def DisplayList(list) -> None:
+    for item in list:
+        print(item)
+    print()
 
 
 def HtmlPageResults(elementId, page):
@@ -29,7 +42,10 @@ def HtmlPageResults(elementId, page):
 def main() -> None:
     results = HtmlPageResults("ResultsContainer", page)
 
-    JobFinderAndPrinter(results)
+    all_jobs = JobListFinder(results)
+
+    # Example of how the JobListFinder refactor can be used
+    DisplayList(all_jobs)
 
     # TODO: Simplify the code below... maybe add it to jobFinderAndPrinter?
     # or make it its own function or 2 functions, 1 for getting the jobs
