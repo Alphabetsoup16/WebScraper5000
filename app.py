@@ -1,35 +1,35 @@
 from bs4 import BeautifulSoup
 from sqlalchemy import null
-from utilities import GetMeTheSoup, SetUrlTarget, DisplayList, GetHtmlPageElementById
+from utilities import GetMeTheSoup, GetHtmlPageElementById
 
 
-def JobListFinder(results: BeautifulSoup):
+# def JobListFinder(soup: BeautifulSoup):
 
-    # tricky to make this function generic
-    # Would need to pass it parent component, dict, class, specific html elements
-    job_elements = results.find_all("div", class_="card-content")
+#     # tricky to make this function generic
+#     # Would need to pass it parent component, dict, class, specific html elements
+#     job_elements = soup.find_all("div", class_="card-content")
 
-    job_list = []
+#     job_list = []
 
-    for element in job_elements:
-        job = {
-            "title": None,
-            "company": None,
-            "location": None
-        }
+#     for element in job_elements:
+#         job = {
+#             "title": None,
+#             "company": None,
+#             "location": None
+#         }
 
-        job["title"] = element.find("h2", class_="title").text.strip()
-        job["company"] = element.find("h3", class_="company").text.strip()
-        job["location"] = element.find("p", class_="location").text.strip()
+#         job["title"] = element.find("h2", class_="title").text.strip()
+#         job["company"] = element.find("h3", class_="company").text.strip()
+#         job["location"] = element.find("p", class_="location").text.strip()
 
-        job_list.append(job)
+#         job_list.append(job)
 
-    DisplayList(job_list)
+#     print([job["title"] for job in job_list], sep="\n")
 
 
-def SpecificElementFinder(element, substring, html) -> None:
+def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
 
-    all_specific_elements = html.find_all(
+    all_specific_elements = soup.find_all(
         f"{element}", string=lambda text: f"{substring}" in text.lower()
     )
 
@@ -69,15 +69,15 @@ def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    GetHtmlPageElementById(soup, "ResultsContainer")
+    # GetHtmlPageElementById(soup, "ResultsContainer")
 
-    GetHeaderInfo(soup)
+    # GetHeaderInfo(soup)
 
-    ExtractAllImages(soup)
+    # ExtractAllImages(soup)
 
-    # JobListFinder(results)
+    JobListFinder(soup)
 
-    #SpecificElementFinder("h2", "python", results)
+    SpecificElementFinder(soup, "h2", "python")
 
 
 if __name__ == "__main__":
