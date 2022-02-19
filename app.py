@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
-from utilities import set_url_target, DisplayList, GetHtmlPageElementById
+from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-page = set_url_target("https://realpython.github.io/fake-jobs/")
+page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
 
 
 def JobListFinder(results):
