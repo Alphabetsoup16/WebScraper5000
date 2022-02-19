@@ -4,7 +4,7 @@ from numpy import linspace
 from sqlalchemy import null
 from utilities import GetMeTheSoup, GetHtmlPageElementById
 
-
+# TODO: Make this wayyyy more generic
 # def JobListFinder(soup: BeautifulSoup):
 
 #     # tricky to make this function generic
@@ -78,7 +78,7 @@ def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    # GetHtmlPageElementById(soup, "ResultsContainer")
+    print(GetHtmlPageElementById(soup, "ResultsContainer").prettify())
 
     # GetHeaderInfo(soup)
 
@@ -89,7 +89,7 @@ def main() -> None:
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")
 
-    ExtractAllLinks(soup, "Apply")
+    #ExtractAllLinks(soup, "Apply")
 
 
 if __name__ == "__main__":
