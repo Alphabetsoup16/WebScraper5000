@@ -3,20 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def SetUrlTarget(url):
-    return requests.get(url)
-
-
-def DisplayList(list) -> None:
-    for item in list:
-        print(item)
-    print()
-
-
-def GetHtmlPageElementById(elementId, page):
-    soup = BeautifulSoup(page.content, "html.parser")
+def GetHtmlPageElementById(soup: BeautifulSoup, elementId):
     return soup.find(id=f"{elementId}")
 
 
-def GetMeTheSoup(page):
+def GetMeTheSoup(url):
+    page = requests.get(url)
     return BeautifulSoup(page.content, "html.parser")

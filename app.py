@@ -67,11 +67,9 @@ def main() -> None:
 
     # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-    page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
+    soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    soup = GetMeTheSoup(page)
-
-    results = GetHtmlPageElementById("ResultsContainer", page)
+    GetHtmlPageElementById(soup, "ResultsContainer")
 
     GetHeaderInfo(soup)
 
@@ -79,7 +77,7 @@ def main() -> None:
 
     # JobListFinder(results)
 
-    SpecificElementFinder("h2", "python", results)
+    #SpecificElementFinder("h2", "python", results)
 
 
 if __name__ == "__main__":
