@@ -1,14 +1,11 @@
-from typing import List
 from bs4 import BeautifulSoup
-
-from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
-
-# fake static job site for testing: https://realpython.github.io/fake-jobs/
-
-# tricky to make this generic
+from utilities import GetMeTheSoup, SetUrlTarget, DisplayList, GetHtmlPageElementById
 
 
-def JobListFinder(results):
+def JobListFinder(results: BeautifulSoup):
+
+    # tricky to make this function generic
+    # Would need to pass it parent component, dict, class, specific html elements
     job_elements = results.find_all("div", class_="card-content")
 
     job_list = []
@@ -48,15 +45,27 @@ def SpecificElementFinder(element, substring, html) -> None:
         print(f"Apply here: {link_url}\n")
 
 
+def GetHeaderInfo(soup: BeautifulSoup):
+    print(f"The header contains: {len(soup.head.contents)} elements")
+    for el in soup.head.contents:
+        print(el)
+
+
 def main() -> None:
+
+    # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
     page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
 
+    soup = GetMeTheSoup(page)
+
     results = GetHtmlPageElementById("ResultsContainer", page)
 
-    JobListFinder(results)
+    GetHeaderInfo(soup)
 
-    SpecificElementFinder("python", results)
+    # JobListFinder(results)
+
+    SpecificElementFinder("h2", "python", results)
 
 
 if __name__ == "__main__":

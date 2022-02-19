@@ -1,3 +1,4 @@
+from fastapi import Response
 import requests
 from bs4 import BeautifulSoup
 
@@ -15,3 +16,7 @@ def DisplayList(list) -> None:
 def GetHtmlPageElementById(elementId, page):
     soup = BeautifulSoup(page.content, "html.parser")
     return soup.find(id=f"{elementId}")
+
+
+def GetMeTheSoup(page):
+    return BeautifulSoup(page.content, "html.parser")
