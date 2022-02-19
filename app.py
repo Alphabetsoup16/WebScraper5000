@@ -1,10 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
+from utilities import set_url_target
+
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-url = "https://realpython.github.io/fake-jobs/"
-page = requests.get(url)
+#simplified targetting urls
+page = set_url_target("https://realpython.github.io/fake-jobs/")
 
 # changed to method that returns a list of dictionaries for each job_element
 def JobListFinder(results):
