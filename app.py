@@ -4,8 +4,6 @@ from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
-
 
 def JobListFinder(results):
     job_elements = results.find_all("div", class_="card-content")
@@ -46,6 +44,9 @@ def SpecificJobFinder(substring, html) -> None:
 
 
 def main() -> None:
+
+    page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
+
     results = GetHtmlPageElementById("ResultsContainer", page)
 
     all_jobs = JobListFinder(results)
