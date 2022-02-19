@@ -5,8 +5,10 @@ from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
+# tricky to make this generic
 
-def JobListFinder(results) -> list:
+
+def JobListFinder(results):
     job_elements = results.find_all("div", class_="card-content")
 
     job_list = []
@@ -24,22 +26,24 @@ def JobListFinder(results) -> list:
 
         job_list.append(job)
 
-    return job_list
+    DisplayList(job_list)
 
 
-def SpecificJobFinder(substring, html) -> None:
+def SpecificElementFinder(element, substring, html) -> None:
 
-    python_jobs = html.find_all(
-        "h2", string=lambda text: f"{substring}" in text.lower()
+    all_specific_elements = html.find_all(
+        f"{element}", string=lambda text: f"{substring}" in text.lower()
     )
 
-    python_job_elements = [
-        h2_element.parent.parent.parent for h2_element in python_jobs
+    # Still specific to this particular site...
+    specific_elements = [
+        el.parent.parent.parent for el in all_specific_elements
     ]
 
-    print(f"Found: {len(python_jobs)} of those jobs")
+    print(f"Found: {len(all_specific_elements)} of those jobs")
 
-    for job_element in python_job_elements:
+    # Also specific to this site
+    for job_element in specific_elements:
         link_url = job_element.find_all("a")[1]["href"]
         print(f"Apply here: {link_url}\n")
 
@@ -50,11 +54,9 @@ def main() -> None:
 
     results = GetHtmlPageElementById("ResultsContainer", page)
 
-    all_jobs = JobListFinder(results)
+    JobListFinder(results)
 
-    DisplayList(all_jobs)
-
-    SpecificJobFinder("python", results)
+    SpecificElementFinder("python", results)
 
 
 if __name__ == "__main__":
