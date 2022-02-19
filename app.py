@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
-import requests
+
+from utilities import set_url_target, DisplayList, GetHtmlPageElementById
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-url = "https://realpython.github.io/fake-jobs/"
-page = requests.get(url)
+#simplified targetting urls
+page = set_url_target("https://realpython.github.io/fake-jobs/")
 
 # changed to method that returns a list of dictionaries for each job_element
 def JobListFinder(results):
@@ -38,9 +39,10 @@ def HtmlPageResults(elementId, page):
     soup = BeautifulSoup(page.content, "html.parser")
     return soup.find(id=f"{elementId}")
 
+    
 
 def main() -> None:
-    results = HtmlPageResults("ResultsContainer", page)
+    results = GetHtmlPageElementById("ResultsContainer", page)
 
     all_jobs = JobListFinder(results)
 
