@@ -1,7 +1,4 @@
-from typing import Text
 from bs4 import BeautifulSoup
-from numpy import linspace
-from sqlalchemy import null
 from utilities import GetMeTheSoup, GetHtmlPageElementById
 
 # TODO: Make this wayyyy more generic
