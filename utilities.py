@@ -21,7 +21,7 @@ def GetHeaderInfo(soup: BeautifulSoup):
 def ExtractAllImages(soup: BeautifulSoup):
     images = soup.find_all('img')
 
-    if(len(image)) == 0: return None
+    if(len(images)) == 0: return None
 
     image_collection = []
 
@@ -47,9 +47,9 @@ def ExtractAllLinks(soup: BeautifulSoup, linkText):
         
 
 # Made previous function modular and reusable for grabbing data from a list of card like html els that can be expected to have the same structure
-def GetNestedPropsList(soup: BeautifulSoup, elType, className, childrenTargets):
+def GetNestedPropsList(soup: BeautifulSoup, parentTarget, childrenTargets):
 
-    el_collection = soup.find_all(elType, class_=className)
+    el_collection = soup.find_all(parentTarget[0], class_=parentTarget[1])
 
     data_collection = []
 
