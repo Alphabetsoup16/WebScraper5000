@@ -1,0 +1,14 @@
+{
+    "url": "https://realpython.github.io/fake-jobs/",
+    "title": "",
+    "configs": {
+        "jobs": {
+            "method": "nested-props",
+            "arguments": ["card-content", ["title", "company", "location"]]
+        },
+        "links": {
+            "method": "extract-links",
+            "arguments": ["Apply"]
+        }
+    }
+}
