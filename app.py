@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-from utilities import GetMeTheSoup, GetHtmlPageElementById, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
+from SiteClass import GetNestedPropsList2
+from utilities import GetMeTheSoup, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
 
 
 def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
@@ -35,10 +36,11 @@ def main() -> None:
         "images": ExtractAllImages(soup),
         "links": ExtractAllLinks(soup, "Apply")
     }
-    
+
     print(extractedSoup)
 
     # GetHeaderInfo(soup)
+    GetNestedPropsList2(soup, "card-content", ["title", "company", "location"])
 
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")
