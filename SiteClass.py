@@ -16,19 +16,17 @@ def GetNestedPropsList2(soup: BeautifulSoup):
 
 
 # Testing classes
+# trying to think of more general abstract methods vs just putting methods in the sub classes
 
 class Parser(ABC):
-    def __init__(self, url):
-        self.url = url
-
     @abstractmethod
     def GetWebPageHtmlData(self):
         '''Gets the html from webpage'''
 
 
 class StaticParser(Parser):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, url):
+        self.url = url
 
     def GetWebPageHtmlData(self, url):
         html = requests.get(url)
