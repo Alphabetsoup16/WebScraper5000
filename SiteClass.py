@@ -27,6 +27,9 @@ class Parser(ABC):
 
 
 class StaticParser(Parser):
+    def __init__(self):
+        super().__init__()
+
     def GetWebPageHtmlData(self, url):
         html = requests.get(url)
         return BeautifulSoup(html.content, "html.parser")
