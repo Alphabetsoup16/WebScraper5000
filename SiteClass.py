@@ -2,6 +2,7 @@
 
 from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
+import requests
 
 # Testing child retrieval
 
@@ -23,3 +24,9 @@ class Parser(ABC):
     @abstractmethod
     def GetWebPageHtmlData(self):
         '''Gets the html from webpage'''
+
+
+class StaticParser(Parser):
+    def GetWebPageHtmlData(self, url):
+        html = requests.get(url)
+        return BeautifulSoup(html.content, "html.parser")
