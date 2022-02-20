@@ -31,7 +31,7 @@ def main() -> None:
 
     extractedSoup = {
         "page": soup.title.get_text(),
-        "jobs": GetNestedPropsList(soup, ["div", "card-content"], [["h2", "title"], ["h3", "company"], ["p", "location"]]),
+        "jobs": GetNestedPropsList(soup, "card-content", ["title", "company", "location"]),
         "images": ExtractAllImages(soup),
         "links": ExtractAllLinks(soup, "Apply")
     }

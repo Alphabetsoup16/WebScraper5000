@@ -49,7 +49,7 @@ def ExtractAllLinks(soup: BeautifulSoup, linkText):
 # Made previous function modular and reusable for grabbing data from a list of card like html els that can be expected to have the same structure
 def GetNestedPropsList(soup: BeautifulSoup, parentTarget, childrenTargets):
 
-    el_collection = soup.find_all(parentTarget[0], class_=parentTarget[1])
+    el_collection = soup.find_all(class_=parentTarget)
 
     data_collection = []
 
@@ -57,7 +57,7 @@ def GetNestedPropsList(soup: BeautifulSoup, parentTarget, childrenTargets):
         el = {}
 
         for childAttr in childrenTargets:
-            el[childAttr[1]] = element.find(childAttr[0], childAttr[1]).text.strip()
+            el[childAttr] = element.find(class_=childAttr).text.strip()
 
         data_collection.append(el)
 
