@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from utilities import GetMeTheSoup, GetHtmlPageElementById, GetNestedPropsList
+from utilities import GetMeTheSoup, GetHtmlPageElementById, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
 
 
 def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
@@ -27,23 +27,21 @@ def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    print(GetHtmlPageElementById(soup, "ResultsContainer").prettify())
+    # print(GetHtmlPageElementById(soup, "ResultsContainer").prettify())
 
-    job_list = GetNestedPropsList(soup, "div", "card-content", [["h2", "title"], ["h3", "company"], ["p", "location"]])
-
-    # Just added for testing
-    for job in job_list:
-        print(job)
-    print()
+    extractedSoup = {
+        "page": soup.title.get_text(),
+        "jobs": GetNestedPropsList(soup, ["div", "card-content"], [["h2", "title"], ["h3", "company"], ["p", "location"]]),
+        "images": ExtractAllImages(soup),
+        "links": ExtractAllLinks(soup, "Apply")
+    }
+    
+    print(extractedSoup)
 
     # GetHeaderInfo(soup)
 
-    # ExtractAllImages(soup)
-
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")
-
-    #ExtractAllLinks(soup, "Apply")
 
 
 if __name__ == "__main__":
