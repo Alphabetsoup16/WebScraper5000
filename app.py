@@ -37,10 +37,10 @@ def main() -> None:
         "links": ExtractAllLinks(soup, "Apply")
     }
 
-    print(extractedSoup)
+    # GetNestedPropsList2(soup)
+    # print(extractedSoup)
 
     # GetHeaderInfo(soup)
-    GetNestedPropsList2(soup, "card-content", ["title", "company", "location"])
 
     # TODO: Need to make generic
     # SpecificElementFinder(soup, "h2", "python")

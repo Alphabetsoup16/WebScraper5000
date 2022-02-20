@@ -5,18 +5,9 @@ from bs4 import BeautifulSoup
 # Testing child retrieval
 
 
-def GetNestedPropsList2(soup: BeautifulSoup, parentTarget, childrenTargets):
+def GetNestedPropsList2(soup: BeautifulSoup):
 
-    parent_element = soup.find_all(class_=parentTarget)
+    parent_element = soup.find_all(["h2", "h3", "p"])
 
-    # data_collection = []
-
-    # for element in el_collection:
-    #     el = {}
-
-    #     for childAttr in childrenTargets:
-    #         el[childAttr] = element.find(class_=childAttr).text.strip()
-
-    #     data_collection.append(el)
-
-    # return data_collection
+    for child in parent_element:
+        print(child.get_text().strip())
