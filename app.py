@@ -1,60 +1,49 @@
-from typing import List
 from bs4 import BeautifulSoup
-
-from utilities import SetUrlTarget, DisplayList, GetHtmlPageElementById
-
-# fake static job site for testing: https://realpython.github.io/fake-jobs/
+from SiteClass import GetNestedPropsList2
+from utilities import GetMeTheSoup, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
 
 
-def JobListFinder(results) -> list:
-    job_elements = results.find_all("div", class_="card-content")
+def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
 
-    job_list = []
-
-    for element in job_elements:
-        job = {
-            "title": None,
-            "company": None,
-            "location": None
-        }
-
-        job["title"] = element.find("h2", class_="title").text.strip()
-        job["company"] = element.find("h3", class_="company").text.strip()
-        job["location"] = element.find("p", class_="location").text.strip()
-
-        job_list.append(job)
-
-    return job_list
-
-
-def SpecificJobFinder(substring, html) -> None:
-
-    python_jobs = html.find_all(
-        "h2", string=lambda text: f"{substring}" in text.lower()
+    all_specific_elements = soup.find_all(
+        f"{element}", string=lambda text: f"{substring}" in text.lower()
     )
 
-    python_job_elements = [
-        h2_element.parent.parent.parent for h2_element in python_jobs
-    ]
+    # # Still specific to this particular site...
+    # specific_elements = [
+    #     el.parent.parent.parent for el in all_specific_elements
+    # ]
 
-    print(f"Found: {len(python_jobs)} of those jobs")
+    # print(f"Found: {len(all_specific_elements)} of those jobs")
 
-    for job_element in python_job_elements:
-        link_url = job_element.find_all("a")[1]["href"]
-        print(f"Apply here: {link_url}\n")
+    # # Also specific to this site
+    # for job_element in specific_elements:
+    #     link_url = job_element.find_all("a")[1]["href"]
+    #     print(f"Apply here: {link_url}\n")
 
 
 def main() -> None:
 
-    page = SetUrlTarget("https://realpython.github.io/fake-jobs/")
+    # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-    results = GetHtmlPageElementById("ResultsContainer", page)
+    soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    all_jobs = JobListFinder(results)
+    # print(GetHtmlPageElementById(soup, "ResultsContainer").prettify())
 
-    DisplayList(all_jobs)
+    extractedSoup = {
+        "page": soup.title.get_text(),
+        "jobs": GetNestedPropsList(soup, "card-content", ["title", "company", "location"]),
+        "images": ExtractAllImages(soup),
+        "links": ExtractAllLinks(soup, "Apply")
+    }
 
-    SpecificJobFinder("python", results)
+    # GetNestedPropsList2(soup)
+    # print(extractedSoup)
+
+    # GetHeaderInfo(soup)
+
+    # TODO: Need to make generic
+    # SpecificElementFinder(soup, "h2", "python")
 
 
 if __name__ == "__main__":
