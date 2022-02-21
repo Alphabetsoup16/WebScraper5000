@@ -1,5 +1,6 @@
 from fastapi import Response
 import requests
+import json
 from bs4 import BeautifulSoup
 
 
@@ -21,7 +22,8 @@ def GetHeaderInfo(soup: BeautifulSoup):
 def ExtractAllImages(soup: BeautifulSoup):
     images = soup.find_all('img')
 
-    if(len(images)) == 0: return None
+    if(len(images)) == 0:
+        return None
 
     image_collection = []
 
@@ -37,14 +39,15 @@ def ExtractAllImages(soup: BeautifulSoup):
 def ExtractAllLinks(soup: BeautifulSoup, linkText):
     links = soup.find_all('a', text=f"{linkText}")
 
-    if(len(links) == 0): return None
+    if(len(links) == 0):
+        return None
 
     link_collection = []
 
     for link in links:
         link_collection.append(link.get('href'))
     return link_collection
-        
+
 
 # Made previous function modular and reusable for grabbing data from a list of card like html els that can be expected to have the same structure
 def GetNestedPropsList(soup: BeautifulSoup, parentTarget, childrenTargets):
@@ -62,3 +65,14 @@ def GetNestedPropsList(soup: BeautifulSoup, parentTarget, childrenTargets):
         data_collection.append(el)
 
     return data_collection
+
+
+def ExtractedHtmlAsJson(soup):
+    extractedSoup = {
+        "page": soup.title.get_text(),
+        "jobs": GetNestedPropsList(soup, "card-content", ["title", "company", "location"]),
+        "images": ExtractAllImages(soup),
+        "links": ExtractAllLinks(soup, "Apply")
+    }
+
+    return json.dumps(extractedSoup)

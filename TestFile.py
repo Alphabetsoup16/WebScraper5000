@@ -1,8 +1,10 @@
-# Just a place for testing ideas*
 
-from abc import ABC, abstractmethod
 from bs4 import BeautifulSoup
-import requests
+
+from utilities import GetMeTheSoup
+
+# Just a place for testing ideas*
+soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
 
 def SpecificElementFinder(soup: BeautifulSoup, element, substring) -> None:
@@ -33,6 +35,7 @@ def GetNestedPropsList2(soup: BeautifulSoup):
     for child in parent_element:
         print(child.get_text().strip())
 
+
 # Testing find/findall for any element
 
 
@@ -42,20 +45,7 @@ def GetElementByAttribute(soup: BeautifulSoup, AttrType, Attrs):
         print(attr.get_text().strip())
 
 
-# Testing classes
-# trying to think of more general abstract methods vs just putting methods in the sub classes
-
-
-class Parser(ABC):
-    @abstractmethod
-    def GetWebPageHtmlData(self):
-        '''Gets the html from webpage'''
-
-
-class StaticParser(Parser):
-    def __init__(self, url):
-        self.url = url
-
-    def GetWebPageHtmlData(self):
-        html = requests.get(self.url)
-        return BeautifulSoup(html.content, "html.parser")
+# testing this function, the idea is that
+# We can find/find_all by "attributes" ex: {"id" : "blah"}
+# Makes it more customizable than using class_ = or id =
+print(GetElementByAttribute(soup, "h2", {"class": "title"}))
