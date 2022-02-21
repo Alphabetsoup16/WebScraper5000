@@ -56,6 +56,6 @@ class StaticParser(Parser):
     def __init__(self, url):
         self.url = url
 
-    def GetWebPageHtmlData(self, url):
-        html = requests.get(url)
+    def GetWebPageHtmlData(self):
+        html = requests.get(self.url)
         return BeautifulSoup(html.content, "html.parser")
