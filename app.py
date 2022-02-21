@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import json
 from SiteClass import GetElementByAttribute, GetNestedPropsList2
 from utilities import GetMeTheSoup, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
 
@@ -18,7 +19,9 @@ def main() -> None:
         "links": ExtractAllLinks(soup, "Apply")
     }
 
-    # print(extractedSoup)
+    # turns dict into Json...
+    extractedJSON = json.dumps(extractedSoup)
+    print(extractedJSON)
 
     # testing this function, the idea is that
     # We can find/find_all by "attributes" ex: {"id" : "blah"}
