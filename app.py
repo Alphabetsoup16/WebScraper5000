@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from SiteClass import GetNestedPropsList2
+from SiteClass import GetElementByAttribute, GetNestedPropsList2
 from utilities import GetMeTheSoup, GetNestedPropsList, ExtractAllImages, ExtractAllLinks, GetHeaderInfo
 
 
@@ -37,9 +37,12 @@ def main() -> None:
         "links": ExtractAllLinks(soup, "Apply")
     }
 
-    # GetNestedPropsList2(soup)
     # print(extractedSoup)
 
+    # testing this function, the idea is that
+    # We can find/find_all by "attributes" ex: {"id" : "blah"}
+    # Makes it more customizable than using class_ = or id =
+    print(GetElementByAttribute(soup, "h2", {"class": "title"}))
     # GetHeaderInfo(soup)
 
     # TODO: Need to make generic

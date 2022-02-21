@@ -14,9 +14,18 @@ def GetNestedPropsList2(soup: BeautifulSoup):
     for child in parent_element:
         print(child.get_text().strip())
 
+# Testing find/findall for any element
+
+
+def GetElementByAttribute(soup: BeautifulSoup, AttrType, Attrs):
+    specific_element = soup.find_all(AttrType, Attrs)
+    for attr in specific_element:
+        print(attr.get_text().strip())
+
 
 # Testing classes
 # trying to think of more general abstract methods vs just putting methods in the sub classes
+
 
 class Parser(ABC):
     @abstractmethod
