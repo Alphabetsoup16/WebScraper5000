@@ -17,6 +17,17 @@ def GetElementByAttribute(soup: BeautifulSoup,  Attrs: List):
             print(f"{list(label)[0]}: {attr.get_text().strip()}")
 
 
+def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
+    data = []
+    for dict in Attrs:
+        specific_element = soup.find_all(attrs=dict)
+        label = dict.values()
+        for target in specific_element:
+            data.append(f"{list(label)[0]}: {target.get_text().strip()}")
+            #print(f"{list(label)[0]}: {target.get_text().strip()}")
+    return data
+
+
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
@@ -25,7 +36,10 @@ def main() -> None:
     # test = soup.find_all(attrs={"class": "title"})
     # print(test)
 
-    print(GetElementByAttribute(soup, [
+    # print(GetElementByAttribute(soup, [
+    #       {"class": "title"}, {"class": "location"}]))
+
+    print(GetElementByAttribute2(soup, [
           {"class": "title"}, {"class": "location"}]))
 
 
