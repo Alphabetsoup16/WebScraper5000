@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
-import os
-from utilities import UseConfig, GetMeTheSoup
+from utilities.General_Utilities import GetMeTheSoup
+from utilities import UseConfig
 
 api_url = "/api/v1/"
 port = 8000
@@ -13,6 +13,9 @@ app = FastAPI(
     title='Web Scraper of Doom',
     openapi_url=api_url
 )
+
+#app.mount("/static", StaticFiles(directory='static'))
+
 
 @app.get("/")
 async def serve_static():
@@ -24,7 +27,7 @@ async def load_js():
     return FileResponse('static/script.js')
 
 
-@app.post(f"{api_url}scrape")
+@app.post(f"{api_url}/scrape")
 async def get_config(request: Request):
     config = await request.json()
     soup = GetMeTheSoup(config["url"])
