@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
+from source.utilities import GetMeTheSoup
 from utilities import UseConfig
 
 # later this should be a .env value or || 8000
@@ -32,8 +33,9 @@ async def load_js():
 @app.post(f"{API_URL}/scrape")
 async def get_config(request: Request):
     config = await request.json()
+    soup = GetMeTheSoup(config["url"])
     response = {}
-    UseConfig(config, response)
+    UseConfig(soup, config, response)
     return response  # seems to return better without json.dumps
 
 

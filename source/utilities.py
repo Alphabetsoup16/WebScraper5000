@@ -77,11 +77,8 @@ def ExtractedHtmlAsJson(soup):
 
     return json.dumps(extractedSoup)
 
-# more FP example of data handling
 
-
-def UseConfig(config, response):
-    soup = GetMeTheSoup(config["url"])
+def UseConfig(soup, config, response):
     # loop through each config "object" and set new keys/values on response dict based on config contents
     for target in config["configs"]:
         if target["method"] == "nested-props":
