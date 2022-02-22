@@ -11,12 +11,13 @@ app = FastAPI()
 async def main():
     return RedirectResponse(url="/docs/")
 
+
 @app.post("/scrape")
 async def get_config(request: Request):
     config = await request.json()
     response = {}
     UseConfig(config, response)
-    return response # seems to return better without json.dumps
+    return response  # seems to return better without json.dumps
 
 
 if __name__ == '__main__':
