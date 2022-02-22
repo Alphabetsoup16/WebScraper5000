@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Scraper Of Doom</title>
+</head>
+<body>
+    <h1>WSOD GUI</h1>
+    <h2>Target your data</h2>
+    <form
+        method="post"
+        id="config-form"
+    >
+        <div class="config">
+            <div class="config__group">
+                <input
+                    type="text"
+                    name="config-name"
+                ><label for="name-config">Name</label>
+            </div>
+            <div class="config__group">
+                <input
+                    type="text"
+                    name="config-method"
+                ><label for="method-config">Method</label>
+            </div>
+            <div class="config__group">
+                <input
+                    type="text"
+                    name="config-arguments"
+                ><label for="arguments-config">Arguments</label>
+            </div>
+        </div>
+        <button id="add-config">Add New Config</button>
+    </form>
+    <button id="submit-config">Scrape With Config</button>
+</body>
+<script src="script.js"></script>
+</html>
