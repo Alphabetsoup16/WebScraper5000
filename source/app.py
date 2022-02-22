@@ -19,12 +19,18 @@ def GetElementByAttribute(soup: BeautifulSoup,  Attrs: List):
 
 def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
     data = []
+    targets = {}
     for dict in Attrs:
         specific_element = soup.find_all(attrs=dict)
-        label = dict.values()
+        labels = dict.values()
+        label = list(labels)[0]
         for target in specific_element:
-            data.append(f"{list(label)[0]}: {target.get_text().strip()}")
-            #print(f"{list(label)[0]}: {target.get_text().strip()}")
+            targets = {
+                "Id": specific_element.index(target) + 1,
+                label: target.get_text().strip()
+            }
+            data.append(targets)
+            #print(f"{label}: {target.get_text().strip()}")
     return data
 
 
