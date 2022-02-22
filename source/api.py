@@ -19,6 +19,10 @@ async def serve_static():
     return FileResponse('static/index.html', media_type='text/html')
 
 
+@app.get("/styles.css")
+async def load_css():
+    return FileResponse('static/styles.css')
+
 @app.get("/script.js")
 async def load_js():
     return FileResponse('static/script.js')
