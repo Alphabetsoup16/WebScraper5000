@@ -2,19 +2,15 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
+import os
 from source.utilities import GetMeTheSoup
 from utilities import UseConfig
 
-# later this should be a .env value or || 8000
-PORT = 8000
-# might need to change later for deployment
-HOST = '127.0.0.1'
-TITLE = 'Web Scraper of Doom'
-API_URL = "/api/v1/"
+api_url = os.getenv('API_URL')
 
 app = FastAPI(
-    title=TITLE,
-    openapi_url=API_URL
+    title='Web Scraper of Doom',
+    openapi_url=api_url
 )
 
 app.mount("/static", StaticFiles(directory='static'))
@@ -30,7 +26,7 @@ async def load_js():
     return FileResponse('static/script.js')
 
 
-@app.post(f"{API_URL}/scrape")
+@app.post(f"{api_url}/scrape")
 async def get_config(request: Request):
     config = await request.json()
     soup = GetMeTheSoup(config["url"])
@@ -40,4 +36,6 @@ async def get_config(request: Request):
 
 
 if __name__ == '__main__':
-    uvicorn.run("api:app", reload=True, port=PORT, host=HOST)
+    uvicorn.run("api:app",
+                reload=True, port=os.getenv('POST'),
+                host=os.getenv('HOST'))
