@@ -50,6 +50,7 @@ h2 {
 .config__group > input {
     font-size: 2rem;
     padding: 0.5rem;
+    border-radius: 8px;
 }
 
 .button {

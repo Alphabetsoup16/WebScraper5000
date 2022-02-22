@@ -14,13 +14,22 @@
         method="post"
         class="config-form"
         id="config-form"
+        name="config-form"
     >
+        <div class="config__group">
+            <input
+                type="url"
+                name="url"
+                id="config-url"
+            ><label for="url">Target URL</label>
+        </div>
+        <br/><br/>
         <section class="config-container" id="config-gen">
             
         </section>
         <button id="add-config" class="button">Add New Config</button>
     </form>
-    <button id="submit-config" class="button">Scrape With Config</button>
+    <button id="submit-config" class="button" type="submit" form="config-form">Scrape With Config</button>
 </body>
 <script src="script.js"></script>
 </html>
