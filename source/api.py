@@ -3,17 +3,18 @@ from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
 import os
-from source.utilities import GetMeTheSoup
-from utilities import UseConfig
+from utilities import UseConfig, GetMeTheSoup
 
-api_url = os.getenv('API_URL')
+api_url = "/api/v1/"
+port = 8000
+host = '127.0.0.1'
 
 app = FastAPI(
     title='Web Scraper of Doom',
     openapi_url=api_url
 )
 
-app.mount("/static", StaticFiles(directory='static'))
+#app.mount("/static", StaticFiles(directory='static'))
 
 
 @app.get("/")
@@ -36,6 +37,4 @@ async def get_config(request: Request):
 
 
 if __name__ == '__main__':
-    uvicorn.run("api:app",
-                reload=True, port=os.getenv('POST'),
-                host=os.getenv('HOST'))
+    uvicorn.run("api:app", reload=True, port=port, host=host)
