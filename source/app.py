@@ -1,5 +1,5 @@
+from ast import Num
 from typing import Dict, List
-from xml.dom.minidom import Attr
 from attr import attrs
 from bs4 import BeautifulSoup
 
@@ -26,11 +26,11 @@ def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
         label = list(labels)[0]
         for target in specific_element:
             targets = {
-                "Id": specific_element.index(target) + 1,
+                "Id": 1,
                 label: target.get_text().strip()
             }
             data.append(targets)
-            #print(f"{label}: {target.get_text().strip()}")
+        #print(f"{label}: {target.get_text().strip()}")
     return data
 
 
