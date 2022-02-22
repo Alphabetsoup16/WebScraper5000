@@ -14,9 +14,6 @@ app = FastAPI(
     openapi_url=api_url
 )
 
-#app.mount("/static", StaticFiles(directory='static'))
-
-
 @app.get("/")
 async def serve_static():
     return FileResponse('static/index.html', media_type='text/html')
@@ -27,7 +24,7 @@ async def load_js():
     return FileResponse('static/script.js')
 
 
-@app.post(f"{api_url}/scrape")
+@app.post(f"{api_url}scrape")
 async def get_config(request: Request):
     config = await request.json()
     soup = GetMeTheSoup(config["url"])
