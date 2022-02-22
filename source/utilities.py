@@ -78,11 +78,21 @@ def ExtractedHtmlAsJson(soup):
     return json.dumps(extractedSoup)
 
 # more FP example of data handling
+
+
 def UseConfig(config, response):
     soup = GetMeTheSoup(config["url"])
     # loop through each config "object" and set new keys/values on response dict based on config contents
     for target in config["configs"]:
         if target["method"] == "nested-props":
-            response[target["name"]] = GetNestedPropsList(soup, *target["arguments"])
+            response[target["name"]] = GetNestedPropsList(
+                soup, *target["arguments"])
         if target["method"] == "extract-links":
-            response[target["name"]] = ExtractAllLinks(soup, *target["arguments"])
+            response[target["name"]] = ExtractAllLinks(
+                soup, *target["arguments"])
+
+
+def SaveAsJson(response, title):
+    with open(f'scraped-{title}.json', 'w', encoding='latin-1') as f:
+        json.dump(response, f, indent=8, ensure_ascii=False)
+    print("Created Json File")
