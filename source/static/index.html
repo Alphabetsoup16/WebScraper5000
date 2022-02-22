@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Web Scraper Of Doom</title>
 </head>
 <body>
@@ -11,31 +12,15 @@
     <h2>Target your data</h2>
     <form
         method="post"
+        class="config-form"
         id="config-form"
     >
-        <div class="config">
-            <div class="config__group">
-                <input
-                    type="text"
-                    name="config-name"
-                ><label for="name-config">Name</label>
-            </div>
-            <div class="config__group">
-                <input
-                    type="text"
-                    name="config-method"
-                ><label for="method-config">Method</label>
-            </div>
-            <div class="config__group">
-                <input
-                    type="text"
-                    name="config-arguments"
-                ><label for="arguments-config">Arguments</label>
-            </div>
-        </div>
-        <button id="add-config">Add New Config</button>
+        <section class="config-container" id="config-gen">
+            
+        </section>
+        <button id="add-config" class="button">Add New Config</button>
     </form>
-    <button id="submit-config">Scrape With Config</button>
+    <button id="submit-config" class="button">Scrape With Config</button>
 </body>
 <script src="script.js"></script>
 </html>
