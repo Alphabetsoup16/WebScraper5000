@@ -37,8 +37,9 @@ def ResultHandler(extractedResult: list):
     JsonObj = {}
     for result in extractedResult:
         for key, val in result.items():
-            if(key == "Id" and val == 1):
+            if(key == "Id" and val == val):
                 JsonObj.update(result)
+
     print(JsonObj)
 
 
