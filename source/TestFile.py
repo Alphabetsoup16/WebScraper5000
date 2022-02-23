@@ -92,3 +92,30 @@ def ExtractAllLinks(soup: BeautifulSoup, linkText):
     for link in links:
         link_collection.append(link.get('href'))
     return link_collection
+
+
+# def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
+#     data = []
+#     for dict in Attrs:
+#         specific_element = soup.find_all(attrs=dict)
+#         labels = dict.values()
+#         label = list(labels)[0]
+#         for target in specific_element:
+#             print(f"{label}: {target.get_text().strip()}")
+#     #         data.append(f"{label}: {target.get_text().strip()}")
+#     # return data
+
+# def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
+#     for a in range(len(Attrs)):
+#         specific_element = soup.find_all(attrs=Attrs[a])
+#         label = Attrs[a].values()
+#         for attr in specific_element:
+#             print(f"{list(label)[0]}: {attr.get_text().strip()}")
+
+
+# def GetElementByAttribute3(soup: BeautifulSoup,  Attrs: list):
+#     for dict in Attrs:
+#         specific_element = soup.find_all(attrs=dict)
+#         labels = dict.values()
+#         label = list(labels)[0]
+#         ElementBuilder(specific_element, label)
