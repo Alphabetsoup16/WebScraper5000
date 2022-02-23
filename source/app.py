@@ -17,7 +17,7 @@ def GetElementByAttribute(soup: BeautifulSoup,  Attrs: List):
             print(f"{list(label)[0]}: {attr.get_text().strip()}")
 
 
-def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
+def GetElementByAttribute3(soup: BeautifulSoup,  Attrs: List):
     data = []
     targets = {}
     for dict in Attrs:
@@ -26,27 +26,34 @@ def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
         label = list(labels)[0]
         for target in specific_element:
             targets = {
-                "Id": 1,
+                "Id": specific_element.index(target),
                 label: target.get_text().strip()
             }
             data.append(targets)
-        #print(f"{label}: {target.get_text().strip()}")
     return data
+
+
+def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
+    data = []
+    for dict in Attrs:
+        specific_element = soup.find_all(attrs=dict)
+        labels = dict.values()
+        label = list(labels)[0]
+        for target in specific_element:
+            print(f"{label}: {target.get_text().strip()}")
+    #         data.append(f"{label}: {target.get_text().strip()}")
+    # return data
 
 
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
-    # test_attr = [{"class": "title"}, {"class": "location"}]
-    # test = soup.find_all(attrs={"class": "title"})
-    # print(test)
-
     # print(GetElementByAttribute(soup, [
     #       {"class": "title"}, {"class": "location"}]))
 
     print(GetElementByAttribute2(soup, [
-          {"class": "title"}, {"class": "location"}]))
+          {"class": "title is-5"}, {"class": "location"}]))
 
 
 if __name__ == "__main__":
