@@ -1,6 +1,4 @@
-from typing import List
 from bs4 import BeautifulSoup
-
 from utilities.General_Utilities import GetMeTheSoup
 
 
@@ -34,17 +32,16 @@ from utilities.General_Utilities import GetMeTheSoup
 
 
 def GetElementByAttribute4(soup: BeautifulSoup,  Attrs: list):
+    """Gets all html elements from list of target attributes"""
     all_specific_elements = []
-
     for dict in Attrs:
-
         specific_element = soup.find_all(attrs=dict)
         all_specific_elements.append(specific_element)
-
     return all_specific_elements
 
 
 def ElementBuilder(elementLists, all_attributes):
+    """Creates initial objects for each attribute"""
     targetElements = []
     targets = {}
     n = 0
@@ -60,10 +57,12 @@ def ElementBuilder(elementLists, all_attributes):
 
 
 def ResultHandler(extractedResult: list):
+    """Creates completed JSON object from target attributes"""
     return
 
 
 def AttributeHandler(Attrs: list):
+    """Extracts target attribute names"""
     all_attributes = []
     for dict in Attrs:
         all_attributes.append("".join(dict.values()))
