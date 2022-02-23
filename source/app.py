@@ -1,10 +1,13 @@
+import json
+from multiprocessing.sharedctypes import Value
 from bs4 import BeautifulSoup
+from pydantic import Json
 from utilities.General_Utilities import GetMeTheSoup
 
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
-def GetElementByAttribute4(soup: BeautifulSoup,  Attrs: list):
+def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
     """Gets all html elements from list of target attributes"""
     all_specific_elements = []
     for dict in Attrs:
@@ -31,7 +34,12 @@ def ElementBuilder(elementLists, all_attributes):
 
 def ResultHandler(extractedResult: list):
     """Creates completed JSON object from target attributes"""
-    return
+    JsonObj = {}
+    for result in extractedResult:
+        for key, val in result.items():
+            if(key == "Id" and val == 1):
+                JsonObj.update(result)
+    print(JsonObj)
 
 
 def AttributeHandler(Attrs: list):
@@ -50,10 +58,13 @@ def main() -> None:
 
     all_attributes = AttributeHandler(attributes)
 
-    targetedAttributes = GetElementByAttribute4(soup, attributes)
+    targetedAttributes = GetElementByAttribute(soup, attributes)
 
     targetElements = ElementBuilder(targetedAttributes, all_attributes)
-    print(targetElements)
+    # print(targetElements)
+
+    JsonObj = ResultHandler(targetElements)
+    # print(JsonObj)
 
 
 if __name__ == "__main__":
