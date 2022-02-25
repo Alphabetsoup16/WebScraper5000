@@ -40,7 +40,7 @@ def ResultHandler(extractedResult: list):
     for result in extractedResult:
         for key, val in result.items():
             # See this works if its hardcoded to a number...
-            if(key == "Id" and val == 99):
+            if(key == "Id" and val == 1):
                 jsonObj.update(result)
     print(jsonObj)
 
