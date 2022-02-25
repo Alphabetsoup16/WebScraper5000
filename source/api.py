@@ -2,8 +2,9 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
+from utilities.API_Utilities import UseConfig
 from utilities.General_Utilities import GetMeTheSoup
-from utilities import UseConfig
+
 
 api_url = "/api/v1/"
 port = 8000
