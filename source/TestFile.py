@@ -1,5 +1,7 @@
 
+import json
 from bs4 import BeautifulSoup
+from source.utilities.API_Utilities import GetNestedPropsList
 
 from utilities import GetMeTheSoup
 
@@ -49,3 +51,71 @@ def GetElementByAttribute(soup: BeautifulSoup, AttrType, Attrs):
 # We can find/find_all by "attributes" ex: {"id" : "blah"}
 # Makes it more customizable than using class_ = or id =
 print(GetElementByAttribute(soup, "h2", {"class": "title"}))
+
+
+def ExtractedHtmlAsJson(soup):
+    extractedSoup = {
+        "page": soup.title.get_text(),
+        "jobs": GetNestedPropsList(soup, "card-content", ["title", "company", "location"]),
+        "images": ExtractAllImages(soup),
+        "links": ExtractAllLinks(soup, "Apply")
+    }
+
+    return json.dumps(extractedSoup)
+
+
+def ExtractAllImages(soup: BeautifulSoup):
+    images = soup.find_all('img')
+
+    if(len(images)) == 0:
+        return None
+
+    image_collection = []
+
+    for image in images:
+        img = {
+            "alt": image.get('alt'),
+            "src": image.get('src')
+        }
+        image_collection.append(img)
+    return image_collection
+
+
+def ExtractAllLinks(soup: BeautifulSoup, linkText):
+    links = soup.find_all('a', text=f"{linkText}")
+
+    if(len(links) == 0):
+        return None
+
+    link_collection = []
+
+    for link in links:
+        link_collection.append(link.get('href'))
+    return link_collection
+
+
+# def GetElementByAttribute2(soup: BeautifulSoup,  Attrs: List):
+#     data = []
+#     for dict in Attrs:
+#         specific_element = soup.find_all(attrs=dict)
+#         labels = dict.values()
+#         label = list(labels)[0]
+#         for target in specific_element:
+#             print(f"{label}: {target.get_text().strip()}")
+#     #         data.append(f"{label}: {target.get_text().strip()}")
+#     # return data
+
+# def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
+#     for a in range(len(Attrs)):
+#         specific_element = soup.find_all(attrs=Attrs[a])
+#         label = Attrs[a].values()
+#         for attr in specific_element:
+#             print(f"{list(label)[0]}: {attr.get_text().strip()}")
+
+
+# def GetElementByAttribute3(soup: BeautifulSoup,  Attrs: list):
+#     for dict in Attrs:
+#         specific_element = soup.find_all(attrs=dict)
+#         labels = dict.values()
+#         label = list(labels)[0]
+#         ElementBuilder(specific_element, label)
