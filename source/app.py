@@ -1,13 +1,8 @@
-import json
-from multiprocessing.sharedctypes import Value
-from tkinter import N
-from typing import final
 from bs4 import BeautifulSoup
-from pydantic import Json
 from utilities.General_Utilities import GetMeTheSoup
 
-
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
+
 
 def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
     """Gets all html elements from list of target attributes"""
@@ -40,7 +35,7 @@ def ResultHandler(extractedResult: list):
     for result in extractedResult:
         for key, val in result.items():
             # See this works if its hardcoded to a number...
-            if(key == "Id" and val == 1):
+            if key == "Id" and val == 1:
                 jsonObj.update(result)
     print(jsonObj)
 
@@ -48,6 +43,9 @@ def ResultHandler(extractedResult: list):
 def AttributeHandler(Attrs: list):
     """Extracts target attribute names"""
     all_attributes = []
+    if len(Attrs) == 0:
+        return "Attribute list is empty."
+
     for dict in Attrs:
         all_attributes.append("".join(dict.values()))
     return all_attributes
