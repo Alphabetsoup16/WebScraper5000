@@ -1,5 +1,7 @@
 import json
 from multiprocessing.sharedctypes import Value
+from tkinter import N
+from typing import final
 from bs4 import BeautifulSoup
 from pydantic import Json
 from utilities.General_Utilities import GetMeTheSoup
@@ -34,13 +36,13 @@ def ElementBuilder(elementLists, all_attributes):
 
 def ResultHandler(extractedResult: list):
     """Creates completed JSON object from target attributes"""
-    JsonObj = {}
+    jsonObj = {}
     for result in extractedResult:
         for key, val in result.items():
-            if(key == "Id" and val == val):  # Need to fix this...
-                JsonObj.update(result)
-
-    print(JsonObj)
+            # See this works if its hardcoded to a number...
+            if(key == "Id" and val == 99):
+                jsonObj.update(result)
+    print(jsonObj)
 
 
 def AttributeHandler(Attrs: list):
