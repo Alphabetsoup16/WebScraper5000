@@ -33,12 +33,14 @@ def ElementBuilder(elementLists, all_attributes):
 def ResultHandler(extractedResult: list):
     """Creates completed JSON object from target attributes"""
     jsonObj = {}
+    jsonList = []
     for result in extractedResult:
         for key, val in result.items():
             # See this works if its hardcoded to a number...
             if key == "Id" and val == 1:
                 jsonObj.update(result)
-    print(jsonObj)
+    jsonList.append(jsonObj)
+    return jsonList
 
 
 def AttributeHandler(Attrs: list):
@@ -66,7 +68,7 @@ def main() -> None:
     # print(targetElements)
 
     JsonObj = ResultHandler(targetElements)
-    # print(JsonObj)
+    print(JsonObj)
 
 
 if __name__ == "__main__":
