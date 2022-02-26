@@ -16,6 +16,7 @@ def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
 def ElementBuilder(elementLists, all_attributes):
     """Creates initial objects for each attribute"""
     # Need to fix all_attributes iterating... remove n += 1 / n
+    # Can add if stattment for if n < len(all_attributes)
     targetElements = []
     targets = {}
     n = 0
