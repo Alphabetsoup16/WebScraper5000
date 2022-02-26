@@ -1,3 +1,4 @@
+from cgitb import text
 from bs4 import BeautifulSoup
 from utilities.General_Utilities import GetMeTheSoup
 
@@ -44,6 +45,16 @@ def ResultHandler(extractedResult: list):
     return jsonList
 
 
+def ResultHandler2(extractedResult: list):
+    """Creates completed JSON object from target attributes"""
+    jsonObj = {}
+    for result in extractedResult:
+        for val in result.values():
+            if val == extractedResult[result['Id']]['Id']:
+                jsonObj.update(result)
+    return jsonObj
+
+
 def AttributeHandler(Attrs: list):
     """Extracts target attribute names"""
     all_attributes = []
@@ -68,7 +79,7 @@ def main() -> None:
     targetElements = ElementBuilder(targetedAttributes, all_attributes)
     # print(targetElements)
 
-    JsonObj = ResultHandler(targetElements)
+    JsonObj = ResultHandler2(targetElements)
     print(JsonObj)
 
 
