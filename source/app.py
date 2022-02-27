@@ -45,8 +45,7 @@ def ElementBuilder(elementLists, all_attributes):
 
 def ElementBuilder2(elementLists, all_attributes):
     targetElements = {}
-    numOfElementLists = len(elementLists)
-    if numOfElementLists > 1:
+    if len(elementLists) > 1:
         for numOfList in range(len(elementLists)):
             for target in elementLists[numOfList]:
                 targetElements = {
