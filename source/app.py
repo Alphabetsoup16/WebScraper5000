@@ -1,8 +1,19 @@
-from cgitb import text
+from collections import defaultdict
 from bs4 import BeautifulSoup
 from utilities.General_Utilities import GetMeTheSoup
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
+
+
+def AttributeHandler(Attrs: list) -> list:
+    """Extracts target attribute names"""
+    all_attributes = []
+    if len(Attrs) == 0:
+        return "Attribute list is empty."
+
+    for dict in Attrs:
+        all_attributes.append("".join(dict.values()))
+    return all_attributes
 
 
 def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
@@ -32,6 +43,19 @@ def ElementBuilder(elementLists, all_attributes):
     return targetElements
 
 
+def ElementBuilder2(elementLists, all_attributes):
+    targetElements = {}
+    numOfElementLists = len(elementLists)
+    if numOfElementLists > 1:
+        for numOfList in range(len(elementLists)):
+            for target in elementLists[numOfList]:
+                targetElements = {
+                    "Id": elementLists[numOfList].index(target),
+                    all_attributes[numOfList]: target.get_text().strip()
+                }
+                print(targetElements)
+
+
 def ResultHandler(extractedResult: list):
     """Creates completed JSON object from target attributes"""
     jsonObj = {}
@@ -46,24 +70,18 @@ def ResultHandler(extractedResult: list):
 
 
 def ResultHandler2(extractedResult: list):
-    """Creates completed JSON object from target attributes"""
-    jsonObj = {}
+    result_groups = defaultdict(list)
     for result in extractedResult:
-        for val in result.values():
-            if val == extractedResult[result['Id']]['Id']:
-                jsonObj.update(result)
-    return jsonObj
+        result_groups[result['Id']].append(result)
 
+    results_combined = []
+    for result_key, result_value in result_groups.items():
+        jsonObj = {}
+        for value in result_value:
+            jsonObj |= value
+        results_combined.append(jsonObj)
 
-def AttributeHandler(Attrs: list):
-    """Extracts target attribute names"""
-    all_attributes = []
-    if len(Attrs) == 0:
-        return "Attribute list is empty."
-
-    for dict in Attrs:
-        all_attributes.append("".join(dict.values()))
-    return all_attributes
+    return results_combined
 
 
 def main() -> None:
@@ -77,10 +95,8 @@ def main() -> None:
     targetedAttributes = GetElementByAttribute(soup, attributes)
 
     targetElements = ElementBuilder(targetedAttributes, all_attributes)
-    # print(targetElements)
 
-    JsonObj = ResultHandler2(targetElements)
-    print(JsonObj)
+    print(ResultHandler2(targetElements))
 
 
 if __name__ == "__main__":
