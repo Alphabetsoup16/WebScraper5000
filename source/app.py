@@ -44,6 +44,7 @@ def ElementBuilder(elementLists, all_attributes):
 
 
 def ElementBuilder2(elementLists, all_attributes):
+    # Need to test this one to replace the older one
     targetElements = {}
     targetElementsList = []
     if len(elementLists) > 1:
