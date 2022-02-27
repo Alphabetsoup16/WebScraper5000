@@ -45,6 +45,7 @@ def ElementBuilder(elementLists, all_attributes):
 
 def ElementBuilder2(elementLists, all_attributes):
     targetElements = {}
+    targetElementsList = []
     if len(elementLists) > 1:
         for numOfList in range(len(elementLists)):
             for target in elementLists[numOfList]:
@@ -52,7 +53,10 @@ def ElementBuilder2(elementLists, all_attributes):
                     "Id": elementLists[numOfList].index(target),
                     all_attributes[numOfList]: target.get_text().strip()
                 }
-                print(targetElements)
+                targetElementsList.append(targetElements)
+        return targetElementsList
+    else:
+        return "list of elements is either empty or only contains 1 element"
 
 
 def ResultHandler(extractedResult: list):
