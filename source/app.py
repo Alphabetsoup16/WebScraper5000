@@ -16,7 +16,7 @@ def AttributeHandler(Attrs: list) -> list:
     return all_attributes
 
 
-def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
+def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list) -> list:
     """Gets all html elements from list of target attributes"""
     all_specific_elements = []
     for dict in Attrs:
@@ -25,10 +25,7 @@ def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list):
     return all_specific_elements
 
 
-def ElementBuilder(elementLists, all_attributes):
-    """Creates initial objects for each attribute"""
-    # Need to fix all_attributes iterating... remove n += 1 / n
-    # Can add if stattment for if n < len(all_attributes)
+def ElementBuilder_OLD(elementLists, all_attributes):
     targetElements = []
     targets = {}
     n = 0
@@ -43,7 +40,8 @@ def ElementBuilder(elementLists, all_attributes):
     return targetElements
 
 
-def ElementBuilder2(elementLists, all_attributes):
+def ElementBuilder(elementLists, all_attributes):
+    """Creates initial objects for each attribute"""
     # Need to test this one to replace the older one
     targetElements = {}
     targetElementsList = []
@@ -57,11 +55,10 @@ def ElementBuilder2(elementLists, all_attributes):
                 targetElementsList.append(targetElements)
         return targetElementsList
     else:
-        return "list of elements is either empty or only contains 1 element"
+        return print("list of elements is either empty or only contains 1 element")
 
 
-def ResultHandler(extractedResult: list):
-    """Creates completed JSON object from target attributes"""
+def ResultHandler_OLD(extractedResult: list):
     jsonObj = {}
     jsonList = []
     for result in extractedResult:
@@ -73,7 +70,8 @@ def ResultHandler(extractedResult: list):
     return jsonList
 
 
-def ResultHandler2(extractedResult: list):
+def ResultHandler(extractedResult: list) -> list:
+    """Creates completed JSON object from target attributes"""
     result_groups = defaultdict(list)
     for result in extractedResult:
         result_groups[result['Id']].append(result)
@@ -98,9 +96,9 @@ def main() -> None:
 
     targetedAttributes = GetElementByAttribute(soup, attributes)
 
-    targetElements = ElementBuilder(targetedAttributes, all_attributes)
+    targetElements = ElementBuilder_OLD(targetedAttributes, all_attributes)
 
-    print(ResultHandler2(targetElements))
+    print(ResultHandler(targetElements))
 
 
 if __name__ == "__main__":
