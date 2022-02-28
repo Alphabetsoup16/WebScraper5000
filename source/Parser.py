@@ -42,7 +42,7 @@ class StaticParser(RequestConfig):
             all_specific_elements.append(specific_element)
         return all_specific_elements
 
-    def ElementBuilder(self, element_lists, all_attributes):
+    def ElementBuilder(self, element_lists, all_attributes) -> list:
         """Creates initial objects for each attribute"""
         target_elements = {}
         target_List = []
