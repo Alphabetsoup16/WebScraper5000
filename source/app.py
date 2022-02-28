@@ -99,7 +99,7 @@ def main() -> None:
     targetElements = ElementBuilder_OLD(targetedAttributes, all_attributes)
 
     results = ResultHandler(targetElements)
-    print(results)
+    print(*results, sep="\n")
 
 
 if __name__ == "__main__":
