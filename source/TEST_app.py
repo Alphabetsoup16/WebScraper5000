@@ -40,20 +40,20 @@ def ElementBuilder_OLD(elementLists, all_attributes):
     return targetElements
 
 
-def ElementBuilder(elementLists, all_attributes):
+def ElementBuilder(element_lists, all_attributes):
     """Creates initial objects for each attribute"""
     # Need to test this one to replace the older one
-    targetElements = {}
-    targetElementsList = []
-    if len(elementLists) > 1:
-        for numOfList in range(len(elementLists)):
-            for target in elementLists[numOfList]:
-                targetElements = {
-                    "Id": elementLists[numOfList].index(target),
+    target_elements = {}
+    target_list = []
+    if len(element_lists) > 1:
+        for numOfList in range(len(element_lists)):
+            for target in element_lists[numOfList]:
+                target_elements = {
+                    "Id": element_lists[numOfList].index(target),
                     all_attributes[numOfList]: target.get_text().strip()
                 }
-                targetElementsList.append(targetElements)
-        return targetElementsList
+                target_list.append(target_elements)
+        return target_list
     else:
         return print("list of elements is either empty or only contains 1 element")
 
@@ -70,19 +70,19 @@ def ResultHandler_OLD(extractedResult: list):
     return jsonList
 
 
-def ResultElementGrouper(extractedResult: list) -> list:
+def ResultElementGrouper(extracted_result: list) -> list:
     """Creates groups of results by ID"""
     result_groups = defaultdict(list)
-    for result in extractedResult:
+    for result in extracted_result:
         result_groups[result['Id']].append(result)
     return result_groups
 
 
-def ResultHandler(groupedExtractedResult: list) -> list:
+def ResultHandler(grouped_result: list) -> list:
     """Creates completed JSON object from target attributes"""
 
     results_combined = []
-    for result_value in groupedExtractedResult.values():
+    for result_value in grouped_result.values():
         jsonObj = {}
         for value in result_value:
             jsonObj |= value
@@ -99,11 +99,11 @@ def main() -> None:
 
     all_attributes = AttributeHandler(attributes)
 
-    targetedAttributes = GetElementByAttribute(soup, attributes)
+    targeted_attributes = GetElementByAttribute(soup, attributes)
 
-    targetElements = ElementBuilder(targetedAttributes, all_attributes)
+    target_elements = ElementBuilder(targeted_attributes, all_attributes)
 
-    grouped_elements = ResultElementGrouper(targetElements)
+    grouped_elements = ResultElementGrouper(target_elements)
 
     results = ResultHandler(grouped_elements)
 
