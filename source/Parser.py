@@ -38,26 +38,26 @@ class StaticParser(RequestConfig):
             all_specific_elements.append(specific_element)
         return all_specific_elements
 
-    def ElementBuilder(self, elementLists, all_attributes):
+    def ElementBuilder(self, element_lists, all_attributes):
         """Creates initial objects for each attribute"""
-        targetElements = {}
-        targetElementsList = []
-        if len(elementLists) > 1:
-            for numOfList in range(len(elementLists)):
-                for target in elementLists[numOfList]:
-                    targetElements = {
-                        "Id": elementLists[numOfList].index(target),
-                        all_attributes[numOfList]: target.get_text().strip()
+        target_elements = {}
+        target_List = []
+        if len(element_lists) > 1:
+            for list_count in range(len(element_lists)):
+                for target in element_lists[list_count]:
+                    target_elements = {
+                        "Id": element_lists[list_count].index(target),
+                        all_attributes[list_count]: target.get_text().strip()
                     }
-                    targetElementsList.append(targetElements)
-            return targetElementsList
+                    target_List.append(target_elements)
+            return target_List
         else:
             return print("list of elements is either empty or only contains 1 element")
 
-    def ResultHandler(self, extractedResult: list) -> list:
+    def ResultHandler(self, extracted_result: list) -> list:
         """Creates completed JSON object from target attributes"""
         result_groups = defaultdict(list)
-        for result in extractedResult:
+        for result in extracted_result:
             result_groups[result['Id']].append(result)
 
         results_combined = []
