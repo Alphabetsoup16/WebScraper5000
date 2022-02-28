@@ -77,12 +77,21 @@ def main() -> None:
         "https://realpython.github.io/fake-jobs/", "", False, [""], attributes)
 
     html = static_site.GetMeTheSoup()
+
     element_list = static_site.GetElementByAttribute(html)
+
     attribute_names = static_site.AttributeHandler()
+
     element_dicts = static_site.ElementBuilder(element_list, attribute_names)
+
     results = static_site.ResultHandler(element_dicts)
+
     print(*results, sep="\n")
 
 
+# We can most definitely simplify these functions and or
+# break them up into smaller pieces and create sub or separate classes
+# also it seems somewhere in this chain things aren't working perfectly as designed haha
+# would be nice to get to the bottom of that :)
 if __name__ == "__main__":
     main()
