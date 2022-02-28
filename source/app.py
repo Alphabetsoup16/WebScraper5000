@@ -96,7 +96,7 @@ def main() -> None:
 
     targetedAttributes = GetElementByAttribute(soup, attributes)
 
-    targetElements = ElementBuilder_OLD(targetedAttributes, all_attributes)
+    targetElements = ElementBuilder(targetedAttributes, all_attributes)
 
     results = ResultHandler(targetElements)
     print(*results, sep="\n")
