@@ -17,7 +17,11 @@ class StaticParser(RequestConfig):
 
     def GetMeTheSoup(self):
         """Gets html content from url"""
-        page = requests.get(self.url)
+        try:
+            page = requests.get(self.url)
+        except Exception as e:
+            print(f"Request for html was unsuccessful, error: {e}")
+
         return BeautifulSoup(page.content, "html.parser")
 
     def AttributeHandler(self) -> list:
