@@ -70,14 +70,19 @@ def ResultHandler_OLD(extractedResult: list):
     return jsonList
 
 
-def ResultHandler(extractedResult: list) -> list:
-    """Creates completed JSON object from target attributes"""
+def ResultElementGrouper(extractedResult: list) -> list:
+    """Creates groups of results by ID"""
     result_groups = defaultdict(list)
     for result in extractedResult:
         result_groups[result['Id']].append(result)
+    return result_groups
+
+
+def ResultHandler(groupedExtractedResult: list) -> list:
+    """Creates completed JSON object from target attributes"""
 
     results_combined = []
-    for result_value in result_groups.values():
+    for result_value in groupedExtractedResult.values():
         jsonObj = {}
         for value in result_value:
             jsonObj |= value
@@ -98,7 +103,10 @@ def main() -> None:
 
     targetElements = ElementBuilder(targetedAttributes, all_attributes)
 
-    results = ResultHandler(targetElements)
+    grouped_elements = ResultElementGrouper(targetElements)
+
+    results = ResultHandler(grouped_elements)
+
     print(*results, sep="\n")
 
 
