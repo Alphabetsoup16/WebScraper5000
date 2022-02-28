@@ -77,7 +77,7 @@ def ResultHandler(extractedResult: list) -> list:
         result_groups[result['Id']].append(result)
 
     results_combined = []
-    for result_key, result_value in result_groups.items():
+    for result_value in result_groups.values():
         jsonObj = {}
         for value in result_value:
             jsonObj |= value
@@ -98,7 +98,8 @@ def main() -> None:
 
     targetElements = ElementBuilder_OLD(targetedAttributes, all_attributes)
 
-    print(ResultHandler(targetElements))
+    results = ResultHandler(targetElements)
+    print(results)
 
 
 if __name__ == "__main__":
