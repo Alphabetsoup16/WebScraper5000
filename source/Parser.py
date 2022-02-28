@@ -81,7 +81,7 @@ def main() -> None:
     attribute_names = static_site.AttributeHandler()
     element_dicts = static_site.ElementBuilder(element_list, attribute_names)
     results = static_site.ResultHandler(element_dicts)
-    print(*results)
+    print(*results, sep="\n")
 
 
 if __name__ == "__main__":
