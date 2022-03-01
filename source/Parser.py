@@ -98,5 +98,9 @@ def main() -> None:
 # break them up into smaller pieces and create sub or separate classes
 # also it seems somewhere in this chain things aren't working perfectly as designed haha
 # would be nice to get to the bottom of that :)
+
+# TODO: The ElementBuilder is messing up Id's due to titles being the same for different jobs
+# So target is overriding the proper Id number
+# example Id : 2 is legal executive and so is 92 so it makes 92 into 2 as well
 if __name__ == "__main__":
     main()

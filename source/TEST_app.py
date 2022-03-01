@@ -102,12 +102,13 @@ def main() -> None:
     targeted_attributes = GetElementByAttribute(soup, attributes)
 
     target_elements = ElementBuilder(targeted_attributes, all_attributes)
+    print(*target_elements, sep="\n")
 
-    grouped_elements = ResultElementGrouper(target_elements)
+    # grouped_elements = ResultElementGrouper(target_elements)
 
-    results = ResultHandler(grouped_elements)
+    # results = ResultHandler(grouped_elements)
 
-    print(*results, sep="\n")
+    # print(*results, sep="\n")
 
 
 if __name__ == "__main__":
