@@ -77,8 +77,9 @@ class StaticParser(RequestConfig):
 def main() -> None:
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
-    static_site = StaticParser(
-        "https://realpython.github.io/fake-jobs/", "", False, [""], attributes)
+    url = "https://realpython.github.io/fake-jobs/"
+
+    static_site = StaticParser(url, "", False, [""], attributes)
 
     html = static_site.GetMeTheSoup()
 
