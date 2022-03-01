@@ -39,6 +39,8 @@ def ElementBuilder_OLD(elementLists, all_attributes):
         n += 1
     return targetElements
 
+# element_lists[numOfList].index(target)
+
 
 def ElementBuilder(element_lists, all_attributes):
     """Creates initial objects for each attribute"""
@@ -47,9 +49,9 @@ def ElementBuilder(element_lists, all_attributes):
     target_list = []
     if len(element_lists) > 1:
         for numOfList in range(len(element_lists)):
-            for target in element_lists[numOfList]:
+            for key, target in enumerate(element_lists[numOfList]):
                 target_elements = {
-                    "Id": element_lists[numOfList].index(target),
+                    "Id": key,
                     all_attributes[numOfList]: target.get_text().strip()
                 }
                 target_list.append(target_elements)

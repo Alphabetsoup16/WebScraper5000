@@ -48,9 +48,9 @@ class StaticParser(RequestConfig):
         target_List = []
         if len(element_lists) > 1:
             for list_count in range(len(element_lists)):
-                for target in element_lists[list_count]:
+                for key, target in enumerate(element_lists[list_count]):
                     target_elements = {
-                        "Id": element_lists[list_count].index(target),
+                        "Id": key,
                         all_attributes[list_count]: target.get_text().strip()
                     }
                     target_List.append(target_elements)
@@ -98,9 +98,6 @@ def main() -> None:
 # break them up into smaller pieces and create sub or separate classes
 # also it seems somewhere in this chain things aren't working perfectly as designed haha
 # would be nice to get to the bottom of that :)
-
-# TODO: The ElementBuilder is messing up Id's due to titles being the same for different jobs
-# So target is overriding the proper Id number
-# example Id : 2 is legal executive and so is 92 so it makes 92 into 2 as well
+# Fixed it!
 if __name__ == "__main__":
     main()
