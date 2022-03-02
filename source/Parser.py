@@ -100,8 +100,7 @@ def main() -> None:
 
 # We can most definitely simplify these functions and or
 # break them up into smaller pieces and create sub or separate classes
-# also it seems somewhere in this chain things aren't working perfectly as designed haha
-# would be nice to get to the bottom of that :)
-# Fixed it!
+
+# TODO: Need to slim down ElementBuilder method...
 if __name__ == "__main__":
     main()
