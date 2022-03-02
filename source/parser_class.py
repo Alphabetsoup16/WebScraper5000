@@ -101,6 +101,8 @@ def main() -> None:
 # We can most definitely simplify these functions and or
 # break them up into smaller pieces and create sub or separate classes
 
-# TODO: Need to slim down ElementBuilder method...
+# TODO: Need to slim down ElementBuilder method... and result handler...
+# TODO: finalize request output model, decide if parameters are optional
+
 if __name__ == "__main__":
     main()
