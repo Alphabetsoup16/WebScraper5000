@@ -48,9 +48,9 @@ class StaticParser(RequestConfig):
         target_List = []
         if len(element_lists) > 1:
             for list_count in range(len(element_lists)):
-                for key, target in enumerate(element_lists[list_count]):
+                for index, target in enumerate(element_lists[list_count]):
                     target_elements = {
-                        "Id": key,
+                        "Id": index,
                         all_attributes[list_count]: target.get_text().strip()
                     }
                     target_List.append(target_elements)
