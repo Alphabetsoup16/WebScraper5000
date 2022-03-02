@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 @dataclass
 class RequestConfig():
+    # This is for testing purposes
     url: str
     method: str
     nested: bool
