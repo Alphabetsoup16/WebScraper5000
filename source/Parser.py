@@ -58,19 +58,21 @@ class StaticParser(RequestConfig):
         else:
             return print("list of elements is either empty or only contains 1 element")
 
-    def ResultHandler(self, extracted_result: list) -> list:
-        """Creates completed JSON object from target attributes"""
+    def ResultElementGrouper(self, extracted_result: list) -> list:
+        """Creates groups of results by Id"""
         result_groups = defaultdict(list)
         for result in extracted_result:
             result_groups[result['Id']].append(result)
+        return result_groups
 
+    def ResultHandler(self, grouped_results: list) -> list:
+        """Creates completed JSON object from target attributes"""
         results_combined = []
-        for result_value in result_groups.values():
-            jsonObj = {}
+        for result_value in grouped_results.values():
+            result_object = {}
             for value in result_value:
-                jsonObj |= value
-            results_combined.append(jsonObj)
-
+                result_object |= value
+            results_combined.append(result_object)
         return results_combined
 
 
@@ -89,7 +91,9 @@ def main() -> None:
 
     element_dicts = static_site.ElementBuilder(element_list, attribute_names)
 
-    results = static_site.ResultHandler(element_dicts)
+    grouped_results = static_site.ResultElementGrouper(element_dicts)
+
+    results = static_site.ResultHandler(grouped_results)
 
     print(*results, sep="\n")
 
