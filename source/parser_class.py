@@ -105,5 +105,8 @@ def main() -> None:
 # TODO: Need to slim down ElementBuilder method... and result handler...
 # TODO: finalize request output model, decide if parameters are optional
 
+# TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
+# TODO: Make functionaity to input an html file and parse it?
+# TODO: find_all with regex function? find_all(string=re.compile("example"))
 if __name__ == "__main__":
     main()
