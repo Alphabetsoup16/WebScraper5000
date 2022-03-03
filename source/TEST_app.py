@@ -93,18 +93,26 @@ def ResultHandler(grouped_result: list) -> list:
     return results_combined
 
 
+def FindParentElementsChild(soup: BeautifulSoup):
+    content = soup.find_all(class_="media-content")
+    for link in content:
+        print(link.find_parent())
+
+
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
-    all_attributes = AttributeHandler(attributes)
+    FindParentElementsChild(soup)
 
-    targeted_attributes = GetElementByAttribute(soup, attributes)
+    # all_attributes = AttributeHandler(attributes)
 
-    target_elements = ElementBuilder(targeted_attributes, all_attributes)
-    print(*target_elements, sep="\n")
+    # targeted_attributes = GetElementByAttribute(soup, attributes)
+
+    # target_elements = ElementBuilder(targeted_attributes, all_attributes)
+    # print(*target_elements, sep="\n")
 
     # grouped_elements = ResultElementGrouper(target_elements)
 
