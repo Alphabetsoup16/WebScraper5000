@@ -1,5 +1,5 @@
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import requests
 from bs4 import BeautifulSoup
 
@@ -9,9 +9,9 @@ class RequestConfig():
     # This is for testing purposes
     url: str
     method: str
-    nested: bool
-    elements: list[str]
     attributes: list[dict]
+    nested: bool = False
+    elements: list[str] = field(default_factory=list)
 
 
 class StaticParser(RequestConfig):
@@ -35,16 +35,18 @@ class StaticParser(RequestConfig):
             all_attributes.append("".join(dict.values()))
         return all_attributes
 
-    def GetElementByAttribute(self, soup: BeautifulSoup) -> list:
+    def GetElementByAttribute(self) -> list:
         """Gets all html elements from list of target attributes"""
+        soup: BeautifulSoup = self.GetMeTheSoup()
         all_specific_elements = []
         for dict in self.attributes:
             specific_element = soup.find_all(attrs=dict)
             all_specific_elements.append(specific_element)
         return all_specific_elements
 
-    def ElementBuilder(self, element_lists, all_attributes) -> list:
+    def ElementBuilder(self, element_lists) -> list:
         """Creates initial objects for each attribute"""
+        all_attributes = self.AttributeHandler()
         target_elements = {}
         target_List = []
         if len(element_lists) > 1:
@@ -82,15 +84,11 @@ def main() -> None:
 
     url = "https://realpython.github.io/fake-jobs/"
 
-    static_site = StaticParser(url, "", False, [""], attributes)
+    static_site = StaticParser(url, "", attributes)
 
-    html = static_site.GetMeTheSoup()
+    element_list = static_site.GetElementByAttribute()
 
-    element_list = static_site.GetElementByAttribute(html)
-
-    attribute_names = static_site.AttributeHandler()
-
-    element_dicts = static_site.ElementBuilder(element_list, attribute_names)
+    element_dicts = static_site.ElementBuilder(element_list)
 
     grouped_results = static_site.ResultElementGrouper(element_dicts)
 
