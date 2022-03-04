@@ -77,7 +77,9 @@ class StaticParser():
 
 
 def main() -> None:
-    attributes = [{"class": "title is-5"}, {"class": "location"}]
+    attributes = [{"class": "title is-5"},
+                  {"class": "company"},
+                  {"class": "location"}]
 
     url = "https://realpython.github.io/fake-jobs/"
 
