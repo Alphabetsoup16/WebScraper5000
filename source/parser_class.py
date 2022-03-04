@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup
 class StaticParser():
     # This is for testing purposes
     url: str
-    method: str
     attributes: list[dict]
+    method: str = ""
     nested: bool = False
     elements: list[str] = field(default_factory=list)
 
@@ -81,7 +81,7 @@ def main() -> None:
 
     url = "https://realpython.github.io/fake-jobs/"
 
-    static_site = StaticParser(url, "", attributes)
+    static_site = StaticParser(url, attributes)
 
     element_list = static_site.GetElementByAttribute()
 
