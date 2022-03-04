@@ -5,16 +5,13 @@ from bs4 import BeautifulSoup
 
 
 @dataclass
-class RequestConfig():
+class StaticParser():
     # This is for testing purposes
     url: str
     method: str
     attributes: list[dict]
     nested: bool = False
     elements: list[str] = field(default_factory=list)
-
-
-class StaticParser(RequestConfig):
 
     def GetMeTheSoup(self):
         """Gets html content from url"""
