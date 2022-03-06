@@ -34,7 +34,7 @@ class StaticParser():
 
     def GetElementByAttribute(self) -> list:
         """Gets all html elements from list of target attributes"""
-        soup: BeautifulSoup = self.GetMeTheSoup()
+        soup = self.GetMeTheSoup()
         all_specific_elements = []
         for dict in self.attributes:
             specific_element = soup.find_all(attrs=dict)
@@ -107,5 +107,6 @@ def main() -> None:
 # TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
 # TODO: Make functionaity to input an html file and parse it?
 # TODO: find_all with regex function? find_all(string=re.compile("example"))
+# TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 if __name__ == "__main__":
     main()
