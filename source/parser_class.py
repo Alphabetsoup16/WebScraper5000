@@ -43,10 +43,14 @@ class StaticParser():
 
     def ElementBuilder(self, element_lists) -> list:
         """Creates initial objects for each attribute"""
-        all_attributes = self.AttributeHandler()
-        target_elements = {}
-        target_List = []
-        if len(element_lists) > 1:
+        if len(element_lists) <= 1:
+            return print("list of elements is either empty or only contains 1 element")
+
+        else:
+            all_attributes = self.AttributeHandler()
+            target_elements = {}
+            target_List = []
+
             for list_count in range(len(element_lists)):
                 for index, target in enumerate(element_lists[list_count]):
                     target_elements = {
@@ -55,8 +59,6 @@ class StaticParser():
                     }
                     target_List.append(target_elements)
             return target_List
-        else:
-            return print("list of elements is either empty or only contains 1 element")
 
     def ResultElementGrouper(self, extracted_result: list) -> list:
         """Creates groups of results by Id"""
