@@ -1,5 +1,4 @@
 from fastapi import FastAPI, Request
-from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 import uvicorn
 from utilities.API_Utilities import UseConfig
@@ -26,6 +25,7 @@ async def serve_static():
 @app.get("/styles.css")
 async def load_css():
     return FileResponse('static/styles.css')
+
 
 @app.get("/script.js")
 async def load_js():
