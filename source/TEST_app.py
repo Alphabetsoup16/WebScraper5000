@@ -94,10 +94,13 @@ def ResultHandler(grouped_result: list) -> list:
 
 
 def FindParentElementsChild(soup: BeautifulSoup):
-    content = soup.find_all(class_="media-content")
-    for element in content:
-        parent = element.find_parent()
-        print(parent.get_text().strip())
+    content = soup.find(class_="media-content")
+    print(content)
+    siblings = content.find_next_siblings("h2")
+    print(siblings)
+    # for element in content:
+    #     parent = content.find_parent()
+    #     print(element.get_text().strip())
 
 
 def main() -> None:
