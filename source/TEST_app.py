@@ -92,6 +92,7 @@ def ResultHandler(grouped_result: list) -> list:
         results_combined.append(jsonObj)
 
     return results_combined
+ ##############################Already tested above this line###################################
 
 
 def FindParentElementsChild(soup: BeautifulSoup):
@@ -106,7 +107,8 @@ def FindParentElementsChild(soup: BeautifulSoup):
 
 def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
     content = soup.find_all(class_=re.compile(class_string))
-    print(*content, sep="\n")
+    for element in content:
+        print(element.get_text(), sep="\n")
 
 
 def main() -> None:
@@ -119,19 +121,6 @@ def main() -> None:
 
     # can change to list and find multiple class elements, can also use different attributes like id
     ElementsWithRegexByClass(soup, "title")
-
-    # all_attributes = AttributeHandler(attributes)
-
-    # targeted_attributes = GetElementByAttribute(soup, attributes)
-
-    # target_elements = ElementBuilder(targeted_attributes, all_attributes)
-    # print(*target_elements, sep="\n")
-
-    # grouped_elements = ResultElementGrouper(target_elements)
-
-    # results = ResultHandler(grouped_elements)
-
-    # print(*results, sep="\n")
 
 
 if __name__ == "__main__":
