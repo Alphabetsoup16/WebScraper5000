@@ -1,4 +1,5 @@
 from collections import defaultdict
+import re
 from bs4 import BeautifulSoup
 from utilities.General_Utilities import GetMeTheSoup
 
@@ -103,13 +104,21 @@ def FindParentElementsChild(soup: BeautifulSoup):
     #     print(element.get_text().strip())
 
 
+def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
+    content = soup.find_all(class_=re.compile(class_string))
+    print(*content, sep="\n")
+
+
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
-    FindParentElementsChild(soup)
+    # FindParentElementsChild(soup)
+
+    # can change to list and find multiple class elements, can also use different attributes like id
+    ElementsWithRegexByClass(soup, "title")
 
     # all_attributes = AttributeHandler(attributes)
 
