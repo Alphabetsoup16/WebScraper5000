@@ -111,6 +111,12 @@ def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
         print(element.get_text(), sep="\n")
 
 
+def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
+    content = soup.find_all(id=re.compile(id_string))
+    for element in content:
+        print(element.get_text(), sep="\n")
+
+
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
