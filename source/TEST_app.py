@@ -105,24 +105,22 @@ def FindParentElementsChild(soup: BeautifulSoup):
     #     print(element.get_text().strip())
 
 
-def GetTextFromSoupContent(content):
-    for element in content:
-        print(element.get_text(), sep="\n")
+def GetTextFromSoupContent(content: list):
+    for result_set in content:
+        for element in result_set:
+            print(element.get_text(), sep="\n")
 
 
 def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
-    content = soup.find_all(class_=re.compile(class_string))
-    GetTextFromSoupContent(content)
+    return soup.find_all(class_=re.compile(class_string))
 
 
 def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
-    content = soup.find_all(id=re.compile(id_string))
-    GetTextFromSoupContent(content)
+    return soup.find_all(id=re.compile(id_string))
 
 
 def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
-    content = soup.find_all(string=re.compile(string))
-    GetTextFromSoupContent(content)
+    return soup.find_all(string=re.compile(string))
 
 
 def main() -> None:
@@ -131,14 +129,13 @@ def main() -> None:
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
-    # FindParentElementsChild(soup)
-
-    # can change to list and find multiple class elements, can also use different attributes like id
+    # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
-    ElementsWithRegexByClass(soup, class_string)
+    string_str = "Ship broker"
 
-    id_string = ""
-    #ElementsWithRegexById(soup, id_string)
+    class_elements = ElementsWithRegexByClass(soup, class_string)
+    string_elements = ElementsWithRegexByString(soup, string_str)
+    GetTextFromSoupContent([class_elements, string_elements])
 
 
 if __name__ == "__main__":
