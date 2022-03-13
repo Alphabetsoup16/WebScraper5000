@@ -117,6 +117,12 @@ def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
         print(element.get_text(), sep="\n")
 
 
+def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
+    content = soup.find_all(string=re.compile(string))
+    for element in content:
+        print(element.get_text(), sep="\n")
+
+
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
@@ -126,7 +132,11 @@ def main() -> None:
     # FindParentElementsChild(soup)
 
     # can change to list and find multiple class elements, can also use different attributes like id
-    ElementsWithRegexByClass(soup, "title")
+    class_string = "title"
+    ElementsWithRegexByClass(soup, class_string)
+
+    id_string = ""
+    #ElementsWithRegexById(soup, id_string)
 
 
 if __name__ == "__main__":
