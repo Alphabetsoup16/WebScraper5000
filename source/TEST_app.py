@@ -105,22 +105,24 @@ def FindParentElementsChild(soup: BeautifulSoup):
     #     print(element.get_text().strip())
 
 
-def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
-    content = soup.find_all(class_=re.compile(class_string))
+def GetTextFromSoupContent(content):
     for element in content:
         print(element.get_text(), sep="\n")
+
+
+def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
+    content = soup.find_all(class_=re.compile(class_string))
+    GetTextFromSoupContent(content)
 
 
 def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
     content = soup.find_all(id=re.compile(id_string))
-    for element in content:
-        print(element.get_text(), sep="\n")
+    GetTextFromSoupContent(content)
 
 
 def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
     content = soup.find_all(string=re.compile(string))
-    for element in content:
-        print(element.get_text(), sep="\n")
+    GetTextFromSoupContent(content)
 
 
 def main() -> None:
