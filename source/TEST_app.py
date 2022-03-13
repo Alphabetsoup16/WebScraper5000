@@ -108,7 +108,7 @@ def FindParentElementsChild(soup: BeautifulSoup):
 def GetTextFromSoupContent(content: list):
     for result_set in content:
         for element in result_set:
-            print(element.get_text(), sep="\n")
+            print(element.get_text().strip(), sep="\n")
 
 
 def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
@@ -131,11 +131,11 @@ def main() -> None:
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
-    string_str = "Ship broker"
+    string_str = "er"
 
     class_elements = ElementsWithRegexByClass(soup, class_string)
     string_elements = ElementsWithRegexByString(soup, string_str)
-    GetTextFromSoupContent([class_elements, string_elements])
+    GetTextFromSoupContent([string_elements])
 
 
 if __name__ == "__main__":
