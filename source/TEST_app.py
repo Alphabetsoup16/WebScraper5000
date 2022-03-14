@@ -126,6 +126,7 @@ def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
+    print(soup.a['class'])
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
@@ -135,7 +136,7 @@ def main() -> None:
 
     class_elements = ElementsWithRegexByClass(soup, class_string)
     string_elements = ElementsWithRegexByString(soup, string_str)
-    GetTextFromSoupContent([string_elements])
+    # GetTextFromSoupContent([string_elements])
 
 
 if __name__ == "__main__":
