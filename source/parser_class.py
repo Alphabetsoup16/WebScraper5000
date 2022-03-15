@@ -85,7 +85,7 @@ class StaticParser():
         return cls(**json_dict)
 
 
-def MultipleJsonToObject(file_name: str):
+def MultipleJsonToObject(file_name: str) -> list:
     json_list = []
     with open(file=file_name, mode='r') as json_file:
         json_data = json.loads(json_file.read())
