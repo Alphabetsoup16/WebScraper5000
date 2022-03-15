@@ -85,6 +85,15 @@ class StaticParser():
         return cls(**json_dict)
 
 
+def MultipleJsonToObject(file_name: str):
+    json_list = []
+    with open(file=file_name, mode='r') as json_file:
+        json_data = json.loads(json_file.read())
+        for data in json_data:
+            json_list.append(StaticParser(**data))
+    return json_list
+
+
 def main() -> None:
     attributes = [{"class": "title is-5"},
                   {"class": "company"},
@@ -106,18 +115,18 @@ def main() -> None:
 
     #parser_json = StaticParser.JsonToObject()
 
-# We can most definitely simplify these functions and or
-# break them up into smaller pieces and create sub or separate classes
+    # We can most definitely simplify these functions and or
+    # break them up into smaller pieces and create sub or separate classes
 
-# TODO: Need to slim down ElementBuilder method... and result handler...
-# TODO: finalize request output model, decide if parameters are optional
+    # TODO: Need to slim down ElementBuilder method... and result handler...
+    # TODO: finalize request output model, decide if parameters are optional
 
-# TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
-# TODO: Make functionaity to input an html file and parse it?
+    # TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
+    # TODO: Make functionaity to input an html file and parse it?
 
+    # TODO: find_all with regex function? find_all(string=re.compile("example"))
+    # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
-# TODO: find_all with regex function? find_all(string=re.compile("example"))
-# TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
 if __name__ == "__main__":
     main()
