@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
+import json
 from bs4 import BeautifulSoup
 
 
@@ -76,6 +77,12 @@ class StaticParser():
                 result_object |= value
             results_combined.append(result_object)
         return results_combined
+
+    @classmethod
+    def JsonToObject(cls, json_string):
+        '''Converts json to object dictionary'''
+        json_dict = json.loads(json_string)
+        return cls(**json_dict)
 
 
 def main() -> None:
