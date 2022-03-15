@@ -104,6 +104,7 @@ def main() -> None:
 
     print(*results, sep="\n")
 
+    #parser_json = StaticParser.JsonToObject()
 
 # We can most definitely simplify these functions and or
 # break them up into smaller pieces and create sub or separate classes
@@ -113,7 +114,10 @@ def main() -> None:
 
 # TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
 # TODO: Make functionaity to input an html file and parse it?
+
+
 # TODO: find_all with regex function? find_all(string=re.compile("example"))
 # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
+
 if __name__ == "__main__":
     main()
