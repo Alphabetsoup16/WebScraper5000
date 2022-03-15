@@ -1,4 +1,5 @@
 from collections import defaultdict
+import json
 import re
 from bs4 import BeautifulSoup
 from utilities.General_Utilities import GetMeTheSoup
@@ -126,7 +127,13 @@ def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
-    print(soup.a['class'])
+    # print(soup.a['class'])
+
+    # testing opening json file to read and then create object with it
+    json_file_path = 'source/requestExample.json'
+    with open(file=json_file_path, mode='r') as f:
+        data = json.load(f)
+        print(data)
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
