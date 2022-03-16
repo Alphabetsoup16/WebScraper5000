@@ -101,7 +101,7 @@ def main() -> None:
 
     url = "https://realpython.github.io/fake-jobs/"
 
-    static_site = StaticParser(url, attributes)
+    static_site = StaticParser(url=url, attributes=attributes)
 
     element_list = static_site.GetElementByAttribute()
 
