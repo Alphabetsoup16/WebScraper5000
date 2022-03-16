@@ -86,6 +86,7 @@ class StaticParser():
 
 
 def MultipleJsonToObject(file_name: str) -> list:
+    # Probably don't need this... depends on JSON set up
     json_list = []
     with open(file=file_name, mode='r') as json_file:
         json_data = json.loads(json_file.read())
