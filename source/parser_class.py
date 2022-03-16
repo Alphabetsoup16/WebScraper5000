@@ -127,6 +127,8 @@ def main() -> None:
     # TODO: find_all with regex function? find_all(string=re.compile("example"))
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
+    # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
+
 
 if __name__ == "__main__":
     main()
