@@ -130,12 +130,18 @@ def main() -> None:
     # print(soup.a['class'])
 
     # testing opening json file to read and then create object with it
-    json_file_path = 'source/requestExample.json'
-    with open(file=json_file_path, mode='r') as f:
-        data = json.load(f)
-        print(data)
+    def GetDataFromJson(file_path: str):
+        with open(file=file_path, mode='r') as config:
+            data = json.load(config)
+        return data
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
+
+    json_file_path = 'source/parser_request.json'
+
+    json_data = GetDataFromJson(json_file_path)
+    print(json_data)
+    print(*json_data['url'])
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
