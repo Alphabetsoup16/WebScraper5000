@@ -142,6 +142,7 @@ def main() -> None:
     json_data = GetDataFromJson(json_file_path)
     print(json_data)
     print(*json_data['url'])
+    print(json_data['parser-config'])
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
