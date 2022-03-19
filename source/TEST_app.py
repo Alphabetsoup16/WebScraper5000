@@ -137,12 +137,19 @@ def main() -> None:
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
+    def AttributeConstructor():
+        config_data = json_data['parser-config']
+        for i in range(len(config_data)):
+            for target in config_data[i]['target-attributes']:
+                print({config_data[i]['target-attribute-type']: target})
+
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
-    print(json_data)
-    print(*json_data['url'])
-    print(json_data['parser-config'][1]['element-name'])
+    # print(json_data)
+    # print(*json_data['url'])
+    # print(json_data['parser-config'])
+    AttributeConstructor()
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
