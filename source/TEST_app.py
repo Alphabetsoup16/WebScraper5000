@@ -141,7 +141,8 @@ def main() -> None:
         config_data = json_data['parser-config']
         for i in range(len(config_data)):
             for target in config_data[i]['target-attributes']:
-                print({config_data[i]['target-attribute-type']: target})
+                target_type = config_data[i]['target-attribute-type']
+                print({target_type: target})
 
     json_file_path = 'source/parser_request.json'
 
