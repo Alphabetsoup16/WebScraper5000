@@ -137,6 +137,7 @@ def main() -> None:
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
+    # Need to make this more efficient....
     def AttributeConstructor():
         config_data = json_data['parser-config']
         for i in range(len(config_data)):
