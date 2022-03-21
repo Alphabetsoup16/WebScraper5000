@@ -155,7 +155,7 @@ def main() -> None:
             if config_data[i]['target-attribute-type'] == attribute:
                 print({attribute: config_data[i]['target-attributes']})
             else:
-                print(f"sorry {attribute} is not valid")
+                print(f"sorry the attribute: {attribute}, is not valid")
 
     json_file_path = 'source/parser_request.json'
 
