@@ -153,8 +153,9 @@ def main() -> None:
         config_data = json_data['parser-config']
         for i in range(len(config_data)):
             if config_data[i]['target-attribute-type'] == attribute:
-
                 print({attribute: config_data[i]['target-attributes']})
+            else:
+                print(f"sorry {attribute} is not valid")
 
     json_file_path = 'source/parser_request.json'
 
@@ -163,7 +164,7 @@ def main() -> None:
     # print(*json_data['url'])
     # print(json_data['parser-config'])
     test = AttributeConstructor_All(json_data)
-    test2 = AttributeConstructor_Specific(json_data, 'class')
+    test2 = AttributeConstructor_Specific(json_data, 'wrong')
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
