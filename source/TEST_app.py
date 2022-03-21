@@ -147,6 +147,7 @@ def main() -> None:
                 attributes.append({target_type: target})
         return attributes
 
+    # Need to test more and refine....
     def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
         specific_attributes = []
         config_data = json_data['parser-config']
