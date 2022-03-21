@@ -1,6 +1,7 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
+import json
 from bs4 import BeautifulSoup
 
 
@@ -77,6 +78,22 @@ class StaticParser():
             results_combined.append(result_object)
         return results_combined
 
+    @classmethod
+    def JsonToObject(cls, json_string):
+        '''Converts json to object dictionary'''
+        json_dict = json.loads(json_string)
+        return cls(**json_dict)
+
+
+def MultipleJsonToObject(file_name: str) -> list:
+    # Probably don't need this... depends on JSON set up
+    json_list = []
+    with open(file=file_name, mode='r') as json_file:
+        json_data = json.loads(json_file.read())
+        for data in json_data:
+            json_list.append(StaticParser(**data))
+    return json_list
+
 
 def main() -> None:
     attributes = [{"class": "title is-5"},
@@ -85,7 +102,7 @@ def main() -> None:
 
     url = "https://realpython.github.io/fake-jobs/"
 
-    static_site = StaticParser(url, attributes)
+    static_site = StaticParser(url=url, attributes=attributes)
 
     element_list = static_site.GetElementByAttribute()
 
@@ -97,16 +114,22 @@ def main() -> None:
 
     print(*results, sep="\n")
 
+    #parser_json = StaticParser.JsonToObject()
 
-# We can most definitely simplify these functions and or
-# break them up into smaller pieces and create sub or separate classes
+    # We can most definitely simplify these functions and or
+    # break them up into smaller pieces and create sub or separate classes
 
-# TODO: Need to slim down ElementBuilder method... and result handler...
-# TODO: finalize request output model, decide if parameters are optional
+    # TODO: Need to slim down ElementBuilder method... and result handler...
+    # TODO: finalize request output model, decide if parameters are optional
 
-# TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
-# TODO: Make functionaity to input an html file and parse it?
-# TODO: find_all with regex function? find_all(string=re.compile("example"))
-# TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
+    # TODO: Include list of available parsers? "html.parser", "lxml", "xml", "html5lib"
+    # TODO: Make functionaity to input an html file and parse it?
+
+    # TODO: find_all with regex function? find_all(string=re.compile("example"))
+    # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
+
+    # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
+
+
 if __name__ == "__main__":
     main()

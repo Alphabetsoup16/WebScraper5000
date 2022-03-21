@@ -1,4 +1,6 @@
 from collections import defaultdict
+import json
+import re
 from bs4 import BeautifulSoup
 from utilities.General_Utilities import GetMeTheSoup
 
@@ -91,35 +93,86 @@ def ResultHandler(grouped_result: list) -> list:
         results_combined.append(jsonObj)
 
     return results_combined
+ ##############################Already tested above this line###################################
 
 
 def FindParentElementsChild(soup: BeautifulSoup):
-    content = soup.find_all(class_="media-content")
-    for element in content:
-        parent = element.find_parent()
-        print(parent.get_text().strip())
+    content = soup.find(class_="media-content")
+    print(content)
+    siblings = content.find_next_siblings("h2")
+    print(siblings)
+    # for element in content:
+    #     parent = content.find_parent()
+    #     print(element.get_text().strip())
+
+
+def GetTextFromSoupContent(content: list):
+    for result_set in content:
+        for element in result_set:
+            print(element.get_text().strip(), sep="\n")
+
+
+def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
+    return soup.find_all(class_=re.compile(class_string))
+
+
+def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
+    return soup.find_all(id=re.compile(id_string))
+
+
+def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
+    return soup.find_all(string=re.compile(string))
 
 
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
+    # print(soup.a['class'])
+
+    # testing opening json file to read and then create object with it
+    def GetDataFromJson(file_path: str):
+        with open(file=file_path, mode='r') as config:
+            data = json.load(config)
+        return data
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
-    FindParentElementsChild(soup)
+    # Need to make this more efficient....
+    def AttributeConstructor_All(json_data: dict) -> list:
+        attributes = []
+        config_data = json_data['parser-config']
+        for i in range(len(config_data)):
+            for target in config_data[i]['target-attributes']:
+                target_type = config_data[i]['target-attribute-type']
+                attributes.append({target_type: target})
+        return attributes
 
-    # all_attributes = AttributeHandler(attributes)
+    # Need to test more and refine....
+    def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
+        specific_attributes = []
+        config_data = json_data['parser-config']
+        for i in range(len(config_data)):
+            if config_data[i]['target-attribute-type'] == attribute:
+                print({attribute: config_data[i]['target-attributes']})
+            else:
+                print(f"sorry {attribute} is not valid")
 
-    # targeted_attributes = GetElementByAttribute(soup, attributes)
+    json_file_path = 'source/parser_request.json'
 
-    # target_elements = ElementBuilder(targeted_attributes, all_attributes)
-    # print(*target_elements, sep="\n")
+    json_data = GetDataFromJson(json_file_path)
+    # print(json_data)
+    # print(*json_data['url'])
+    # print(json_data['parser-config'])
+    test = AttributeConstructor_All(json_data)
+    test2 = AttributeConstructor_Specific(json_data, 'wrong')
 
-    # grouped_elements = ResultElementGrouper(target_elements)
+    # Need to test out RegexByString more. Simplfied process to make more efficient.
+    class_string = "title"
+    string_str = "er"
 
-    # results = ResultHandler(grouped_elements)
-
-    # print(*results, sep="\n")
+    class_elements = ElementsWithRegexByClass(soup, class_string)
+    string_elements = ElementsWithRegexByString(soup, string_str)
+    # GetTextFromSoupContent([string_elements])
 
 
 if __name__ == "__main__":
