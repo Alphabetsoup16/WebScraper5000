@@ -138,7 +138,7 @@ def main() -> None:
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
     # Need to make this more efficient....
-    def AttributeConstructor(json_data: dict) -> list:
+    def AttributeConstructor_All(json_data: dict) -> list:
         attributes = []
         config_data = json_data['parser-config']
         for i in range(len(config_data)):
@@ -147,14 +147,22 @@ def main() -> None:
                 attributes.append({target_type: target})
         return attributes
 
+    def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
+        specific_attributes = []
+        config_data = json_data['parser-config']
+        for i in range(len(config_data)):
+            if config_data[i]['target-attribute-type'] == attribute:
+
+                print({attribute: config_data[i]['target-attributes']})
+
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
     # print(json_data)
     # print(*json_data['url'])
     # print(json_data['parser-config'])
-    test = AttributeConstructor(json_data)
-    print(test)
+    test = AttributeConstructor_All(json_data)
+    test2 = AttributeConstructor_Specific(json_data, 'class')
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
