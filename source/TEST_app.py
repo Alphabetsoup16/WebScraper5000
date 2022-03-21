@@ -155,14 +155,12 @@ def main() -> None:
             if config_data[i]['target-attribute-type'] == attribute:
                 print({attribute: config_data[i]['target-attributes']})
             else:
-                print(f"sorry the attribute: {attribute}, is not valid")
+                print(f"The attribute: {attribute}, is not valid")
 
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
-    # print(json_data)
-    # print(*json_data['url'])
-    # print(json_data['parser-config'])
+
     test = AttributeConstructor_All(json_data)
     test2 = AttributeConstructor_Specific(json_data, 'wrong')
 
