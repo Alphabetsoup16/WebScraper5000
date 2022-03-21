@@ -6,16 +6,6 @@ from utilities.General_Utilities import GetMeTheSoup
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
 
-def FindParentElementsChild(soup: BeautifulSoup):
-    content = soup.find(class_="media-content")
-    print(content)
-    siblings = content.find_next_siblings("h2")
-    print(siblings)
-    # for element in content:
-    #     parent = content.find_parent()
-    #     print(element.get_text().strip())
-
-
 def GetTextFromSoupContent(content: list):
     for result_set in content:
         for element in result_set:
@@ -61,7 +51,7 @@ def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
             print({attribute: config_data[i]['target-attributes']})
         else:
             print(f"The attribute: {attribute}, is not valid")
-#############################Functions above need to be tested#############################
+#############################---Functions above need to be tested---#############################
 
 
 def main() -> None:
