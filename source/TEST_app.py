@@ -51,14 +51,22 @@ def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
             print({attribute: config_data[i]['target-attributes']})
         else:
             print(f"The attribute: {attribute}, is not valid")
+
+
+def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str):
+    list_of_links = soup.select(f'a[href^="{base_address}"]')
+    for index, link in enumerate(list_of_links):
+        print(f"{index}: {link['href']}")
+
+
 #############################---Functions above need to be tested---#############################
 
 
 def main() -> None:
 
     soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
-    # print(soup.a['class'])
 
+    ExtractHyperLinksWithBaseAddress(soup, "https://realpython.github.io/")
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
     json_file_path = 'source/parser_request.json'
@@ -66,7 +74,7 @@ def main() -> None:
     json_data = GetDataFromJson(json_file_path)
 
     test = AttributeConstructor_All(json_data)
-    test2 = AttributeConstructor_Specific(json_data, 'wrong')
+    #test2 = AttributeConstructor_Specific(json_data, 'wrong')
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
