@@ -64,9 +64,9 @@ def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str):
 
 def main() -> None:
 
-    soup = GetMeTheSoup("https://realpython.github.io/fake-jobs/")
+    soup = GetMeTheSoup(url="https://realpython.github.io/fake-jobs/")
 
-    ExtractHyperLinksWithBaseAddress(soup, "https://realpython.github.io/")
+    #ExtractHyperLinksWithBaseAddress(soup, "https://realpython.github.io/")
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
     json_file_path = 'source/parser_request.json'
@@ -82,6 +82,9 @@ def main() -> None:
 
     class_elements = ElementsWithRegexByClass(soup, class_string)
     string_elements = ElementsWithRegexByString(soup, string_str)
+    #print(*string_elements, sep='\n')
+    for string in string_elements:
+        print(string.strip(), sep='\n')
     # GetTextFromSoupContent([string_elements])
 
 
