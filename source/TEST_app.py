@@ -82,10 +82,12 @@ def main() -> None:
 
     class_elements = ElementsWithRegexByClass(soup, class_string)
     string_elements = ElementsWithRegexByString(soup, string_str)
-    #print(*string_elements, sep='\n')
-    for string in string_elements:
-        print(string.strip(), sep='\n')
+    # for string in string_elements:
+    #     print(string.strip(), sep='\n')
     # GetTextFromSoupContent([string_elements])
+
+    a_string = soup.find(string="Apply")
+    print(a_string.find_parent("p"))
 
 
 if __name__ == "__main__":
