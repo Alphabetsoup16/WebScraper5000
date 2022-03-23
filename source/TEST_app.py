@@ -7,6 +7,7 @@ from utilities.General_Utilities import GetMeTheSoup
 
 
 def GetTextFromSoupContent(content: list):
+    # Probably don't need to do this and can just use 1 for loop
     for result_set in content:
         for element in result_set:
             print(element.get_text().strip(), sep="\n")
