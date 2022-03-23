@@ -54,7 +54,7 @@ def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
             print(f"The attribute: {attribute}, is not valid")
 
 
-def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str):
+def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str) -> list:
     indexed_list_of_links = []
     list_of_links = soup.select(f'a[href^="{base_address}"]')
     for index, link in enumerate(list_of_links):
