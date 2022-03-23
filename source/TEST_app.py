@@ -88,7 +88,7 @@ def main() -> None:
     # GetTextFromSoupContent([string_elements])
 
     a_string = soup.find(string="Apply")
-    print(a_string.find_parent("p"))
+    print(*soup.select("body a"), sep='\n')
 
 
 if __name__ == "__main__":
