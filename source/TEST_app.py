@@ -55,9 +55,11 @@ def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
 
 
 def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str):
+    indexed_list_of_links = []
     list_of_links = soup.select(f'a[href^="{base_address}"]')
     for index, link in enumerate(list_of_links):
-        print(f"{index}: {link['href']}")
+        indexed_list_of_links.append({index: link['href']})
+    return indexed_list_of_links
 
 
 #############################---Functions above need to be tested---#############################
@@ -67,7 +69,11 @@ def main() -> None:
 
     soup = GetMeTheSoup(url="https://realpython.github.io/fake-jobs/")
 
-    #ExtractHyperLinksWithBaseAddress(soup, "https://realpython.github.io/")
+    base_address = "https://realpython.github.io/"
+
+    test3 = ExtractHyperLinksWithBaseAddress(soup, base_address)
+    print(*test3, sep="\n")
+
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
     json_file_path = 'source/parser_request.json'
@@ -88,7 +94,7 @@ def main() -> None:
     # GetTextFromSoupContent([string_elements])
 
     a_string = soup.find(string="Apply")
-    print(*soup.select("body a"), sep='\n')
+    #print(*soup.select("body a"), sep='\n')
 
 
 if __name__ == "__main__":
