@@ -129,6 +129,7 @@ def main() -> None:
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
     # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
+    # TODO: Handle duplicate attributes, on_duplicate_attribute='replace' or 'ignore' or function
 
 
 if __name__ == "__main__":
