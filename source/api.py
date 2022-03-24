@@ -1,13 +1,16 @@
 from fastapi import FastAPI, Request
 from starlette.responses import FileResponse
 import uvicorn
+import os
 from utilities.api_utilities import UseConfig
 from utilities.general_utilities import GetMeTheSoup
+from dotenv import load_dotenv
 
+load_dotenv()
 
-api_url = "/api/v1/"
-port = 8000
-host = '127.0.0.1'
+api_url = os.getenv('API_URL')
+port = int(os.getenv('PORT'))
+host = os.getenv('HOST')
 
 app = FastAPI(
     title='Web Scraper of Doom',
