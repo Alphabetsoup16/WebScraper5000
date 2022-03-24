@@ -1,7 +1,7 @@
 import json
 import re
 from bs4 import BeautifulSoup
-from utilities.General_Utilities import GetMeTheSoup
+from source.utilities.general_utilities import GetMeTheSoup
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 
