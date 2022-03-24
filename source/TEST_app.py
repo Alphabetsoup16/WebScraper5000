@@ -72,7 +72,14 @@ def main() -> None:
     base_address = "https://realpython.github.io/"
 
     test3 = ExtractHyperLinksWithBaseAddress(soup, base_address)
-    print(*test3, sep="\n")
+    #print(*test3, sep="\n")
+
+    def SaveAsJson(response, title: str):
+        with open(f'scraped_{title}.json', mode='w', encoding='latin-1') as f:
+            json.dump(response, f, indent=8, ensure_ascii=False)
+        print("Created Json File")
+
+    SaveAsJson(test3, "page_links")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
