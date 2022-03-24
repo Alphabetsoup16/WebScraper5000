@@ -3,12 +3,11 @@ from pydantic import BaseModel, HttpUrl
 
 class RequestConfiguration(BaseModel):
     name: str
-    method: str
-    arguments: list[str]
-    attributes: list[dict]
+    type: str
+    attributes: list[str]
 
 
 class RequestInputModel(BaseModel):
-    url: HttpUrl  # can also just make string
+    url: HttpUrl
     title: str
     config: RequestConfiguration
