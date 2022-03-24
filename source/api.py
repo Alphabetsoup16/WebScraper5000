@@ -1,8 +1,8 @@
 from fastapi import FastAPI, Request
 from starlette.responses import FileResponse
 import uvicorn
-from utilities.API_Utilities import UseConfig
-from utilities.General_Utilities import GetMeTheSoup
+from utilities.api_utilities import UseConfig
+from utilities.general_utilities import GetMeTheSoup
 
 
 api_url = "/api/v1/"
@@ -38,8 +38,7 @@ async def get_config(request: Request):
     soup = GetMeTheSoup(config["url"])
     response = {}
     UseConfig(soup, config, response)
-    return response  # seems to return better without json.dumps
-
+    return response
 
 if __name__ == '__main__':
     uvicorn.run("api:app", reload=True, port=port, host=host)
