@@ -1,7 +1,7 @@
-from fastapi import FastAPI, Request
-from starlette.responses import FileResponse
 import uvicorn
 import os
+from fastapi import FastAPI, Request
+from starlette.responses import FileResponse
 from utilities.api_utilities import UseConfig
 from utilities.general_utilities import GetMeTheSoup
 from dotenv import load_dotenv

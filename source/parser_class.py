@@ -10,8 +10,6 @@ class StaticParser():
     # This is for testing purposes
     url: str
     attributes: list[dict]
-    method: str = ""
-    nested: bool = False
     elements: list[str] = field(default_factory=list)
 
     def GetMeTheSoup(self):
