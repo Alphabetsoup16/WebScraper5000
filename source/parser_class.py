@@ -79,9 +79,9 @@ class StaticParser():
         return results_combined
 
     @classmethod
-    def JsonToObject(cls, json_string):
+    def JsonToObject(cls, json_request):
         '''Converts json to object dictionary'''
-        json_dict = json.loads(json_string)
+        json_dict = json.loads(json_request)
         return cls(**json_dict)
 
 

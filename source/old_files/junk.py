@@ -100,3 +100,10 @@ def MultipleJsonToObject(file_name: str) -> list:
         for data in json_data:
             json_list.append(StaticParser(**data))
     return json_list
+
+
+@classmethod
+def JsonToObject(cls, json_string):
+    '''Converts json to object dictionary'''
+    json_dict = json.loads(json_string)
+    return cls(**json_dict)

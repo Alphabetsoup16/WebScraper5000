@@ -87,10 +87,11 @@ def main() -> None:
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
+    print(json_data)
 
     test = AttributeConstructor_All(json_data)
     test2 = AttributeConstructor_Specific(json_data, 'class')
-    print(test2)
+    # print(test2)
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
