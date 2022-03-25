@@ -1,7 +1,9 @@
 import uvicorn
 import os
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from starlette.responses import FileResponse
+from TEST_app import ExtractHyperLinksWithBaseAddress
+from api_model import RequestInputModel
 from utilities.api_utilities import UseConfig
 from utilities.general_utilities import GetMeTheSoup
 from dotenv import load_dotenv
@@ -13,8 +15,7 @@ port = int(os.getenv('PORT'))
 host = os.getenv('HOST')
 
 app = FastAPI(
-    title='Web Scraper of Doom',
-    openapi_url=api_url
+    title='Web Scraper of Doom'
 )
 
 #app.mount("/static", StaticFiles(directory='static'))
@@ -35,13 +36,23 @@ async def load_js():
     return FileResponse('static/script.js')
 
 
-@app.post(f"{api_url}/scrape")
-async def get_config(request: Request):
-    config = await request.json()
-    soup = GetMeTheSoup(config["url"])
-    response = {}
-    UseConfig(soup, config, response)
-    return response
+# @app.post(f"{api_url}/scrape")
+# async def get_config(request: Request):
+#     config = await request.json()
+#     soup = GetMeTheSoup(config["url"])
+#     response = {}
+#     UseConfig(soup, config, response)
+#     return response
+
+@app.post("/scrape-links/")
+async def extractHyperLinks(request: RequestInputModel):
+    json_dict = request.dict()
+    # for testing purposes
+    base_address = "https://realpython.github.io/"
+    soup = GetMeTheSoup(*json_dict["url"])
+    hyper_links = ExtractHyperLinksWithBaseAddress(soup, base_address)
+    return hyper_links
+
 
 if __name__ == '__main__':
     uvicorn.run("api:app", reload=True, port=port, host=host)

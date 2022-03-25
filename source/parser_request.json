@@ -1,20 +1,20 @@
 {
-    "webscrape-name": "Fake Python Jobs",
+    "webscrape_name": "Fake Python Jobs",
 
     "url": [
         "https://realpython.github.io/fake-jobs/"
     ],
 
-    "parser-config": [
+    "parser_config": [
         {
-            "element-name": "jobs",
-            "target-attribute-type": "class",
-            "target-attributes": ["title is-5", "company", "location"]
+            "element_name": "jobs",
+            "type": "class",
+            "attributes": ["title is-5", "company", "location"]
         },
         {
-            "element-name": "links",
-            "target-attribute-type": "string",
-            "target-attributes": ["Apply"]
+            "element_name": "links",
+            "type": "string",
+            "attributes": ["Apply"]
         }
     ]
 }

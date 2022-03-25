@@ -2,12 +2,11 @@ from pydantic import BaseModel, HttpUrl
 
 
 class RequestConfiguration(BaseModel):
-    name: str
+    element_name: str
     type: str
     attributes: list[str]
 
 
 class RequestInputModel(BaseModel):
-    url: HttpUrl
-    title: str
-    config: RequestConfiguration
+    url: list[HttpUrl]
+    parser_config: list[RequestConfiguration]
