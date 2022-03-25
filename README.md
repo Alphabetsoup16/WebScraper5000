@@ -1,6 +1,6 @@
 # Project: Web Crawler Of Doom
 ## Idea: Make generic web scraper for *educational purposes ONLY!* 
-### Description: Use Python 3.10 and [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) Library for HTML data extraction 
+### Description: Written in Python 3.9 and using [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) Library for HTML data extraction 
 ### **How to use:** 
 - Currently this project is still in the testing phase and needs to be refined on the front and backend. You can run the `parser_class.py` file to see most of the functionality in action. 
 - The `TEST_app.py` is where all the new functions are getting tested and created. The API and API model are not complete yet and only have partial functionality. 
