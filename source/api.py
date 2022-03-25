@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from starlette.responses import FileResponse
 from TEST_app import ExtractHyperLinksWithBaseAddress
 from api_model import RequestInputModel
-from TEST_app import GetConfigByElementNameValue
+from TEST_app import GetConfigByElementNameValue, AttributeConstructor_Specific
+from parser_class import StaticParser
 from utilities.api_utilities import UseConfig
 from dotenv import load_dotenv
 
@@ -52,6 +53,28 @@ async def ExtractHyperLinks(request: RequestInputModel):
     base_address = config_dict["base_address"]
     hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
     return hyper_links
+
+
+@app.post("/scrape-classes/")
+async def ExtractClassElements(request: RequestInputModel):
+    json_dict = request.dict()
+
+    class_attributes = AttributeConstructor_Specific(json_dict, "class")
+    # Need to get url from config list, otherwise this is working well
+    url = "https://realpython.github.io/fake-jobs/"
+
+    target_class_data = StaticParser(
+        url=url, attributes=class_attributes)
+
+    element_list = target_class_data.GetElementByAttribute()
+
+    element_dicts = target_class_data.ElementBuilder(element_list)
+
+    grouped_results = target_class_data.ResultElementGrouper(element_dicts)
+
+    results = target_class_data.ResultHandler(grouped_results)
+
+    return results
 
 
 if __name__ == '__main__':
