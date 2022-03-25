@@ -83,16 +83,6 @@ class StaticParser():
         return cls(**json_dict)
 
 
-def MultipleJsonToObject(file_name: str) -> list:
-    # Probably don't need this... depends on JSON set up
-    json_list = []
-    with open(file=file_name, mode='r') as json_file:
-        json_data = json.loads(json_file.read())
-        for data in json_data:
-            json_list.append(StaticParser(**data))
-    return json_list
-
-
 def main() -> None:
     attributes = [{"class": "title is-5"},
                   {"class": "company"},
