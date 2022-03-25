@@ -1,4 +1,7 @@
+import json
 from bs4 import BeautifulSoup
+
+from source.parser_class import StaticParser
 
 ##############################Already tested, these are old junk###################################
 
@@ -87,3 +90,13 @@ def ResultHandler(grouped_result: list) -> list:
         results_combined.append(jsonObj)
 
     return results_combined
+
+
+def MultipleJsonToObject(file_name: str) -> list:
+    # Probably don't need this... depends on JSON set up
+    json_list = []
+    with open(file=file_name, mode='r') as json_file:
+        json_data = json.loads(json_file.read())
+        for data in json_data:
+            json_list.append(StaticParser(**data))
+    return json_list
