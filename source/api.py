@@ -47,10 +47,9 @@ async def load_js():
 @app.post("/scrape-links/")
 async def extractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
-    # for testing purposes
+    # base_address is for testing purposes
     base_address = "https://realpython.github.io/"
-    soup = GetMeTheSoup(*json_dict["url"])
-    hyper_links = ExtractHyperLinksWithBaseAddress(soup, base_address)
+    hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
     return hyper_links
 
 

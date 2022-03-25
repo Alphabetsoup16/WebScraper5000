@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from utilities.general_utilities import GetMeTheSoup
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
+URL = "https://realpython.github.io/fake-jobs/"
 
 
 def GetTextFromSoupContent(content: list):
@@ -35,10 +36,10 @@ def GetDataFromJson(file_path: str):
 def AttributeConstructor_All(json_data: dict) -> list:
     # Need to make this more efficient....
     attributes = []
-    config_data = json_data['parser-config']
+    config_data = json_data['parser_config']
     for i in range(len(config_data)):
-        for target in config_data[i]['target-attributes']:
-            target_type = config_data[i]['target-attribute-type']
+        for target in config_data[i]['attributes']:
+            target_type = config_data[i]['type']
             attributes.append({target_type: target})
     return attributes
 
@@ -46,17 +47,19 @@ def AttributeConstructor_All(json_data: dict) -> list:
 def AttributeConstructor_Specific(json_data: dict, attribute_type: str) -> list:
     # Need to test more and refine....
     specific_attributes = []
-    config_data = json_data['parser-config']
+    config_data = json_data['parser_config']
     for i in range(len(config_data)):
-        for target in config_data[i]['target-attributes']:
-            target_type = config_data[i]['target-attribute-type']
+        for target in config_data[i]['attributes']:
+            target_type = config_data[i]['type']
             if target_type == attribute_type:
                 specific_attributes.append({target_type: target})
     return specific_attributes
 
 
-def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str) -> list:
+def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str) -> list:
     indexed_list_of_links = []
+    soup: BeautifulSoup = GetMeTheSoup(*json_dict["url"])
+
     list_of_links = soup.select(f'a[href^="{base_address}"]')
     for index, link in enumerate(list_of_links):
         indexed_list_of_links.append({index: link['href']})
@@ -72,9 +75,6 @@ def main() -> None:
 
     base_address = "https://realpython.github.io/"
 
-    test3 = ExtractHyperLinksWithBaseAddress(soup, base_address)
-    #print(*test3, sep="\n")
-
     def SaveAsJson(response, title: str):
         with open(f'scraped_{title}.json', mode='w', encoding='latin-1') as f:
             json.dump(response, f, indent=8, ensure_ascii=False)
@@ -87,7 +87,10 @@ def main() -> None:
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
-    print(json_data)
+    # print(json_data)
+
+    test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
+    #print(*test3, sep="\n")
 
     test = AttributeConstructor_All(json_data)
     test2 = AttributeConstructor_Specific(json_data, 'class')
