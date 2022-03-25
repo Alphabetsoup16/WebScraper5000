@@ -56,14 +56,27 @@ def AttributeConstructor_Specific(json_data: dict, attribute_type: str) -> list:
     return specific_attributes
 
 
-def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str) -> list:
+def HyperLinkListConstructor(links_list: list):
     indexed_list_of_links = []
-    soup: BeautifulSoup = GetMeTheSoup(*json_dict["url"])
-
-    list_of_links = soup.select(f'a[href^="{base_address}"]')
-    for index, link in enumerate(list_of_links):
+    for index, link in enumerate(links_list):
         indexed_list_of_links.append({index: link['href']})
     return indexed_list_of_links
+
+
+def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str = None) -> list:
+    soup: BeautifulSoup = GetMeTheSoup(*json_dict["url"])
+    if base_address is not None:
+        links_list = soup.select(f'a[href^="{base_address}"]')
+        return HyperLinkListConstructor(links_list)
+    else:
+        links_list = soup.select('a[href]')
+        return HyperLinkListConstructor(links_list)
+
+
+def GetConfigByElementNameValue(json_dict: dict, element_name: str):
+    for config in json_dict["parser_config"]:
+        if element_name in config.values():
+            return config
 
 
 #############################---Functions above need to be tested---#############################
@@ -93,8 +106,8 @@ def main() -> None:
     #print(*test3, sep="\n")
 
     test = AttributeConstructor_All(json_data)
-    test2 = AttributeConstructor_Specific(json_data, 'class')
-    # print(test2)
+    test2 = AttributeConstructor_Specific(json_data, 'string')
+    print(test2)
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"

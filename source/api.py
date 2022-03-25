@@ -4,8 +4,8 @@ from fastapi import FastAPI
 from starlette.responses import FileResponse
 from TEST_app import ExtractHyperLinksWithBaseAddress
 from api_model import RequestInputModel
+from TEST_app import GetConfigByElementNameValue
 from utilities.api_utilities import UseConfig
-from utilities.general_utilities import GetMeTheSoup
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -48,7 +48,8 @@ async def load_js():
 async def extractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
     # base_address is for testing purposes
-    base_address = "https://realpython.github.io/"
+    config_dict = GetConfigByElementNameValue(json_dict, "links")
+    base_address = config_dict["base_address"]
     hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
     return hyper_links
 

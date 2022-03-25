@@ -14,7 +14,8 @@
         {
             "element_name": "links",
             "type": "string",
-            "attributes": ["Apply"]
+            "attributes": ["href"],
+            "base_address": "https://realpython.github.io/"
         }
     ]
 }
