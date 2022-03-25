@@ -43,15 +43,16 @@ def AttributeConstructor_All(json_data: dict) -> list:
     return attributes
 
 
-def AttributeConstructor_Specific(json_data: dict, attribute: str) -> list:
+def AttributeConstructor_Specific(json_data: dict, attribute_type: str) -> list:
     # Need to test more and refine....
     specific_attributes = []
     config_data = json_data['parser-config']
     for i in range(len(config_data)):
-        if config_data[i]['target-attribute-type'] == attribute:
-            print({attribute: config_data[i]['target-attributes']})
-        else:
-            print(f"The attribute: {attribute}, is not valid")
+        for target in config_data[i]['target-attributes']:
+            target_type = config_data[i]['target-attribute-type']
+            if target_type == attribute_type:
+                specific_attributes.append({target_type: target})
+    return specific_attributes
 
 
 def ExtractHyperLinksWithBaseAddress(soup: BeautifulSoup, base_address: str) -> list:
@@ -79,7 +80,7 @@ def main() -> None:
             json.dump(response, f, indent=8, ensure_ascii=False)
         print("Created Json File")
 
-    SaveAsJson(test3, "page_links")
+    #SaveAsJson(test3, "page_links")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
 
@@ -88,7 +89,8 @@ def main() -> None:
     json_data = GetDataFromJson(json_file_path)
 
     test = AttributeConstructor_All(json_data)
-    #test2 = AttributeConstructor_Specific(json_data, 'wrong')
+    test2 = AttributeConstructor_Specific(json_data, 'class')
+    print(test2)
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"
