@@ -4,6 +4,8 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
+from TEST_app import AttributeConstructor_Specific, GetDataFromJson
+
 
 @dataclass
 class StaticParser():
@@ -84,9 +86,12 @@ class StaticParser():
 
 
 def main() -> None:
-    attributes = [{"class": "title is-5"},
-                  {"class": "company"},
-                  {"class": "location"}]
+
+    json_file_path = 'source/parser_request.json'
+
+    json_data = GetDataFromJson(json_file_path)
+
+    attributes = AttributeConstructor_Specific(json_data, 'class')
 
     url = "https://realpython.github.io/fake-jobs/"
 

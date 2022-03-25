@@ -9,7 +9,7 @@
         {
             "element-name": "jobs",
             "target-attribute-type": "class",
-            "target-attributes": ["title", "company", "location"]
+            "target-attributes": ["title is-5", "company", "location"]
         },
         {
             "element-name": "links",
