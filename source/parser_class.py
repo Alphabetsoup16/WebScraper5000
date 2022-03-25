@@ -124,6 +124,8 @@ def main() -> None:
     # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
     # TODO: Handle duplicate attributes, on_duplicate_attribute='replace' or 'ignore' or function
 
+    # TODO: Currently using JSON file for testing, need to use request to test JSON to dict conversion
+
 
 if __name__ == "__main__":
     main()
