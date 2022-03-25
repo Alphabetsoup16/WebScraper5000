@@ -47,6 +47,7 @@ async def load_js():
 @app.post("/scrape-links/")
 async def ExtractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
+    # Need to make this function more generic, remove "links"
     config_dict = GetConfigByElementNameValue(json_dict, "links")
     base_address = config_dict["base_address"]
     hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
