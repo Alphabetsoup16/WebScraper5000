@@ -61,18 +61,13 @@ async def ExtractClassElements(request: RequestInputModel):
 
     class_attributes = AttributeConstructor_Specific(json_dict, "class")
 
-    url = json_dict['url']
     # The idea with this is we will eventually only need to pass the config into Static parser
     # We wont need any of these function calls soon and the class will handle all of this
-    target_class_data = StaticParser(url=url, attributes=class_attributes)
+    # UPDATE: I got it down to 1 function call
+    class_data = StaticParser(
+        config=json_dict, attributes=class_attributes)
 
-    element_list = target_class_data.GetElementByAttribute()
-
-    element_dicts = target_class_data.ElementBuilder(element_list)
-
-    grouped_results = target_class_data.ResultElementGrouper(element_dicts)
-
-    results = target_class_data.ResultHandler(grouped_results)
+    results = class_data.ResultHandler()
 
     return results
 

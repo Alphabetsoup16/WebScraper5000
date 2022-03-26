@@ -3,21 +3,19 @@ from dataclasses import dataclass, field
 import requests
 import json
 from bs4 import BeautifulSoup
-
 from TEST_app import AttributeConstructor_Specific, GetDataFromJson
 
 
 @dataclass
 class StaticParser():
-    # This is for testing purposes
-    url: str
+    config: dict
     attributes: list[dict]
     elements: list[str] = field(default_factory=list)
 
     def GetMeTheSoup(self):
         """Gets html content from url"""
         try:
-            page = requests.get(self.url)
+            page = requests.get(self.config['url'])
         except Exception as e:
             print(f"Request for html was unsuccessful, error: {e}")
 
@@ -42,8 +40,9 @@ class StaticParser():
             all_specific_elements.append(specific_element)
         return all_specific_elements
 
-    def ElementBuilder(self, element_lists) -> list:
+    def ElementBuilder(self):
         """Creates initial objects for each attribute"""
+        element_lists = self.GetElementByAttribute()
         if len(element_lists) <= 1:
             return print("list of elements is either empty or only contains 1 element")
 
@@ -61,15 +60,20 @@ class StaticParser():
                     target_List.append(target_elements)
             return target_List
 
-    def ResultElementGrouper(self, extracted_result: list) -> list:
+    def ResultElementGrouper(self) -> list:
+        extracted_result = self.ElementBuilder()
         """Creates groups of results by Id"""
-        result_groups = defaultdict(list)
-        for result in extracted_result:
-            result_groups[result['Id']].append(result)
-        return result_groups
+        if len(self.attributes) <= 1:
+            return extracted_result
+        else:
+            result_groups = defaultdict(list)
+            for result in extracted_result:
+                result_groups[result['Id']].append(result)
+            return result_groups
 
-    def ResultHandler(self, grouped_results: list) -> list:
+    def ResultHandler(self) -> list:
         """Creates completed JSON object from target attributes"""
+        grouped_results = self.ResultElementGrouper()
         results_combined = []
         for result_value in grouped_results.values():
             result_object = {}
@@ -78,11 +82,11 @@ class StaticParser():
             results_combined.append(result_object)
         return results_combined
 
-    @classmethod
-    def JsonToObject(cls, json_request):
-        '''Converts json to object dictionary'''
-        json_dict = json.loads(json_request)
-        return cls(**json_dict)
+    # @classmethod
+    # def JsonToObject(cls, json_request):
+    #     '''Converts json to object dictionary'''
+    #     json_dict = json.loads(json_request)
+    #     return cls(**json_dict)
 
 
 def main() -> None:
@@ -93,17 +97,9 @@ def main() -> None:
 
     attributes = AttributeConstructor_Specific(json_data, 'class')
 
-    url = "https://realpython.github.io/fake-jobs/"
+    static_site = StaticParser(config=json_data, attributes=attributes)
 
-    static_site = StaticParser(url=url, attributes=attributes)
-
-    element_list = static_site.GetElementByAttribute()
-
-    element_dicts = static_site.ElementBuilder(element_list)
-
-    grouped_results = static_site.ResultElementGrouper(element_dicts)
-
-    results = static_site.ResultHandler(grouped_results)
+    results = static_site.ResultHandler()
 
     print(*results, sep="\n")
 
