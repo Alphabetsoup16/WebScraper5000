@@ -10,7 +10,7 @@ class StaticParser():
     config: dict
     attributes: list[dict]
     #elements: list[str] = field(default_factory=list)
-    all_attributes: list[str] = field(default_factory=list)
+    #all_attributes: list[str] = field(default_factory=list)
 
     def GetMeTheSoup(self):
         """Gets html content from url"""
@@ -23,13 +23,13 @@ class StaticParser():
 
     def AttributeHandler(self):
         """Extracts target attribute names"""
-        #all_attributes = []
+        all_attributes = []
         if len(self.attributes) == 0:
             return "Attribute list is empty."
 
         for dict in self.attributes:
-            self.all_attributes.append("".join(dict.values()))
-        return self.all_attributes
+            all_attributes.append("".join(dict.values()))
+        return all_attributes
 
     def GetElementByAttribute(self) -> list:
         """Gets all html elements from list of target attributes"""
