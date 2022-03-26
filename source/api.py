@@ -60,12 +60,11 @@ async def ExtractClassElements(request: RequestInputModel):
     json_dict = request.dict()
 
     class_attributes = AttributeConstructor_Specific(json_dict, "class")
-    # Need to get url from config list, otherwise this is working well
-    url = "https://realpython.github.io/fake-jobs/"
+
+    url = json_dict['url']
     # The idea with this is we will eventually only need to pass the config into Static parser
     # We wont need any of these function calls soon and the class will handle all of this
-    target_class_data = StaticParser(
-        url=url, attributes=class_attributes)
+    target_class_data = StaticParser(url=url, attributes=class_attributes)
 
     element_list = target_class_data.GetElementByAttribute()
 

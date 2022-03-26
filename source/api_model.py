@@ -10,5 +10,5 @@ class RequestConfiguration(BaseModel):
 
 
 class RequestInputModel(BaseModel):
-    url: list[HttpUrl]
+    url: HttpUrl
     parser_config: list[RequestConfiguration]

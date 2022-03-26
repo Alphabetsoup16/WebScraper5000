@@ -1,9 +1,7 @@
 {
     "webscrape_name": "Fake Python Jobs",
 
-    "url": [
-        "https://realpython.github.io/fake-jobs/"
-    ],
+    "url": "https://realpython.github.io/fake-jobs/",
 
     "parser_config": [
         {
