@@ -64,12 +64,9 @@ async def ExtractClassElements(request: RequestInputModel):
     # The idea with this is we will eventually only need to pass the config into Static parser
     # We wont need any of these function calls soon and the class will handle all of this
     # UPDATE: I got it down to 1 function call
-    class_data = StaticParser(
-        config=json_dict, attributes=class_attributes)
+    class_data = StaticParser(config=json_dict, attributes=class_attributes)
 
-    results = class_data.ResultHandler()
-
-    return results
+    return class_data.ResultHandler()
 
 
 if __name__ == '__main__':
