@@ -1,7 +1,6 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
-import json
 from bs4 import BeautifulSoup
 from TEST_app import AttributeConstructor_Specific, GetDataFromJson
 
@@ -118,9 +117,7 @@ def main() -> None:
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
     # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
-    # TODO: Handle duplicate attributes, on_duplicate_attribute='replace' or 'ignore' or function
-
-    # TODO: Currently using JSON file for testing, need to use request to test JSON to dict conversion
+    # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
 
 
 if __name__ == "__main__":
