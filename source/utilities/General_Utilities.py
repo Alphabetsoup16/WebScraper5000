@@ -16,5 +16,7 @@ def SaveAsJson(response, title: str):
 
 def GetHeaderInfo(soup: BeautifulSoup):
     print(f"The header contains: {len(soup.head.contents)} elements")
+    tag_list = []
     for tag in soup.head.contents:
-        print(tag)
+        tag_list.append(tag)
+    return tag_list

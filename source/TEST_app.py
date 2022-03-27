@@ -1,7 +1,7 @@
 import json
 import re
 from bs4 import BeautifulSoup
-from utilities.general_utilities import GetMeTheSoup, SaveAsJson
+from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 URL = "https://realpython.github.io/fake-jobs/"
@@ -86,6 +86,8 @@ def main() -> None:
 
     soup = GetMeTheSoup(url=URL)
 
+    test4 = GetHeaderInfo(soup)
+    print(*test4)
     #SaveAsJson(test3, "page_links")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
@@ -101,7 +103,7 @@ def main() -> None:
 
     test = AttributeConstructor_All(json_data)
     test2 = AttributeConstructor_Specific(json_data, 'string')
-    print(test2)
+    # print(test2)
 
     # Need to test out RegexByString more. Simplfied process to make more efficient.
     class_string = "title"

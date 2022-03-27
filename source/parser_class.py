@@ -44,7 +44,7 @@ class StaticParser():
         """Creates initial objects for each attribute"""
         element_lists = self.GetElementByAttribute()
         if element_lists == None or len(element_lists) < 1:
-            return print("list of elements is either empty or only contains no elements")
+            return print("list of elements is either empty or contains no elements")
 
         else:
             all_attributes = self.AttributeHandler()
