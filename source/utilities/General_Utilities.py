@@ -9,7 +9,7 @@ def GetMeTheSoup(url):
 
 
 def SaveAsJson(response, title: str):
-    with open(f'scraped-{title}.json', 'w', encoding='latin-1') as f:
+    with open(f'scraped_{title}.json', mode='w', encoding='latin-1') as f:
         json.dump(response, f, indent=8, ensure_ascii=False)
     print("Created Json File")
 

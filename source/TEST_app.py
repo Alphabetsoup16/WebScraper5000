@@ -1,7 +1,7 @@
 import json
 import re
 from bs4 import BeautifulSoup
-from utilities.general_utilities import GetMeTheSoup
+from utilities.general_utilities import GetMeTheSoup, SaveAsJson
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
 URL = "https://realpython.github.io/fake-jobs/"
@@ -84,14 +84,7 @@ def GetConfigByElementNameValue(json_dict: dict, element_name: str):
 
 def main() -> None:
 
-    soup = GetMeTheSoup(url="https://realpython.github.io/fake-jobs/")
-
-    base_address = "https://realpython.github.io/"
-
-    def SaveAsJson(response, title: str):
-        with open(f'scraped_{title}.json', mode='w', encoding='latin-1') as f:
-            json.dump(response, f, indent=8, ensure_ascii=False)
-        print("Created Json File")
+    soup = GetMeTheSoup(url=URL)
 
     #SaveAsJson(test3, "page_links")
 
@@ -100,7 +93,8 @@ def main() -> None:
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
-    # print(json_data)
+
+    base_address = "https://realpython.github.io/"
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     #print(*test3, sep="\n")
