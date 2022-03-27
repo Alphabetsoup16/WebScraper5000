@@ -12,14 +12,13 @@ class StaticParser():
     #elements: list[str] = field(default_factory=list)
     #all_attributes: list[str] = field(default_factory=list)
 
-    def GetMeTheSoup(self):
+    def GetMeTheSoup(self) -> BeautifulSoup:
         """Gets html content from url"""
         try:
             page = requests.get(self.config['url'])
+            return BeautifulSoup(page.content, "html.parser")
         except Exception as e:
             print(f"Request for html was unsuccessful, error: {e}")
-
-        return BeautifulSoup(page.content, "html.parser")
 
     def AttributeHandler(self):
         """Extracts target attribute names"""
@@ -34,20 +33,21 @@ class StaticParser():
     def GetElementByAttribute(self) -> list:
         """Gets all html elements from list of target attributes"""
         soup = self.GetMeTheSoup()
-        all_specific_elements = []
-        for dict in self.attributes:
-            specific_element = soup.find_all(attrs=dict)
-            all_specific_elements.append(specific_element)
-        return all_specific_elements
+        if soup is not None:
+            all_specific_elements = []
+            for dict in self.attributes:
+                specific_element = soup.find_all(attrs=dict)
+                all_specific_elements.append(specific_element)
+            return all_specific_elements
 
     def ElementBuilder(self):
         """Creates initial objects for each attribute"""
         element_lists = self.GetElementByAttribute()
-        if len(element_lists) < 1 or element_lists == None:
+        if element_lists == None or len(element_lists) < 1:
             return print("list of elements is either empty or only contains no elements")
 
         else:
-            all_attributes = self.all_attributes
+            all_attributes = self.AttributeHandler()
             target_elements = {}
             target_List = []
 
@@ -65,6 +65,9 @@ class StaticParser():
         """Creates groups of results by Id"""
         if len(self.attributes) <= 1:
             return extracted_result
+
+        if extracted_result is None:
+            return
         else:
             result_groups = defaultdict(list)
             for result in extracted_result:
@@ -74,13 +77,14 @@ class StaticParser():
     def ResultHandler(self) -> list:
         """Creates completed JSON object from target attributes"""
         grouped_results = self.ResultElementGrouper()
-        results_combined = []
-        for result_value in grouped_results.values():
-            result_object = {}
-            for value in result_value:
-                result_object |= value
-            results_combined.append(result_object)
-        return results_combined
+        if grouped_results is not None:
+            results_combined = []
+            for result_value in grouped_results.values():
+                result_object = {}
+                for value in result_value:
+                    result_object |= value
+                results_combined.append(result_object)
+            return results_combined
 
     # @classmethod
     # def JsonToObject(cls, json_request):
