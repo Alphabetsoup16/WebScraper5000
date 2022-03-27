@@ -43,8 +43,8 @@ class StaticParser():
     def ElementBuilder(self):
         """Creates initial objects for each attribute"""
         element_lists = self.GetElementByAttribute()
-        if len(element_lists) <= 1:
-            return print("list of elements is either empty or only contains 1 element")
+        if len(element_lists) < 1 or element_lists == None:
+            return print("list of elements is either empty or only contains no elements")
 
         else:
             all_attributes = self.all_attributes
