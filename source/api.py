@@ -59,7 +59,7 @@ async def ExtractHyperLinks(request: RequestInputModel):
 async def ExtractClassElements(request: RequestInputModel):
     json_dict = request.dict()
 
-    class_attributes = AttributeConstructor_Specific(json_dict, "class")
+    class_attributes = AttributeConstructor_Specific(json_dict, "string")
 
     # The idea with this is we will eventually only need to pass the config into Static parser
     # We wont need any of these function calls soon and the class will handle all of this

@@ -75,7 +75,7 @@ class StaticParser():
     def ResultHandler(self) -> list:
         """Creates completed JSON object from target attributes"""
         grouped_results = self.ResultElementGrouper()
-        if grouped_results is not None:
+        if grouped_results is not None and len(grouped_results) > 0:
             results_combined = []
             for result_value in grouped_results.values():
                 result_object = {}
