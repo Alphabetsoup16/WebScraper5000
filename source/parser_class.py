@@ -23,8 +23,8 @@ class StaticParser():
     def AttributeHandler(self):
         """Extracts target attribute names"""
         all_attributes = []
-        if len(self.attributes) == 0:
-            return "Attribute list is empty."
+        if self.attributes is None or len(self.attributes) == 0:
+            return "Attribute list is empty or None."
 
         for dict in self.attributes:
             all_attributes.append("".join(dict.values()))
@@ -66,9 +66,7 @@ class StaticParser():
         if len(self.attributes) <= 1:
             return extracted_result
 
-        if extracted_result is None:
-            return
-        else:
+        if extracted_result is not None:
             result_groups = defaultdict(list)
             for result in extracted_result:
                 result_groups[result['Id']].append(result)
