@@ -86,12 +86,6 @@ class StaticParser():
         else:
             return ["Ultra Generic Error"]
 
-    # @classmethod
-    # def JsonToObject(cls, json_request):
-    #     '''Converts json to object dictionary'''
-    #     json_dict = json.loads(json_request)
-    #     return cls(**json_dict)
-
 
 def main() -> None:
 
@@ -108,8 +102,6 @@ def main() -> None:
 
     print(*results, sep="\n")
 
-    #parser_json = StaticParser.JsonToObject()
-
     # We can most definitely simplify these functions and or
     # break them up into smaller pieces and create sub or separate classes
 
@@ -122,7 +114,6 @@ def main() -> None:
     # TODO: find_all with regex function? find_all(string=re.compile("example"))
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
-    # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
     # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
 
 
