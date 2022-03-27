@@ -8,7 +8,7 @@ def GetMeTheSoup(url):
     return BeautifulSoup(page.content, "html.parser")
 
 
-def SaveAsJson(response, title):
+def SaveAsJson(response, title: str):
     with open(f'scraped-{title}.json', 'w', encoding='latin-1') as f:
         json.dump(response, f, indent=8, ensure_ascii=False)
     print("Created Json File")

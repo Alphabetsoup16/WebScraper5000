@@ -1,33 +1,30 @@
 from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
-import json
 from bs4 import BeautifulSoup
+from TEST_app import AttributeConstructor_Specific, GetDataFromJson
 
 
 @dataclass
 class StaticParser():
-    # This is for testing purposes
-    url: str
+    config: dict
     attributes: list[dict]
-    method: str = ""
-    nested: bool = False
-    elements: list[str] = field(default_factory=list)
+    #elements: list[str] = field(default_factory=list)
+    #all_attributes: list[str] = field(default_factory=list)
 
-    def GetMeTheSoup(self):
+    def GetMeTheSoup(self) -> BeautifulSoup:
         """Gets html content from url"""
         try:
-            page = requests.get(self.url)
+            page = requests.get(self.config['url'])
+            return BeautifulSoup(page.content, "html.parser")
         except Exception as e:
             print(f"Request for html was unsuccessful, error: {e}")
 
-        return BeautifulSoup(page.content, "html.parser")
-
-    def AttributeHandler(self) -> list:
+    def AttributeHandler(self):
         """Extracts target attribute names"""
         all_attributes = []
-        if len(self.attributes) == 0:
-            return "Attribute list is empty."
+        if self.attributes is None or len(self.attributes) == 0:
+            return "Attribute list is empty or None."
 
         for dict in self.attributes:
             all_attributes.append("".join(dict.values()))
@@ -36,16 +33,18 @@ class StaticParser():
     def GetElementByAttribute(self) -> list:
         """Gets all html elements from list of target attributes"""
         soup = self.GetMeTheSoup()
-        all_specific_elements = []
-        for dict in self.attributes:
-            specific_element = soup.find_all(attrs=dict)
-            all_specific_elements.append(specific_element)
-        return all_specific_elements
+        if soup is not None:
+            all_specific_elements = []
+            for dict in self.attributes:
+                specific_element = soup.find_all(attrs=dict)
+                all_specific_elements.append(specific_element)
+            return all_specific_elements
 
-    def ElementBuilder(self, element_lists) -> list:
+    def ElementBuilder(self):
         """Creates initial objects for each attribute"""
-        if len(element_lists) <= 1:
-            return print("list of elements is either empty or only contains 1 element")
+        element_lists = self.GetElementByAttribute()
+        if element_lists == None or len(element_lists) < 1:
+            return print("list of elements is either empty or only contains no elements")
 
         else:
             all_attributes = self.AttributeHandler()
@@ -61,60 +60,47 @@ class StaticParser():
                     target_List.append(target_elements)
             return target_List
 
-    def ResultElementGrouper(self, extracted_result: list) -> list:
+    def ResultElementGrouper(self) -> list:
+        extracted_result = self.ElementBuilder()
         """Creates groups of results by Id"""
-        result_groups = defaultdict(list)
-        for result in extracted_result:
-            result_groups[result['Id']].append(result)
-        return result_groups
+        if len(self.attributes) <= 1:
+            return extracted_result
 
-    def ResultHandler(self, grouped_results: list) -> list:
+        if extracted_result is not None:
+            result_groups = defaultdict(list)
+            for result in extracted_result:
+                result_groups[result['Id']].append(result)
+            return result_groups
+
+    def ResultHandler(self) -> list:
         """Creates completed JSON object from target attributes"""
-        results_combined = []
-        for result_value in grouped_results.values():
-            result_object = {}
-            for value in result_value:
-                result_object |= value
-            results_combined.append(result_object)
-        return results_combined
-
-    @classmethod
-    def JsonToObject(cls, json_string):
-        '''Converts json to object dictionary'''
-        json_dict = json.loads(json_string)
-        return cls(**json_dict)
-
-
-def MultipleJsonToObject(file_name: str) -> list:
-    # Probably don't need this... depends on JSON set up
-    json_list = []
-    with open(file=file_name, mode='r') as json_file:
-        json_data = json.loads(json_file.read())
-        for data in json_data:
-            json_list.append(StaticParser(**data))
-    return json_list
+        grouped_results = self.ResultElementGrouper()
+        if grouped_results is not None and len(grouped_results) > 0:
+            results_combined = []
+            for result_value in grouped_results.values():
+                result_object = {}
+                for value in result_value:
+                    result_object |= value
+                results_combined.append(result_object)
+            return results_combined
+        else:
+            return ["Ultra Generic Error"]
 
 
 def main() -> None:
-    attributes = [{"class": "title is-5"},
-                  {"class": "company"},
-                  {"class": "location"}]
 
-    url = "https://realpython.github.io/fake-jobs/"
+    ###### These are for testing parser_class ######
+    json_file_path = 'source/parser_request.json'
 
-    static_site = StaticParser(url=url, attributes=attributes)
+    json_data = GetDataFromJson(json_file_path)
 
-    element_list = static_site.GetElementByAttribute()
+    attributes = AttributeConstructor_Specific(json_data, 'class')
 
-    element_dicts = static_site.ElementBuilder(element_list)
+    static_site = StaticParser(config=json_data, attributes=attributes)
 
-    grouped_results = static_site.ResultElementGrouper(element_dicts)
-
-    results = static_site.ResultHandler(grouped_results)
+    results = static_site.ResultHandler()
 
     print(*results, sep="\n")
-
-    #parser_json = StaticParser.JsonToObject()
 
     # We can most definitely simplify these functions and or
     # break them up into smaller pieces and create sub or separate classes
@@ -128,7 +114,7 @@ def main() -> None:
     # TODO: find_all with regex function? find_all(string=re.compile("example"))
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
-    # TODO: Need to test GetMeTheSoup with a bad url and make sure other methods can handle error
+    # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
 
 
 if __name__ == "__main__":

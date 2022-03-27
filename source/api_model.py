@@ -1,14 +1,14 @@
+from typing import Optional
 from pydantic import BaseModel, HttpUrl
 
 
 class RequestConfiguration(BaseModel):
-    name: str
-    method: str
-    arguments: list[str]
-    attributes: list[dict]
+    element_name: str
+    type: str
+    attributes: list[str]
+    base_address: Optional[str] = None
 
 
 class RequestInputModel(BaseModel):
-    url: HttpUrl  # can also just make string
-    title: str
-    config: RequestConfiguration
+    url: HttpUrl
+    parser_config: list[RequestConfiguration]
