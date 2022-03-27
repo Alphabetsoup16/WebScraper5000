@@ -48,7 +48,6 @@ async def load_js():
 @app.post("/scrape-links/")
 async def ExtractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
-    # Need to make this function more generic, remove "links"
     config_dict = GetConfigByElementNameValue(json_dict, "links")
     base_address = config_dict["base_address"]
     hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
@@ -59,11 +58,9 @@ async def ExtractHyperLinks(request: RequestInputModel):
 async def ExtractClassElements(request: RequestInputModel):
     json_dict = request.dict()
 
-    class_attributes = AttributeConstructor_Specific(json_dict, "string")
+    class_attributes = AttributeConstructor_Specific(json_dict, "class")
 
-    # The idea with this is we will eventually only need to pass the config into Static parser
-    # We wont need any of these function calls soon and the class will handle all of this
-    # UPDATE: I got it down to 1 function call
+    # TODO: The idea with this is we will eventually only need to pass the config into Static parser
     class_data = StaticParser(config=json_dict, attributes=class_attributes)
 
     return class_data.ResultHandler()
