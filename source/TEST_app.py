@@ -64,7 +64,7 @@ def HyperLinkListConstructor(links_list: list):
 
 
 def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str = None) -> list:
-    soup: BeautifulSoup = GetMeTheSoup(*json_dict["url"])
+    soup: BeautifulSoup = GetMeTheSoup(json_dict["url"])
     if base_address is not None:
         links_list = soup.select(f'a[href^="{base_address}"]')
         return HyperLinkListConstructor(links_list)

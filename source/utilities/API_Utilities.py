@@ -1,6 +1,3 @@
-from fastapi import Response
-import requests
-import json
 from bs4 import BeautifulSoup
 
 # Made previous function modular and reusable for grabbing data from a list of card like html els that can be expected to have the same structure
