@@ -85,6 +85,8 @@ class StaticParser():
                     result_object |= value
                 results_combined.append(result_object)
             return results_combined
+        else:
+            return ["Error"]
 
     # @classmethod
     # def JsonToObject(cls, json_request):
