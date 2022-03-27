@@ -84,7 +84,7 @@ class StaticParser():
                 results_combined.append(result_object)
             return results_combined
         else:
-            return ["Error"]
+            return ["Ultra Generic Error"]
 
     # @classmethod
     # def JsonToObject(cls, json_request):
