@@ -87,7 +87,7 @@ def main() -> None:
     soup = GetMeTheSoup(url=URL)
 
     test4 = GetHeaderInfo(soup)
-    print(*test4.)
+    print(*test4)
     #SaveAsJson(test3, "page_links")
 
     attributes = [{"class": "title is-5"}, {"class": "location"}]
