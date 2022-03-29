@@ -7,8 +7,15 @@
         {
             "element_name": "jobs",
             "type": "class",
-            "attributes": ["subtitle is-3","title is-5", "company", "location"]
+            "attributes": ["title is-5", "company", "location"]
         },
+
+        {
+            "element_name": "page-details",
+            "type":"class",
+            "attributes":["subtitle is-3", "title is-1"]
+        },
+
         {
             "element_name": "links",
             "type": "string",
