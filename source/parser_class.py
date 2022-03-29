@@ -101,9 +101,6 @@ def main() -> None:
 
     print(*results, sep="\n")
 
-    # We can most definitely simplify these functions and or
-    # break them up into smaller pieces and create sub or separate classes
-
     # TODO: Need to slim down ElementBuilder method... and result handler...
     # TODO: finalize request output model, decide if parameters are optional
 
