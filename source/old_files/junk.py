@@ -107,3 +107,13 @@ def JsonToObject(cls, json_string):
     '''Converts json to object dictionary'''
     json_dict = json.loads(json_string)
     return cls(**json_dict)
+
+
+# API methods:
+# @app.post(f"{api_url}/scrape")
+# async def get_config(request: Request):
+#     config = await request.json()
+#     soup = GetMeTheSoup(config["url"])
+#     response = {}
+#     UseConfig(soup, config, response)
+#     return response

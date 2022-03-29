@@ -1,6 +1,7 @@
 import json
 import re
 from bs4 import BeautifulSoup
+from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress
 from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
 
 # fake static job site for testing: https://realpython.github.io/fake-jobs/
@@ -25,60 +26,6 @@ def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
 def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
     return soup.find_all(string=re.compile(string))
 
-
-def GetDataFromJson(file_path: str):
-    # testing opening json file to read and then create object with it
-    with open(file=file_path, mode='r') as config:
-        data = json.load(config)
-    return data
-
-
-def AttributeConstructor_All(json_data: dict) -> list:
-    # Need to make this more efficient....
-    attributes = []
-    config_data = json_data['parser_config']
-    for i in range(len(config_data)):
-        for target in config_data[i]['attributes']:
-            target_type = config_data[i]['type']
-            attributes.append({target_type: target})
-    return attributes
-
-
-def AttributeConstructor_Specific(json_data: dict, attribute_type: str) -> list:
-    # Need to test more and refine....
-    specific_attributes = []
-    config_data = json_data['parser_config']
-    for i in range(len(config_data)):
-        for target in config_data[i]['attributes']:
-            target_type = config_data[i]['type']
-            if target_type == attribute_type:
-                specific_attributes.append({target_type: target})
-    return specific_attributes
-
-
-def HyperLinkListConstructor(links_list: list):
-    indexed_list_of_links = []
-    for index, link in enumerate(links_list):
-        indexed_list_of_links.append({index: link['href']})
-    return indexed_list_of_links
-
-
-def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str = None) -> list:
-    soup: BeautifulSoup = GetMeTheSoup(json_dict["url"])
-    if base_address is not None:
-        links_list = soup.select(f'a[href^="{base_address}"]')
-        return HyperLinkListConstructor(links_list)
-    else:
-        links_list = soup.select('a[href]')
-        return HyperLinkListConstructor(links_list)
-
-
-def GetConfigByElementNameValue(json_dict: dict, element_name: str):
-    for config in json_dict["parser_config"]:
-        if element_name in config.values():
-            return config
-
-
 #############################---Functions above need to be tested---#############################
 
 
@@ -92,7 +39,12 @@ def main() -> None:
     #     print(header.name, header.get_text())
     #SaveAsJson(test3, "page_links")
 
-    attributes = [{"class": "title is-5"}, {"class": "location"}]
+    attributes = [{"class": "title is-5"},
+                  {"class": "location"},
+                  {"class": "company"}]
+
+    test_attrs = {"jobs": {"class": "title is-5", "class": "location", "class": "company"},
+                  "page-details": {"class": "subtitle is-3", "class": "title is-1"}}
 
     json_file_path = 'source/parser_request.json'
 
