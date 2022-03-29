@@ -46,19 +46,18 @@ class StaticParser():
         if element_lists == None or len(element_lists) < 1:
             return print("list of elements is either empty or contains no elements")
 
-        else:
-            all_attributes = self.AttributeHandler()
-            target_elements = {}
-            target_List = []
+        all_attributes = self.AttributeHandler()
+        target_elements = {}
+        target_List = []
 
-            for list_count in range(len(element_lists)):
-                for index, target in enumerate(element_lists[list_count]):
-                    target_elements = {
-                        "Id": index,
-                        all_attributes[list_count]: target.get_text().strip()
-                    }
-                    target_List.append(target_elements)
-            return target_List
+        for list_count in range(len(element_lists)):
+            for index, target in enumerate(element_lists[list_count]):
+                target_elements = {
+                    "Id": index,
+                    all_attributes[list_count]: target.get_text().strip()
+                }
+                target_List.append(target_elements)
+        return target_List
 
     def ResultElementGrouper(self) -> list:
         extracted_result = self.ElementBuilder()
