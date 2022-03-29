@@ -1,15 +1,13 @@
-import json
 import re
 from bs4 import BeautifulSoup
-from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress
+from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetDataFromJson
 from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
 
-# fake static job site for testing: https://realpython.github.io/fake-jobs/
+# fake static job site for testing
 URL = "https://realpython.github.io/fake-jobs/"
 
 
 def GetTextFromSoupContent(content: list):
-    # Probably don't need to do this and can just use 1 for loop
     for result_set in content:
         for element in result_set:
             print(element.get_text().strip(), sep="\n")
