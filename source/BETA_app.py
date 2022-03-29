@@ -11,7 +11,6 @@ def GetDataFromJson(file_path: str):
 
 
 def AttributeConstructor_All(json_data: dict) -> list:
-    # Need to make this more efficient....
     attributes = []
     config_data = json_data['parser_config']
     for i in range(len(config_data)):

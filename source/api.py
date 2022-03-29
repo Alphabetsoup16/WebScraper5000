@@ -47,12 +47,10 @@ async def ExtractHyperLinks(request: RequestInputModel):
 @app.post("/scrape-classes/")
 async def ExtractClassElements(request: RequestInputModel):
     json_dict = request.dict()
-
     class_attributes = AttributeConstructor_Specific(json_dict, "class")
 
     # TODO: The idea with this is we will eventually only need to pass the config into Static parser
     class_data = StaticParser(config=json_dict, attributes=class_attributes)
-
     return class_data.ResultHandler()
 
 
