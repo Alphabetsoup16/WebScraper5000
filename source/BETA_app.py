@@ -2,8 +2,9 @@ import json
 from bs4 import BeautifulSoup
 from utilities.general_utilities import GetMeTheSoup
 
-
 # File for functions outside of testing but still not finalized...
+
+
 def GetDataFromJson(file_path: str):
     """Decodes JSON from file"""
     with open(file=file_path, mode='r') as config:

@@ -8,3 +8,4 @@
 - The `BETA_app.py` contains all the functions that have passed initial testing but are still in development.  
 - You can run the `api.py` file and navigate to the FastAPI docs at localhost/docs ex:`127.0.0.1:8000/docs` in order to view current API documentation. 
 - The `parser_request.json` is the latest iteration of the general type of request the API will most likely handle. The hope is that the parser_class will be generic enough to handle any combination of request parameters and extract information from any type of website. 
+- You will need to switch the api_url, port, and host in `api.py` to the values in the comments in order to run the uvicorn server locally. We are currently storing them as environment variables for testing. 
