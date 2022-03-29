@@ -60,8 +60,8 @@ class StaticParser():
         return target_List
 
     def ResultElementGrouper(self) -> list:
-        extracted_result = self.ElementBuilder()
         """Creates groups of results by Id"""
+        extracted_result = self.ElementBuilder()
         if len(self.attributes) <= 1:
             return extracted_result
 
