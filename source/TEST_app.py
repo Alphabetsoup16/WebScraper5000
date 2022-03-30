@@ -1,3 +1,4 @@
+from cgi import test
 from distutils.command.config import config
 import re
 from bs4 import BeautifulSoup
@@ -42,16 +43,14 @@ def CheckDuplicateConfigTypes(type_list: list) -> bool:
 
 
 def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> dict:
-    # TODO: Need to keep working on this... almost works
-    specific_attributes = {}
-    config_data = json_data['parser_config']
-    for i in range(len(config_data)):
-        for target in config_data[i]['attributes']:
-            target_type = config_data[i]['type']
-            if target_type == attribute_type:
-                element_name = config_data[i]['element_name']
-                target_dict = {element_name: {target_type: target}}
-                specific_attributes.update(target_dict)
+    specific_attributes = []
+    for config in json_data['parser_config']:
+        target_type = config["type"]
+        if target_type == attribute_type:
+            specific_attributes.append({config["element_name"]: {
+                target_type if i == 1 else f'{target_type}_{i}': attr
+                for i, attr in enumerate(config["attributes"], start=1)}
+            })
     return specific_attributes
 
 
@@ -71,11 +70,11 @@ def main() -> None:
 
     soup = GetMeTheSoup(url=URL)
 
-    #test4 = GetHeaderInfo(soup)
+    # test4 = GetHeaderInfo(soup)
     # print(test4)
     # for header in test4:
     #     print(header.name, header.get_text())
-    #SaveAsJson(test3, "page_links")
+    # SaveAsJson(test3, "page_links")
 
     attributes = [{"class": "title is-5"},
                   {"class": "location"},
@@ -96,7 +95,7 @@ def main() -> None:
     print(test7)
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
-    #print(*test3, sep="\n")
+    # print(*test3, sep="\n")
 
     test = AttributeConstructor_All(json_data)
     test2 = AttributeConstructor_Specific(json_data, 'string')
@@ -113,7 +112,7 @@ def main() -> None:
     # GetTextFromSoupContent([string_elements])
 
     a_string = soup.find(string="Apply")
-    #print(*soup.select("body a"), sep='\n')
+    # print(*soup.select("body a"), sep='\n')
 
     # TODO: Testing nested dictionaries to better understand them
     # This will be used for parser_request for different element_names but same type
