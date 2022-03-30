@@ -80,8 +80,11 @@ def main() -> None:
                   {"class": "location"},
                   {"class": "company"}]
 
-    test_attrs = {"jobs": {"class": "title is-5", "class": "location", "class": "company"},
-                  "page-details": {"class": "subtitle is-3", "class": "title is-1"}}
+    test_attrs1 = {"jobs": {"class": "title is-5", "class": "location", "class": "company"},
+                   "page-details": {"class": "subtitle is-3", "class": "title is-1"}}
+
+    test_attr2 = {"jobs": {"class": ["title is-5", "location", "company"]},
+                  "page-details": {"class": ["subtitle is-3", "title is-1"]}}
 
     json_file_path = 'source/parser_request.json'
 
