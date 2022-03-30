@@ -43,7 +43,7 @@ def HyperLinkListConstructor(links_list: list):
 
 
 def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str = None) -> list:
-    """Extracts hyper links from html"""
+    """Extracts hyper links from parsed html"""
     soup: BeautifulSoup = GetMeTheSoup(json_dict["url"])
     if base_address is not None:
         links_list = soup.select(f'a[href^="{base_address}"]')

@@ -88,7 +88,7 @@ class StaticParser():
 
 def main() -> None:
 
-    ###### These are for testing parser_class ######
+    ###### This is for testing parser_class ######
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)

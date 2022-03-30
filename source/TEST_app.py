@@ -1,3 +1,4 @@
+from distutils.command.config import config
 import re
 from bs4 import BeautifulSoup
 from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetDataFromJson
@@ -24,14 +25,53 @@ def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
 def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
     return soup.find_all(string=re.compile(string))
 
-#############################---Functions above need to be tested---#############################
+
+def GetTypesFromParserConfig(json_data: dict) -> bool:
+    type_list = []
+    config_data = json_data['parser_config']
+    for i in range(len(config_data)):
+        type_list.append(config_data[i]['type'])
+    return CheckDuplicateConfigTypes(type_list)
+
+
+def CheckDuplicateConfigTypes(type_list: list) -> bool:
+    if len(type_list) == len(set(type_list)):
+        return False
+    else:
+        return True
+
+
+def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> dict:
+    # TODO: Need to keep working on this... almost works
+    specific_attributes = {}
+    config_data = json_data['parser_config']
+    for i in range(len(config_data)):
+        for target in config_data[i]['attributes']:
+            target_type = config_data[i]['type']
+            if target_type == attribute_type:
+                element_name = config_data[i]['element_name']
+                target_dict = {element_name: {target_type: target}}
+                specific_attributes.update(target_dict)
+    return specific_attributes
+
+
+def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "default"):
+    is_duplicate = GetTypesFromParserConfig(json_data)
+    if is_duplicate and element_type != "default":
+        return AttributeConstructor_Duplicate(json_data, element_type)
+    elif is_duplicate and element_type == "default":
+        return AttributeConstructor_All(json_data)
+    else:
+        return AttributeConstructor_Specific(json_data, element_type)
+
+    #############################---Functions above need to be tested---#############################
 
 
 def main() -> None:
 
     soup = GetMeTheSoup(url=URL)
 
-    test4 = GetHeaderInfo(soup)
+    #test4 = GetHeaderInfo(soup)
     # print(test4)
     # for header in test4:
     #     print(header.name, header.get_text())
@@ -49,6 +89,11 @@ def main() -> None:
     json_data = GetDataFromJson(json_file_path)
 
     base_address = "https://realpython.github.io/"
+
+    test6 = GetTypesFromParserConfig(json_data)
+    # print(test6)
+    test7 = ConstructAttributesBasedOnConfig(json_data, "class")
+    print(test7)
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     #print(*test3, sep="\n")
@@ -77,11 +122,11 @@ def main() -> None:
     people = {1: {'Name': 'Joann', 'Age': '27', 'Sex': 'Female'},
               2: {'Name': 'Jordan', 'Age': '69', 'Sex': 'Male'}}
 
-    for p_id, p_info in people.items():
-        print("\nPerson ID:", p_id)
+    # for p_id, p_info in people.items():
+    #     print("\nPerson ID:", p_id)
 
-        for key, val in p_info.items():
-            print(key + ':', val)
+    #     for key, val in p_info.items():
+    #         print(key + ':', val)
 
 
 if __name__ == "__main__":
