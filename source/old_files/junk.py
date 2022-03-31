@@ -1,12 +1,11 @@
 import json
 from bs4 import BeautifulSoup
-
 from source.parser_class import StaticParser
 
 ##############################Already tested, these are old junk###################################
 
 
-def AttributeHandler(Attrs: list) -> list:
+def AttributeHandler_OLD(Attrs: list) -> list:
     """Extracts target attribute names"""
     all_attributes = []
     if len(Attrs) == 0:
@@ -17,7 +16,7 @@ def AttributeHandler(Attrs: list) -> list:
     return all_attributes
 
 
-def GetElementByAttribute(soup: BeautifulSoup,  Attrs: list) -> list:
+def GetElementByAttribute_OLD(soup: BeautifulSoup,  Attrs: list) -> list:
     """Gets all html elements from list of target attributes"""
     all_specific_elements = []
     for dict in Attrs:
@@ -41,7 +40,7 @@ def ElementBuilder_OLD(elementLists, all_attributes):
     return targetElements
 
 
-def ElementBuilder(element_lists, all_attributes):
+def ElementBuilder_OLD(element_lists, all_attributes):
     """Creates initial objects for each attribute"""
     # Need to test this one to replace the older one
     target_elements = {}
@@ -71,7 +70,7 @@ def ResultHandler_OLD(extractedResult: list):
     return jsonList
 
 
-def ResultElementGrouper(extracted_result: list) -> list:
+def ResultElementGrouper_OLD(extracted_result: list) -> list:
     """Creates groups of results by ID"""
     result_groups = defaultdict(list)
     for result in extracted_result:
@@ -79,7 +78,7 @@ def ResultElementGrouper(extracted_result: list) -> list:
     return result_groups
 
 
-def ResultHandler(grouped_result: list) -> list:
+def ResultHandler_OLD(grouped_result: list) -> list:
     """Creates completed JSON object from target attributes"""
 
     results_combined = []
@@ -92,7 +91,7 @@ def ResultHandler(grouped_result: list) -> list:
     return results_combined
 
 
-def MultipleJsonToObject(file_name: str) -> list:
+def MultipleJsonToObject_OLD(file_name: str) -> list:
     # Probably don't need this... depends on JSON set up
     json_list = []
     with open(file=file_name, mode='r') as json_file:
@@ -103,11 +102,22 @@ def MultipleJsonToObject(file_name: str) -> list:
 
 
 @classmethod
-def JsonToObject(cls, json_string):
+def JsonToObject_OLD(cls, json_string):
     '''Converts json to object dictionary'''
     json_dict = json.loads(json_string)
     return cls(**json_dict)
 
+
+def AttributeConstructor_Duplicate_OLD(json_data: dict, attribute_type: str) -> list:
+    specific_attributes = []
+    for config in json_data['parser_config']:
+        target_type = config["type"]
+        if target_type == attribute_type:
+            specific_attributes.append({config["element_name"]: {
+                target_type if i == 1 else f'{target_type}_{i}': attr
+                for i, attr in enumerate(config["attributes"], start=1)}
+            })
+    return specific_attributes
 
 # API methods:
 # @app.post(f"{api_url}/scrape")

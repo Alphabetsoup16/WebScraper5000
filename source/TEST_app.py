@@ -40,19 +40,17 @@ def CheckDuplicateConfigTypes(type_list: list) -> bool:
         return True
 
 
-def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> dict:
+def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> list:
     specific_attributes = []
-    for config in json_data['parser_config']:
+    for config in json_data["parser_config"]:
         target_type = config["type"]
         if target_type == attribute_type:
-            specific_attributes.append({config["element_name"]: {
-                target_type if i == 1 else f'{target_type}_{i}': attr
-                for i, attr in enumerate(config["attributes"], start=1)}
-            })
+            specific_attributes.append(
+                {config["element_name"]: {target_type: config["attributes"]}})
     return specific_attributes
 
 
-def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "default"):
+def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "default") -> list:
     is_duplicate = GetTypesFromParserConfig(json_data)
     if is_duplicate and element_type != "default":
         return AttributeConstructor_Duplicate(json_data, element_type)
