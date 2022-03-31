@@ -117,19 +117,6 @@ def main() -> None:
     a_string = soup.find(string="Apply")
     # print(*soup.select("body a"), sep='\n')
 
-    # TODO: Testing nested dictionaries to better understand them
-    # This will be used for parser_request for different element_names but same type
-    # The idea is that the attributeConstructor needs to separate them by element_names into nested dicts
-    # So that the rest of the functions can run the 2 (in this case) separately
-    people = {1: {'Name': 'Joann', 'Age': '27', 'Sex': 'Female'},
-              2: {'Name': 'Jordan', 'Age': '69', 'Sex': 'Male'}}
-
-    # for p_id, p_info in people.items():
-    #     print("\nPerson ID:", p_id)
-
-    #     for key, val in p_info.items():
-    #         print(key + ':', val)
-
 
 if __name__ == "__main__":
     main()
