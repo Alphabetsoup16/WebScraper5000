@@ -91,7 +91,10 @@ def main() -> None:
     test6 = GetTypesFromParserConfig(json_data)
     # print(test6)
     test7 = ConstructAttributesBasedOnConfig(json_data, "class")
-    print(test7)
+
+    for example in test7:
+        for key, val in example.items():
+            print(key, val['class'])
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     # print(*test3, sep="\n")
