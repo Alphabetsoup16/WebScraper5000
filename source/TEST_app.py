@@ -1,5 +1,3 @@
-from cgi import test
-from distutils.command.config import config
 import re
 from bs4 import BeautifulSoup
 from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetDataFromJson
