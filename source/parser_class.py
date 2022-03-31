@@ -23,8 +23,9 @@ class StaticParser():
     def AttributeHandler(self):
         """Extracts target attribute names"""
         all_attributes = []
-        if self.attributes is None or len(self.attributes) == 0:
-            return "Attribute list is empty or None."
+        if self.attributes is None or len(self.attributes) is 0:
+            print("Attribute list is empty or None.")
+            return
 
         for dict in self.attributes:
             all_attributes.append("".join(dict.values()))
@@ -43,12 +44,13 @@ class StaticParser():
     def ElementBuilder(self):
         """Creates initial objects for each attribute"""
         element_lists = self.GetElementByAttribute()
-        if element_lists == None or len(element_lists) < 1:
-            return "list of elements is either empty or contains no elements"
-
         all_attributes = self.AttributeHandler()
-        target_List = []
 
+        if element_lists is None or len(element_lists) < 1 or all_attributes is None:
+            print("list of elements or attributes is empty or None")
+            return
+
+        target_List = []
         for list_count in range(len(element_lists)):
             for index, target in enumerate(element_lists[list_count]):
                 target_List.append({
