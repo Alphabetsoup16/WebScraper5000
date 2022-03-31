@@ -35,7 +35,7 @@ def AttributeConstructor_Specific(json_data: dict, attribute_type: str) -> list:
     return specific_attributes
 
 
-def HyperLinkListConstructor(links_list: list):
+def HyperLinkListConstructor(links_list: list) -> list:
     indexed_list_of_links = []
     for index, link in enumerate(links_list):
         indexed_list_of_links.append({index: link['href']})
