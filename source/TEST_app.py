@@ -70,13 +70,6 @@ def main() -> None:
     #     print(header.name, header.get_text())
     # SaveAsJson(test3, "page_links")
 
-    attributes = [{"class": "title is-5"},
-                  {"class": "location"},
-                  {"class": "company"}]
-
-    test_attrs1 = {"jobs": {"class": "title is-5", "class": "location", "class": "company"},
-                   "page-details": {"class": "subtitle is-3", "class": "title is-1"}}
-
     test_attr2 = {"jobs": {"class": ["title is-5", "location", "company"]},
                   "page-details": {"class": ["subtitle is-3", "title is-1"]}}
 

@@ -127,3 +127,10 @@ def AttributeConstructor_Duplicate_OLD(json_data: dict, attribute_type: str) -> 
 #     response = {}
 #     UseConfig(soup, config, response)
 #     return response
+
+    attributes = [{"class": "title is-5"},
+                  {"class": "location"},
+                  {"class": "company"}]
+
+    test_attrs1 = {"jobs": {"class": "title is-5", "class": "location", "class": "company"},
+                   "page-details": {"class": "subtitle is-3", "class": "title is-1"}}

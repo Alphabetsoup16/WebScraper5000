@@ -111,6 +111,7 @@ def main() -> None:
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
     # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
+    # TODO: Make enum of types for request? Or make definite list like class, string, id, regex etc
 
 
 if __name__ == "__main__":
