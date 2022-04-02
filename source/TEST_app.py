@@ -27,9 +27,8 @@ def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
 
 def GetTypesFromParserConfig(json_data: dict) -> bool:
     type_list = []
-    config_data = json_data['parser_config']
-    for i in range(len(config_data)):
-        type_list.append(config_data[i]['type'])
+    for i in range(len(json_data['parser_config'])):
+        type_list.append(json_data['parser_config'][i]['type'])
     return CheckDuplicateConfigTypes(type_list)
 
 
