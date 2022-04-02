@@ -27,8 +27,8 @@ class StaticParser():
             print("Attribute list is empty or None.")
             return
 
-        for dict in self.attributes:
-            all_attributes.append("".join(dict.values()))
+        for attr_dict in self.attributes:
+            all_attributes.append("".join(attr_dict.values()))
         return all_attributes
 
     def GetElementByAttribute(self) -> list:
@@ -36,8 +36,8 @@ class StaticParser():
         soup = self.GetMeTheSoup()
         if soup is not None:
             all_specific_elements = []
-            for dict in self.attributes:
-                specific_element = soup.find_all(attrs=dict)
+            for attr_dict in self.attributes:
+                specific_element = soup.find_all(attrs=attr_dict)
                 all_specific_elements.append(specific_element)
             return all_specific_elements
 
