@@ -57,6 +57,18 @@ def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "defau
     else:
         return AttributeConstructor_Specific(json_data, element_type)
 
+
+def AggregateDuplicateAttributes(config_attr: list):
+    # Ugh this is so inefficient.....
+    final_list = []
+    for list_attr in config_attr:
+        attr_value_list = []
+        for key, val in list_attr.items():
+            for attr_val in val:
+                attr_value_list.append({key: attr_val})
+        final_list.append(attr_value_list)
+    print(final_list)
+
     #############################---Functions above need to be tested---#############################
 
 
@@ -81,18 +93,9 @@ def main() -> None:
 
     test6 = GetTypesFromParserConfig(json_data)
     # print(test6)
+
     test7 = ConstructAttributesBasedOnConfig(json_data, "class")
-
-    # Ugh this is so inefficient.....
-
-    final_list = []
-    for list_attr in test7:
-        attr_value_list = []
-        for key, val in list_attr.items():
-            for attr_val in val:
-                attr_value_list.append({key: attr_val})
-        final_list.append(attr_value_list)
-    print(final_list)
+    AggregateDuplicateAttributes(test7)
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     # print(*test3, sep="\n")
