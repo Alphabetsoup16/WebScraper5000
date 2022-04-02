@@ -83,9 +83,11 @@ def main() -> None:
     # print(test6)
     test7 = ConstructAttributesBasedOnConfig(json_data, "class")
 
+    # Needs more testing and to decide final structure...
     for example in test7:
-        for key, val in example.items():
-            print(key, val['class'])
+        for val in example.values():
+            for attr in val['class']:
+                print({'class': attr})
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     # print(*test3, sep="\n")
