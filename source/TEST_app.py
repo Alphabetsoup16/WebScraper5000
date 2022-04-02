@@ -44,7 +44,7 @@ def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> list
     for config in json_data["parser_config"]:
         if config["type"] == attribute_type:
             specific_attributes.append(
-                {config["element_name"]: {config["type"]: config["attributes"]}})
+                {config["type"]: config["attributes"]})
     return specific_attributes
 
 
@@ -83,11 +83,16 @@ def main() -> None:
     # print(test6)
     test7 = ConstructAttributesBasedOnConfig(json_data, "class")
 
-    # Needs more testing and to decide final structure...
-    for example in test7:
-        for val in example.values():
-            for attr in val['class']:
-                print({'class': attr})
+    # Ugh this is so inefficient.....
+
+    final_list = []
+    for list_attr in test7:
+        attr_value_list = []
+        for key, val in list_attr.items():
+            for attr_val in val:
+                attr_value_list.append({key: attr_val})
+        final_list.append(attr_value_list)
+    print(final_list)
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     # print(*test3, sep="\n")
