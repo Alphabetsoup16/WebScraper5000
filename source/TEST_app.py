@@ -26,51 +26,6 @@ def ElementsWithRegexById(soup: BeautifulSoup, id_string: str):
 def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
     return soup.find_all(string=re.compile(string))
 
-
-def GetTypesFromParserConfig(json_data: dict) -> bool:
-    type_list = []
-    for i in range(len(json_data['parser_config'])):
-        type_list.append(json_data['parser_config'][i]['type'])
-    return CheckDuplicateConfigTypes(type_list)
-
-
-def CheckDuplicateConfigTypes(type_list: list) -> bool:
-    if len(type_list) == len(set(type_list)):
-        return False
-    else:
-        return True
-
-
-def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> list:
-    specific_attributes = []
-    for config in json_data["parser_config"]:
-        if config["type"] == attribute_type:
-            specific_attributes.append(
-                {config["type"]: config["attributes"]})
-    return specific_attributes
-
-
-def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "default") -> list:
-    is_duplicate = GetTypesFromParserConfig(json_data)
-    if is_duplicate and element_type != "default":
-        return AttributeConstructor_Duplicate(json_data, element_type)
-    elif is_duplicate and element_type == "default":
-        return AttributeConstructor_All(json_data)
-    else:
-        return AttributeConstructor_Specific(json_data, element_type)
-
-
-def AggregateDuplicateAttributes(config_attr: list):
-    # Ugh this is so inefficient.....
-    final_list = []
-    for list_attr in config_attr:
-        attr_value_list = []
-        for key, val in list_attr.items():
-            for attr_val in val:
-                attr_value_list.append({key: attr_val})
-        final_list.append(attr_value_list)
-    return final_list
-
     #############################---Functions above need to be tested---#############################
 
 
