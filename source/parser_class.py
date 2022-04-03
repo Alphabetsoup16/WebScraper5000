@@ -2,7 +2,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
 from bs4 import BeautifulSoup
-from TEST_app import AttributeConstructor_Specific, GetDataFromJson
+from BETA_app import AttributeConstructor_Specific, GetDataFromJson
 
 
 @dataclass
@@ -23,11 +23,12 @@ class StaticParser():
     def AttributeHandler(self):
         """Extracts target attribute names"""
         all_attributes = []
-        if self.attributes is None or len(self.attributes) == 0:
-            return "Attribute list is empty or None."
+        if self.attributes is None or len(self.attributes) is 0:
+            print("Attribute list is empty or None.")
+            return
 
-        for dict in self.attributes:
-            all_attributes.append("".join(dict.values()))
+        for attr_dict in self.attributes:
+            all_attributes.append("".join(attr_dict.values()))
         return all_attributes
 
     def GetElementByAttribute(self) -> list:
@@ -35,34 +36,32 @@ class StaticParser():
         soup = self.GetMeTheSoup()
         if soup is not None:
             all_specific_elements = []
-            for dict in self.attributes:
-                specific_element = soup.find_all(attrs=dict)
+            for attr_dict in self.attributes:
+                specific_element = soup.find_all(attrs=attr_dict)
                 all_specific_elements.append(specific_element)
             return all_specific_elements
 
     def ElementBuilder(self):
         """Creates initial objects for each attribute"""
         element_lists = self.GetElementByAttribute()
-        if element_lists == None or len(element_lists) < 1:
-            return print("list of elements is either empty or only contains no elements")
+        all_attributes = self.AttributeHandler()
 
-        else:
-            all_attributes = self.AttributeHandler()
-            target_elements = {}
-            target_List = []
+        if element_lists is None or len(element_lists) < 1 or all_attributes is None:
+            print("list of elements or attributes is empty or None")
+            return
 
-            for list_count in range(len(element_lists)):
-                for index, target in enumerate(element_lists[list_count]):
-                    target_elements = {
-                        "Id": index,
-                        all_attributes[list_count]: target.get_text().strip()
-                    }
-                    target_List.append(target_elements)
-            return target_List
+        target_List = []
+        for list_count in range(len(element_lists)):
+            for index, target in enumerate(element_lists[list_count]):
+                target_List.append({
+                    "Id": index,
+                    all_attributes[list_count]: target.get_text().strip()
+                })
+        return target_List
 
     def ResultElementGrouper(self) -> list:
-        extracted_result = self.ElementBuilder()
         """Creates groups of results by Id"""
+        extracted_result = self.ElementBuilder()
         if len(self.attributes) <= 1:
             return extracted_result
 
@@ -89,7 +88,7 @@ class StaticParser():
 
 def main() -> None:
 
-    ###### These are for testing parser_class ######
+    ###### This is for testing parser_class ######
     json_file_path = 'source/parser_request.json'
 
     json_data = GetDataFromJson(json_file_path)
@@ -102,9 +101,6 @@ def main() -> None:
 
     print(*results, sep="\n")
 
-    # We can most definitely simplify these functions and or
-    # break them up into smaller pieces and create sub or separate classes
-
     # TODO: Need to slim down ElementBuilder method... and result handler...
     # TODO: finalize request output model, decide if parameters are optional
 
@@ -115,6 +111,7 @@ def main() -> None:
     # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
 
     # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
+    # TODO: Make enum of types for request? Or make definite list like class, string, id, regex etc
 
 
 if __name__ == "__main__":

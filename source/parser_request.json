@@ -9,11 +9,24 @@
             "type": "class",
             "attributes": ["title is-5", "company", "location"]
         },
+
+        {
+            "element_name": "page-details",
+            "type":"class",
+            "attributes":["subtitle is-3", "title is-1"]
+        },
+
         {
             "element_name": "links",
             "type": "string",
             "attributes": ["href"],
             "base_address": "https://realpython.github.io/"
+        },
+        
+        {
+            "element_name": "regex",
+            "type": "string",
+            "attributes": ["title", "er"]
         }
     ]
 }

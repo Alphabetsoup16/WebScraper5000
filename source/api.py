@@ -2,18 +2,15 @@ import uvicorn
 import os
 from fastapi import FastAPI
 from starlette.responses import FileResponse
-from TEST_app import ExtractHyperLinksWithBaseAddress
 from api_model import RequestInputModel
-from TEST_app import GetConfigByElementNameValue, AttributeConstructor_Specific
 from parser_class import StaticParser
-from utilities.api_utilities import UseConfig
+from BETA_app import AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetConfigByElementNameValue
 from dotenv import load_dotenv
 
 load_dotenv()
-
-api_url = os.getenv('API_URL')
-port = int(os.getenv('PORT'))
-host = os.getenv('HOST')
+api_url = os.getenv('API_URL')  # "/api/v1/"
+port = int(os.getenv('PORT'))  # 8000
+host = os.getenv('HOST')  # "127.0.0.1"
 
 app = FastAPI(
     title='Web Scraper of Doom'
@@ -37,14 +34,6 @@ async def load_js():
     return FileResponse('static/script.js')
 
 
-# @app.post(f"{api_url}/scrape")
-# async def get_config(request: Request):
-#     config = await request.json()
-#     soup = GetMeTheSoup(config["url"])
-#     response = {}
-#     UseConfig(soup, config, response)
-#     return response
-
 @app.post("/scrape-links/")
 async def ExtractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
@@ -56,14 +45,18 @@ async def ExtractHyperLinks(request: RequestInputModel):
 
 @app.post("/scrape-classes/")
 async def ExtractClassElements(request: RequestInputModel):
+    # The idea with this is we will eventually only need to pass the config into Static parser
     json_dict = request.dict()
-
     class_attributes = AttributeConstructor_Specific(json_dict, "class")
-
-    # TODO: The idea with this is we will eventually only need to pass the config into Static parser
     class_data = StaticParser(config=json_dict, attributes=class_attributes)
-
     return class_data.ResultHandler()
+
+
+@app.post("/scrape-regex/")
+async def ExtractElementsWithRegex(request: RequestInputModel):
+    # Need to create main regex function to call others...
+    json_dict = request.dict()
+    return
 
 
 if __name__ == '__main__':
