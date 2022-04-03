@@ -1,4 +1,4 @@
-# Project: Web Crawler Of Doom
+# Project: Web Scraper 5000
 ## Idea: Make generic web scraper for *educational purposes ONLY!* 
 ### Description: Written in Python 3.9 and using [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/) Library for HTML data extraction 
 ### **How to use:** 
