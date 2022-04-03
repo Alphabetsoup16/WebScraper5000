@@ -52,5 +52,12 @@ async def ExtractClassElements(request: RequestInputModel):
     return class_data.ResultHandler()
 
 
+@app.post("/scrape-regex/")
+async def ExtractElementsWithRegex(request: RequestInputModel):
+    # Need to create main regex function to call others...
+    json_dict = request.dict()
+    return
+
+
 if __name__ == '__main__':
     uvicorn.run("api:app", reload=True, port=port, host=host)
