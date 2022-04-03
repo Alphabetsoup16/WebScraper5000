@@ -21,6 +21,12 @@
             "type": "string",
             "attributes": ["href"],
             "base_address": "https://realpython.github.io/"
+        },
+        
+        {
+            "element_name": "regex",
+            "type": "string",
+            "attributes": ["title", "er"]
         }
     ]
 }
