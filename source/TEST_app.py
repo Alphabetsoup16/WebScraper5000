@@ -1,6 +1,7 @@
 import re
 from bs4 import BeautifulSoup
 from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetDataFromJson
+from BETA_app import AggregateDuplicateAttributes, ConstructAttributesBasedOnConfig, GetTypesFromParserConfig
 from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
 
 # fake static job site for testing
