@@ -8,9 +8,11 @@ URL = "https://realpython.github.io/fake-jobs/"
 
 
 def GetTextFromSoupContent(content: list):
+    text_content = []
     for result_set in content:
-        for element in result_set:
-            print(element.get_text().strip(), sep="\n")
+        for index, element in enumerate(result_set):
+            text_content.append({index: element.get_text().strip()})
+    return text_content
 
 
 def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
@@ -67,7 +69,7 @@ def AggregateDuplicateAttributes(config_attr: list):
             for attr_val in val:
                 attr_value_list.append({key: attr_val})
         final_list.append(attr_value_list)
-    print(final_list)
+    return final_list
 
     #############################---Functions above need to be tested---#############################
 
@@ -112,7 +114,8 @@ def main() -> None:
     string_elements = ElementsWithRegexByString(soup, string_str)
     # for string in string_elements:
     #     print(string.strip(), sep='\n')
-    # GetTextFromSoupContent([string_elements])
+    test9 = GetTextFromSoupContent([string_elements, class_elements])
+    print(*test9, sep='\n')
 
     a_string = soup.find(string="Apply")
     # print(*soup.select("body a"), sep='\n')
