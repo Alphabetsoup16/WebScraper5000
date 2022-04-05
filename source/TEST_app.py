@@ -52,7 +52,8 @@ def main() -> None:
     # print(test6)
 
     test7 = ConstructAttributesBasedOnConfig(json_data, "class")
-    AggregateDuplicateAttributes(test7)
+    print(test7)
+    # print(AggregateDuplicateAttributes(test7))
 
     test3 = ExtractHyperLinksWithBaseAddress(json_data, base_address)
     # print(*test3, sep="\n")
@@ -70,7 +71,7 @@ def main() -> None:
     # for string in string_elements:
     #     print(string.strip(), sep='\n')
     test9 = GetTextFromSoupContent([string_elements, class_elements])
-    print(*test9, sep='\n')
+    #print(*test9, sep='\n')
 
     a_string = soup.find(string="Apply")
     # print(*soup.select("body a"), sep='\n')
