@@ -6,6 +6,7 @@ from api_model import RequestInputModel
 from parser_class import StaticParser
 from BETA_app import AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetConfigByElementNameValue
 from dotenv import load_dotenv
+from TEST_app import GetElementWithRegex
 
 load_dotenv()
 api_url = os.getenv('API_URL')  # "/api/v1/"
@@ -56,6 +57,10 @@ async def ExtractClassElements(request: RequestInputModel):
 async def ExtractElementsWithRegex(request: RequestInputModel):
     # Need to create main regex function to call others...
     json_dict = request.dict()
+    # for testing purposes
+    regex_type = "class"
+    regex_search = "er"
+    regex_scrape = GetElementWithRegex(json_dict, regex_search, regex_type)
     return
 
 

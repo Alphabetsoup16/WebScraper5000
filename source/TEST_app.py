@@ -27,7 +27,8 @@ def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
     return soup.find_all(string=re.compile(string))
 
 
-def GetElementWithRegex(soup: BeautifulSoup, regex_search: str, regex_type: str):
+def GetElementWithRegex(json_data: dict, regex_search: str, regex_type: str):
+    soup: BeautifulSoup = GetMeTheSoup(json_data["url"])
     if regex_type == "class":
         return ElementsWithRegexByClass(soup, regex_search)
     elif regex_type == "string":
