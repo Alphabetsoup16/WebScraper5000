@@ -57,11 +57,10 @@ async def ExtractClassElements(request: RequestInputModel):
 async def ExtractElementsWithRegex(request: RequestInputModel):
     # Need to create main regex function to call others...
     json_dict = request.dict()
-    # for testing purposes
-    regex_type = "class"
-    regex_search = "er"
-    regex_scrape = GetElementWithRegex(json_dict, regex_search, regex_type)
-    return
+    config_dict = GetConfigByElementNameValue(json_dict, "regex")
+    regex_scrape = GetElementWithRegex(
+        json_dict, config_dict['type'], config_dict['attributes'])
+    return regex_scrape
 
 
 if __name__ == '__main__':
