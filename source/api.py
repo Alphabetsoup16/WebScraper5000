@@ -39,9 +39,10 @@ async def load_js():
 async def ExtractHyperLinks(request: RequestInputModel):
     json_dict = request.dict()
     config_dict = GetConfigByElementNameValue(json_dict, "links")
-    base_address = config_dict["base_address"]
-    hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
-    return hyper_links
+    if config_dict is not None:
+        base_address = config_dict["base_address"]
+        hyper_links = ExtractHyperLinksWithBaseAddress(json_dict, base_address)
+        return hyper_links
 
 
 @app.post("/scrape-classes/")
@@ -58,9 +59,10 @@ async def ExtractElementsWithRegex(request: RequestInputModel):
     # Need to create main regex function to call others...
     json_dict = request.dict()
     config_dict = GetConfigByElementNameValue(json_dict, "regex")
-    regex_scrape = GetElementWithRegex(
-        json_dict, config_dict['type'], config_dict['attributes'])
-    return regex_scrape
+    if config_dict is not None:
+        regex_scrape = GetElementWithRegex(
+            json_dict, config_dict['type'], config_dict['attributes'])
+        return regex_scrape
 
 
 if __name__ == '__main__':
