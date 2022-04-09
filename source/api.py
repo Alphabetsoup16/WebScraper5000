@@ -50,8 +50,10 @@ async def ExtractClassElements(request: RequestInputModel):
     # The idea with this is we will eventually only need to pass the config into Static parser
     json_dict = request.dict()
     class_attributes = AttributeConstructor_Specific(json_dict, "class")
-    class_data = StaticParser(config=json_dict, attributes=class_attributes)
-    return class_data.ResultHandler()
+    if class_attributes is not None:
+        class_data = StaticParser(
+            config=json_dict, attributes=class_attributes)
+        return class_data.ResultHandler()
 
 
 @app.post("/scrape-regex/")
