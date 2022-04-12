@@ -28,6 +28,7 @@ def ElementsWithRegexByString(soup: BeautifulSoup, string: str):
 
 
 def GetElementWithRegex(json_data: dict, regex_search: str, regex_type: str):
+    # Need to test this
     soup: BeautifulSoup = GetMeTheSoup(json_data["url"])
     if regex_type == "class":
         return ElementsWithRegexByClass(soup, regex_search)
