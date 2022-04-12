@@ -93,7 +93,7 @@ def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "defau
 
 
 def AggregateDuplicateAttributes(config_attr: list):
-    # Ugh this is so inefficient.....
+    # Ugh this is so inefficient.. or is it?
     final_attr_list = []
     for list_attr in config_attr:
         attr_value_list = []
