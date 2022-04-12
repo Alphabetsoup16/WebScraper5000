@@ -7,14 +7,6 @@ from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
 URL = "https://realpython.github.io/fake-jobs/"
 
 
-def GetTextFromSoupContent(content: list):
-    text_content = []
-    for result_set in content:
-        for index, element in enumerate(result_set):
-            text_content.append({index: element.get_text().strip()})
-    return text_content
-
-
 def ElementsWithRegexByClass(soup: BeautifulSoup, class_string: str):
     return soup.find_all(class_=re.compile(class_string))
 
@@ -82,10 +74,6 @@ def main() -> None:
 
     class_elements = ElementsWithRegexByClass(soup, class_string)
     string_elements = ElementsWithRegexByString(soup, string_str)
-    # for string in string_elements:
-    #     print(string.strip(), sep='\n')
-    test9 = GetTextFromSoupContent([string_elements, class_elements])
-    #print(*test9, sep='\n')
 
     a_string = soup.find(string="Apply")
     # print(*soup.select("body a"), sep='\n')
