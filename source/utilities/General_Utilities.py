@@ -10,6 +10,7 @@ def GetMeTheSoup(url):
         return BeautifulSoup(page.content, "html.parser")
     except Exception as e:
         print(f"Request for html was unsuccessful, error: {e}")
+        return
 
 
 def SaveAsJson(response, title: str):
