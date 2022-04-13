@@ -13,6 +13,13 @@ def GetMeTheSoup(url):
         return
 
 
+def GetDataFromJson(file_path: str):
+    """Decodes JSON from file"""
+    with open(file=file_path, mode='r') as config:
+        data = json.load(config)
+    return data
+
+
 def SaveAsJson(response, title: str):
     """Saves parser response into a JSON"""
     with open(f'scraped_{title}.json', mode='w', encoding='latin-1') as f:

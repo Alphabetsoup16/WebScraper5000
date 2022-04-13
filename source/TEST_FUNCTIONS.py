@@ -1,7 +1,8 @@
-import re
 from bs4 import BeautifulSoup
-from BETA_app import AttributeConstructor_All, AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetDataFromJson, AggregateDuplicateAttributes, ConstructAttributesBasedOnConfig, GetTypesFromParserConfig
-from utilities.general_utilities import GetMeTheSoup, GetHeaderInfo, SaveAsJson
+from constructors import AttributeConstructor_All, AttributeConstructor_Specific, ConstructAttributesBasedOnConfig
+from extractor_functions import ExtractHyperLinksWithBaseAddress, GetTypesFromParserConfig
+from regex_functions import ElementsWithRegexByClass, ElementsWithRegexByString
+from utilities.general import GetMeTheSoup, GetDataFromJson, GetHeaderInfo, SaveAsJson
 
 # fake static job site for testing
 URL = "https://realpython.github.io/fake-jobs/"

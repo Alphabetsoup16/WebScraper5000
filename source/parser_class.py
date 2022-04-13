@@ -2,7 +2,8 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 import requests
 from bs4 import BeautifulSoup
-from BETA_app import AttributeConstructor_Specific, GetDataFromJson
+from constructors import AttributeConstructor_Specific
+from utilities.general import GetDataFromJson
 
 
 @dataclass

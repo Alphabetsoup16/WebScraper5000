@@ -4,9 +4,10 @@ from fastapi import FastAPI
 from starlette.responses import FileResponse
 from api_model import RequestInputModel
 from parser_class import StaticParser
-from BETA_app import AttributeConstructor_Specific, ExtractHyperLinksWithBaseAddress, GetConfigByElementNameValue
 from dotenv import load_dotenv
-from TEST_app import GetElementWithRegex
+from constructors import AttributeConstructor_Specific
+from extractor_functions import ExtractHyperLinksWithBaseAddress, GetConfigByElementNameValue
+from regex_functions import GetElementWithRegex
 
 load_dotenv()
 api_url = os.getenv('API_URL')  # "/api/v1/"
