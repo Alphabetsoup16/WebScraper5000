@@ -1,6 +1,6 @@
-from collections import defaultdict
-from dataclasses import dataclass, field
 import requests
+from collections import defaultdict
+from dataclasses import dataclass
 from bs4 import BeautifulSoup
 from constructors import AttributeConstructor_Specific
 from utilities.general import GetDataFromJson
@@ -10,8 +10,6 @@ from utilities.general import GetDataFromJson
 class StaticParser():
     config: dict
     attributes: list[dict]
-    #elements: list[str] = field(default_factory=list)
-    #all_attributes: list[str] = field(default_factory=list)
 
     def GetMeTheSoup(self) -> BeautifulSoup:
         """Gets html content from url"""
@@ -109,9 +107,6 @@ def main() -> None:
     # TODO: Make functionaity to input an html file and parse it?
 
     # TODO: find_all with regex function? find_all(string=re.compile("example"))
-    # TODO: If elementBuilder isn't required, have fall back method? or pass list to ResultHandler?
-
-    # TODO: Handle duplicate element attributes, on_duplicate_attribute='replace' or 'ignore' or function
     # TODO: Make enum of types for request? Or make definite list like class, string, id, regex etc
 
 
