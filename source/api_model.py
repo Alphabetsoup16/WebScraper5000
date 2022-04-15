@@ -12,3 +12,8 @@ class RequestConfiguration(BaseModel):
 class RequestInputModel(BaseModel):
     url: HttpUrl
     parser_config: list[RequestConfiguration]
+
+
+class RequestOutputModel(BaseModel):
+    # TODO: need to work on output model for response
+    test: str
