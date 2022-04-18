@@ -10,6 +10,14 @@ def GetMeTheSoup(url):
         return BeautifulSoup(page.content, "html.parser")
     except Exception as e:
         print(f"Request for html was unsuccessful, error: {e}")
+        return
+
+
+def GetDataFromJson(file_path: str):
+    """Decodes JSON from file"""
+    with open(file=file_path, mode='r') as config:
+        data = json.load(config)
+    return data
 
 
 def SaveAsJson(response, title: str):

@@ -1,15 +1,4 @@
-import json
-from bs4 import BeautifulSoup
-from utilities.general_utilities import GetMeTheSoup
-
-# File for functions outside of testing but still not finalized...
-
-
-def GetDataFromJson(file_path: str):
-    """Decodes JSON from file"""
-    with open(file=file_path, mode='r') as config:
-        data = json.load(config)
-    return data
+from extractor_functions import GetTypesFromParserConfig
 
 
 def AttributeConstructor_All(json_data: dict) -> list:
@@ -42,18 +31,20 @@ def HyperLinkListConstructor(links_list: list) -> list:
     return indexed_list_of_links
 
 
-def ExtractHyperLinksWithBaseAddress(json_dict: dict, base_address: str = None) -> list:
-    """Extracts hyper links from parsed html"""
-    soup: BeautifulSoup = GetMeTheSoup(json_dict["url"])
-    if base_address is not None:
-        links_list = soup.select(f'a[href^="{base_address}"]')
-        return HyperLinkListConstructor(links_list)
+def AttributeConstructor_Duplicate(json_data: dict, attribute_type: str) -> list:
+    specific_attributes = []
+    for config in json_data["parser_config"]:
+        if config["type"] == attribute_type:
+            specific_attributes.append(
+                {config["type"]: config["attributes"]})
+    return specific_attributes
+
+
+def ConstructAttributesBasedOnConfig(json_data: dict, element_type: str = "default") -> list:
+    is_duplicate = GetTypesFromParserConfig(json_data)
+    if is_duplicate and element_type != "default":
+        return AttributeConstructor_Duplicate(json_data, element_type)
+    elif is_duplicate and element_type == "default":
+        return AttributeConstructor_All(json_data)
     else:
-        links_list = soup.select('a[href]')
-        return HyperLinkListConstructor(links_list)
-
-
-def GetConfigByElementNameValue(json_dict: dict, element_name: str):
-    for config in json_dict["parser_config"]:
-        if element_name in config.values():
-            return config
+        return AttributeConstructor_Specific(json_data, element_type)
